@@ -1,0 +1,290 @@
+<?php
+
+
+
+return [
+
+
+
+    'settings' => [
+        'table' => 'settings',
+        'route' => 'settings',
+        'full_route_name' => 'settings',
+        'singular_name' => 'Setting',
+        'plural_name' => 'Settings',
+        'singular_key' => 'setting',
+        'plural_key' => 'settings',
+        'view_path' => 'CP.settings.',
+        'id_field' => 'id',
+        // 'controller' => SettingController::class,
+        'upload_path' => 'settings',
+        'permissions' => [
+            'view' => 'view_settings',
+            'create' => 'create_settings',
+            'edit' => 'edit_settings',
+            'delete' => 'delete_settings',
+        ],
+        'children' => [
+            'general' => [
+                'route' => 'general',
+                'full_route_name' => 'settings.general',
+                'singular_name' => 'General Setting',
+                'singular_key' => 'general_setting',
+
+                'plural_name' => 'General Settings',
+                'view_path' => 'CP.settings.general.',
+                'controller' => \App\Http\Controllers\CP\Settings\GeneralSettingController::class,
+                'permissions' => [
+                    'view' => 'view_general_settings',
+                    'edit' => 'edit_general_settings',
+                ],
+            ],
+
+
+
+        ],
+    ],
+
+
+
+    'categories' => [
+        'table' => 'categories',
+        'route' => 'categories',
+        'full_route_name' => 'categories',
+        'singular_name' => 'Category',
+        'plural_name' => 'Categories',
+        'singular_key' => 'category',
+        'plural_key' => 'categories',
+        'view_path' => 'CP.categories.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\CategoryController::class,
+        'upload_path' => 'categories',
+        'permissions' => [
+            'view' => 'view_categories',
+            'create' => 'create_categories',
+            'edit' => 'edit_categories',
+            'delete' => 'delete_categories',
+        ],
+    ],
+    'products' => [
+        'table' => 'products',
+        'route' => 'products',
+        'full_route_name' => 'products',
+        'singular_name' => 'Product',
+        'plural_name' => 'Products',
+        'singular_key' => 'product',
+        'plural_key' => 'products',
+        'view_path' => 'CP.products.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\ProductController::class,
+        'upload_path' => 'products',
+        'permissions' => [
+            'view' => 'view_products',
+            'create' => 'create_products',
+            'edit' => 'edit_products',
+            'delete' => 'delete_products',
+        ],
+    ],
+
+
+
+    'sliders' => [
+        'table' => 'sliders',
+        'route' => 'sliders',
+        'full_route_name' => 'sliders',
+        'singular_name' => 'Slider',
+        'plural_name' => 'Sliders',
+        'singular_key' => 'slider',
+        'plural_key' => 'sliders',
+        'view_path' => 'CP.sliders.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\SliderController::class,
+        'upload_path' => 'sliders',
+        'permissions' => [
+            'view' => 'view_sliders',
+            'create' => 'create_sliders',
+            'edit' => 'edit_sliders',
+            'delete' => 'delete_sliders',
+        ],
+    ],
+
+
+
+    'why_choose_us' => [
+        'table' => 'why_choose_us',
+        'route' => 'why_choose_us',
+        'full_route_name' => 'why_choose_us',
+        'singular_name' => 'Why Choose Us',
+        'plural_name' => 'Why Choose Us',
+        'singular_key' => 'why_choose_us',
+        'plural_key' => 'why_choose_us',
+        'view_path' => 'CP.why_choose_us.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\WhyChooseUsController::class,
+        'upload_path' => 'why_choose_us',
+        'permissions' => [
+            'view' => 'view_why_choose_us',
+            'create' => 'create_why_choose_us',
+            'edit' => 'edit_why_choose_us',
+            'delete' => 'delete_why_choose_us',
+        ],
+    ],
+    'customer_rates' => [
+        'table' => 'customer_rates',
+        'route' => 'customer_rates',
+        'full_route_name' => 'customer_rates',
+        'singular_name' => 'Customer Rate',
+        'plural_name' => 'Customer Rates',
+        'singular_key' => 'customer_rate',
+        'plural_key' => 'customer_rates',
+        'view_path' => 'CP.customer_rates.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\CustomerRateController::class,
+        'upload_path' => 'customer_rates',
+        'permissions' => [
+            'view' => 'view_customer_rates',
+            'create' => 'create_customer_rates',
+            'edit' => 'edit_customer_rates',
+            'delete' => 'delete_customer_rates',
+        ],
+    ],
+    'how_we_works' => [
+        'table' => 'how_we_works',
+        'route' => 'how_we_works',
+        'full_route_name' => 'how_we_works',
+        'singular_name' => 'How We Work',
+        'plural_name' => 'How We Works',
+        'singular_key' => 'how_we_work',
+        'plural_key' => 'how_we_works',
+        'view_path' => 'CP.how_we_works.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\HowWeWorkController::class,
+        'upload_path' => 'how_we_works',
+        'permissions' => [
+            'view' => 'view_how_we_works',
+            'create' => 'create_how_we_works',
+            'edit' => 'edit_how_we_works',
+            'delete' => 'delete_how_we_works',
+        ],
+    ],
+    'articles_types' => [
+        'table' => 'articles_types',
+        'route' => 'articles_types',
+        'full_route_name' => 'articles_types',
+        'singular_name' => 'Article Type',
+        'plural_name' => 'Article Types',
+        'singular_key' => 'article_type',
+        'plural_key' => 'articles_types',
+        'view_path' => 'CP.articles_types.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\ArticleTypeController::class,
+        'upload_path' => 'articles_types',
+        'permissions' => [
+            'view' => 'view_articles_types',
+            'create' => 'create_articles_types',
+            'edit' => 'edit_articles_types',
+            'delete' => 'delete_articles_types',
+        ],
+    ],
+    'articles' => [
+        'table' => 'articles',
+        'route' => 'articles',
+        'full_route_name' => 'articles',
+        'singular_name' => 'Article',
+        'plural_name' => 'Articles',
+        'singular_key' => 'article',
+        'plural_key' => 'articles',
+        'view_path' => 'CP.articles.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\ArticleController::class,
+        'upload_path' => 'articles',
+        'permissions' => [
+            'view' => 'view_articles',
+            'create' => 'create_articles',
+            'edit' => 'edit_articles',
+            'delete' => 'delete_articles',
+        ],
+        'children' => [
+            'article_contents' => [
+                'table' => 'article_contents',
+                'route' => 'article_contents',
+                'full_route_name' => 'articles.article_contents',
+                'singular_name' => 'Article Content',
+                'plural_name' => 'Article Contents',
+                'singular_key' => 'article_content',
+                'plural_key' => 'article_contents',
+                'view_path' => 'CP.articles.tabs.article_contents.',
+                'id_field' => 'id',
+                'controller' => \App\Http\Controllers\CP\ArticleContentController::class,
+                'upload_path' => 'article_contents',
+                'permissions' => [
+                    'view' => 'view_article_contents',
+                    'create' => 'create_article_contents',
+                    'edit' => 'edit_article_contents',
+                    'delete' => 'delete_article_contents',
+                ],
+
+            ]
+        ]
+    ],
+
+    'services' => [
+        'table' => 'services',
+        'route' => 'services',
+        'full_route_name' => 'services',
+        'singular_name' => 'Service',
+        'plural_name' => 'Services',
+        'singular_key' => 'service',
+        'plural_key' => 'services',
+        'view_path' => 'CP.services.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\ServiceController::class,
+        'upload_path' => 'services',
+        'permissions' => [
+            'view' => 'view_services',
+            'create' => 'create_services',
+            'edit' => 'edit_services',
+            'delete' => 'delete_services',
+        ],
+    ],
+
+    'sucess_stories' => [
+        'table' => 'sucess_stories',
+        'route' => 'sucess_stories',
+        'full_route_name' => 'sucess_stories',
+        'singular_name' => 'Sucess Story',
+        'plural_name' => 'Sucess Stories',
+        'singular_key' => 'sucess_story',
+        'plural_key' => 'sucess_stories',
+        'view_path' => 'CP.sucess_stories.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\SucessStoryController::class,
+        'upload_path' => 'sucess_stories',
+        'permissions' => [
+            'view' => 'view_sucess_stories',
+            'create' => 'create_sucess_stories',
+            'edit' => 'edit_sucess_stories',
+            'delete' => 'delete_sucess_stories',
+        ],
+    ],
+    'videos' => [
+        'table' => 'videos',
+        'route' => 'videos',
+        'full_route_name' => 'videos',
+        'singular_name' => 'Video',
+        'plural_name' => 'Videos',
+        'singular_key' => 'video',
+        'plural_key' => 'videos',
+        'view_path' => 'CP.videos.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\VideoController::class,
+        'upload_path' => 'videos',
+        'permissions' => [
+            'view' => 'view_videos',
+            'create' => 'create_videos',
+            'edit' => 'edit_videos',
+            'delete' => 'delete_videos',
+        ],
+    ],
+
+];
