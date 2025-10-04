@@ -73,6 +73,16 @@ class MenuSeeder extends Seeder
             'permission_name' => config('modules.categories.permissions.view'),
             'route' => config('modules.categories.full_route_name') . '.index',
         ];
+        $Menu[] = [
+            'name' => t(config('modules.coupons.plural_name'), [], 'ar'),
+            'name_en' => t(config('modules.coupons.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.coupons.plural_name'), [], 'he'),
+            'route' => null,
+            'icon_svg' => '<i class="fa fa-percent"></i>',
+            'order' => 6,
+            'permission_name' => config('modules.coupons.permissions.view'),
+            'route' => config('modules.coupons.full_route_name') . '.index',
+        ];
 
         $Menu[] = [
             'name' => t(config('modules.addresses.plural_name'), [], 'ar'),

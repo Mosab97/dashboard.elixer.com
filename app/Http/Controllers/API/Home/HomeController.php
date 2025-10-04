@@ -28,6 +28,9 @@ use App\Models\Article;
 use App\Http\Resources\API\ArticleResource;
 use App\Http\Resources\API\CategoryResource;
 use App\Models\Category;
+use App\Models\Address;
+use App\Http\Resources\API\AddressResource;
+
 
 class HomeController extends Controller
 {
@@ -58,7 +61,7 @@ class HomeController extends Controller
             'services' => ServiceResource::collection(Service::where('active', true)->get()),
             'videos' => VideoResource::collection(Video::where('active', true)->get()),
             'sucess_stories' => SucessStoryResource::collection(SucessStory::where('active', true)->get()),
-          
+
             'why_choose_us' => WhyChooseUsResource::collection(WhyChooseUs::where('active', true)->get()),
             'customer_rates' => CustomerRateResource::collection(CustomerRate::where('active', true)->get()),
             'how_we_works' => HowWeWorkResource::collection(HowWeWork::where('active', true)->get()),
@@ -68,5 +71,10 @@ class HomeController extends Controller
     {
         $categories = Category::where('active', true)->get();
         return apiSuccess(CategoryResource::collection($categories));
+    }
+    public function addresses(Request $request)
+    {
+        $addresses = Address::where('active', true)->get();
+        return apiSuccess(AddressResource::collection($addresses));
     }
 }

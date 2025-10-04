@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             MenuSeeder::class,
             AddressSeeder::class,
             CategorySeeder::class,
+            CouponSeeder::class,
         ]);
     }
 }
