@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html direction="{{ direction() }}" dir="{{ direction() }}" style="direction: {{ direction() }}"
@@ -20,7 +19,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&family=Tajawal:wght@300;500&display=swap"
         rel="stylesheet">
-    @if (lang() == 'he')
+    @if (lang() == 'en')
         <!--begin::Fonts(mandatory for all pages)-->
         <!--end::Fonts-->
         <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css?v=1') }}" rel="stylesheet"
@@ -29,7 +28,7 @@
         <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
         <link href="{{ asset('plugins/global/plugins.bundle.css?v=1') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/style.bundle.css?v=1') }}" rel="stylesheet" type="text/css" />
-    @elseif (lang() == 'ar')
+    @elseif ((lang() == 'ar') || (lang() == 'he'))
         <!--begin::Fonts(mandatory for all pages)-->
         <!--end::Fonts-->
         <link href="{{ asset('plugins/custom/datatables/datatables.bundle.rtl.css?v=1') }}" rel="stylesheet"
@@ -39,12 +38,12 @@
         <link href="{{ asset('plugins/global/plugins.bundle.rtl.css?v=1') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/style.bundle.rtl.css?v=1') }}" rel="stylesheet" type="text/css" />
     @endif
-    @if (lang() == 'he')
+    @if (lang() == 'en')
         <link href="{{ asset('css/custom.css?v=1') }}" rel="stylesheet" type="text/css" />
     @endif
 
     @stack('styles')
-    @if (lang() == 'ar')
+    @if ((lang() == 'ar') || (lang() == 'he'))
         <style>
             .select2-container .select2-selection__clear {
                 right: 5px !important;

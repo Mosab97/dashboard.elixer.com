@@ -29,8 +29,8 @@ class MenuSeeder extends Seeder
         $config = config('modules.settings');
         $Menu[] = [
             'name' => t($config['plural_name'], [], 'ar'),
-            'name_en' => $config['plural_name'],
-            'name_he' => $config['plural_name'],
+            'name_en' => t($config['plural_name'], [], 'en'),
+            'name_he' => t($config['plural_name'], [], 'he'),
             'route' => null,
             'icon_svg' => getSvgIcon('settings'),
             'order' => 5,
@@ -38,8 +38,8 @@ class MenuSeeder extends Seeder
             'subRoutes' => [
                 [
                     'name' => t($config['children']['general']['plural_name'], [], 'ar'),
-                    'name_en' => $config['children']['general']['plural_name'],
-                    'name_he' => $config['children']['general']['plural_name'],
+                    'name_en' => t($config['children']['general']['plural_name'], [], 'en'),
+                    'name_he' => t($config['children']['general']['plural_name'], [], 'he'),
                     'route' => $config['children']['general']['full_route_name'] . '.index',
                     'icon_svg' => '',
                     'order' => 2,
@@ -54,8 +54,8 @@ class MenuSeeder extends Seeder
         $Menu[] = [
 
             'name' => t(config('modules.sliders.plural_name'), [], 'ar'),
-            'name_en' => config('modules.sliders.plural_name'),
-            'name_he' => config('modules.sliders.plural_name'),
+            'name_en' => t(config('modules.sliders.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.sliders.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fas fa-sliders-h"></i>', // FontAwesome icon for sliders
             'order' => 5,
@@ -65,18 +65,29 @@ class MenuSeeder extends Seeder
 
         $Menu[] = [
             'name' => t(config('modules.categories.plural_name'), [], 'ar'),
-            'name_en' => config('modules.categories.plural_name'),
-            'name_he' => config('modules.categories.plural_name'),
+            'name_en' => t(config('modules.categories.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.categories.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fa fa-th-large"></i>',
             'order' => 6,
             'permission_name' => config('modules.categories.permissions.view'),
             'route' => config('modules.categories.full_route_name') . '.index',
         ];
+
+        $Menu[] = [
+            'name' => t(config('modules.addresses.plural_name'), [], 'ar'),
+            'name_en' => t(config('modules.addresses.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.addresses.plural_name'), [], 'he'),
+            'route' => null,
+            'icon_svg' => '<i class="fa fa-th-large"></i>',
+            'order' => 6,
+            'permission_name' => config('modules.addresses.permissions.view'),
+            'route' => config('modules.addresses.full_route_name') . '.index',
+        ];
         $Menu[] = [
             'name' => t(config('modules.products.plural_name'), [], 'ar'),
-            'name_en' => config('modules.products.plural_name'),
-            'name_he' => config('modules.products.plural_name'),
+            'name_en' => t(config('modules.products.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.products.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fa fa-th-large"></i>',
             'order' => 6,
@@ -87,8 +98,8 @@ class MenuSeeder extends Seeder
         $Menu[] = [
 
             'name' => t(config('modules.why_choose_us.plural_name'), [], 'ar'),
-            'name_en' => config('modules.why_choose_us.plural_name'),
-            'name_he' => config('modules.why_choose_us.plural_name'),
+            'name_en' => t(config('modules.why_choose_us.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.why_choose_us.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fas fa-question"></i>', // FontAwesome icon for sliders
             'order' => 5,
@@ -97,8 +108,8 @@ class MenuSeeder extends Seeder
         ];
         $Menu[] = [
             'name' => t(config('modules.customer_rates.plural_name'), [], 'ar'),
-            'name_en' => config('modules.customer_rates.plural_name'),
-            'name_he' => config('modules.customer_rates.plural_name'),
+            'name_en' => t(config('modules.customer_rates.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.customer_rates.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fas fa-star"></i>', // FontAwesome icon for sliders
             'order' => 5,
@@ -107,8 +118,8 @@ class MenuSeeder extends Seeder
         ];
         $Menu[] = [
             'name' => t(config('modules.how_we_works.plural_name'), [], 'ar'),
-            'name_en' => config('modules.how_we_works.plural_name'),
-            'name_he' => config('modules.how_we_works.plural_name'),
+            'name_en' => t(config('modules.how_we_works.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.how_we_works.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fas fa-tasks"></i>', // FontAwesome icon for sliders
             'order' => 5,
@@ -117,8 +128,8 @@ class MenuSeeder extends Seeder
         ];
         $Menu[] = [
             'name' => t(config('modules.articles_types.plural_name'), [], 'ar'),
-            'name_en' => config('modules.articles_types.plural_name'),
-            'name_he' => config('modules.articles_types.plural_name'),
+            'name_en' => t(config('modules.articles_types.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.articles_types.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fas fa-file-alt"></i>', // FontAwesome icon for sliders
             'order' => 5,
@@ -127,8 +138,8 @@ class MenuSeeder extends Seeder
         ];
         $Menu[] = [
             'name' => t(config('modules.articles.plural_name'), [], 'ar'),
-            'name_en' => config('modules.articles.plural_name'),
-            'name_he' => config('modules.articles.plural_name'),
+            'name_en' => t(config('modules.articles.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.articles.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fas fa-file-alt"></i>', // FontAwesome icon for sliders
             'order' => 5,
@@ -139,8 +150,8 @@ class MenuSeeder extends Seeder
         $Menu[] = [
 
             'name' => t(config('modules.services.plural_name'), [], 'ar'),
-            'name_en' => config('modules.services.plural_name'),
-            'name_he' => config('modules.services.plural_name'),
+            'name_en' => t(config('modules.services.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.services.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fas fa-cogs"></i>', // FontAwesome icon for sliders
             'order' => 5,
@@ -149,8 +160,8 @@ class MenuSeeder extends Seeder
         ];
         $Menu[] = [
             'name' => t(config('modules.sucess_stories.plural_name'), [], 'ar'),
-            'name_en' => config('modules.sucess_stories.plural_name'),
-            'name_he' => config('modules.sucess_stories.plural_name'),
+            'name_en' => t(config('modules.sucess_stories.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.sucess_stories.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fas fa-star"></i>', // FontAwesome icon for sucess stories
             'order' => 5,
@@ -159,8 +170,8 @@ class MenuSeeder extends Seeder
         ];
         $Menu[] = [
             'name' => t(config('modules.videos.plural_name'), [], 'ar'),
-            'name_en' => config('modules.videos.plural_name'),
-            'name_he' => config('modules.videos.plural_name'),
+            'name_en' => t(config('modules.videos.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.videos.plural_name'), [], 'he'),
             'route' => null,
             'icon_svg' => '<i class="fas fa-video"></i>', // FontAwesome icon for videos
             'order' => 5,

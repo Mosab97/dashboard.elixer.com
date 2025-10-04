@@ -83,6 +83,13 @@ class AppPermissionsHelper
             'edit' => $config['permissions']['edit'],
             'delete' => $config['permissions']['delete'],
         ];
+        $config = config('modules.addresses');
+        $permissions[$config['plural_name']] = [
+            'access' => $config['permissions']['view'],
+            'add' => $config['permissions']['create'],
+            'edit' => $config['permissions']['edit'],
+            'delete' => $config['permissions']['delete'],
+        ];
         $config = config('modules.products');
         $permissions[$config['plural_name']] = [
             'access' => $config['permissions']['view'],

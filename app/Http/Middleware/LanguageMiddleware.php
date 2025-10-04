@@ -30,7 +30,6 @@ class LanguageMiddleware
                 app()->setLocale($websiteLanguage);
             }
         }
-
         return $next($request);
     }
 }

@@ -118,17 +118,14 @@
             <span class="menu-title position-relative">
                 {{ __('layout.menu.language') }}
                 <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">
-                    @if (app()->getLocale() == 'he')
-                    @elseif (app()->getLocale() == 'ar')
-
-                    @elseif (app()->getLocale() == 'he')
-                    @endif
-                    @if (app()->getLocale() == 'he')
+                    @if (app()->getLocale() == 'en')
                         <img class="w-15px h-15px rounded-1 ms-2" src="{{ asset('media/flags/united-states.svg') }}"
                             alt="" />
-                    @else
+                    @elseif (app()->getLocale() == 'ar')
                         <img class="w-15px h-15px rounded-1 ms-2" src="{{ asset('media/flags/saudi-arabia.svg') }}"
                             alt="" />
+                    @elseif(app()->getLocale() == 'he')
+                        <img class="w-15px h-15px rounded-1 ms-2" src="{{ asset('media/flags/israel.svg') }}"alt="" />
                     @endif
 
                 </span>
@@ -136,29 +133,35 @@
         </a>
         <!--begin::Menu sub-->
         <div class="menu-sub menu-sub-dropdown w-175px py-4">
-            <!--begin::Menu item-->
-            <div class="menu-item px-3">
-                <a href="{{ route('setDashboardLanguage', ['language' => 'he']) }}"
-                    class="menu-link d-flex px-5 {{ app()->getLocale() == 'he' ? 'active' : '' }}">
-                    <span class="symbol symbol-20px me-4">
-                        <img class="rounded-1" src="{{ asset('media/flags/united-states.svg') }}" alt="" />
-                    </span>
-                    English
+            @foreach (config('app.locales', []) as $locale)
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                    <a href="{{ route('setDashboardLanguage', ['language' => $locale]) }}"
+                        class="menu-link d-flex px-5 {{ app()->getLocale() == $locale ? 'active' : '' }}">
+                        @if ($locale == 'en')
+                            <span class="symbol symbol-20px me-4">
+                                <img class="rounded-1" src="{{ asset('media/flags/united-states.svg') }}"
+                                    alt="" />
+                            </span>
+                            {{ t('English') }}
+                        @elseif ($locale == 'ar')
+                            <span class="symbol symbol-20px me-4">
+                                <img class="rounded-1" src="{{ asset('media/flags/saudi-arabia.svg') }}"
+                                    alt="" />
+                            </span>
+                            {{ t('Arabic') }}
+                        @elseif ($locale == 'he')
+                            <span class="symbol symbol-20px me-4">
+                                <img class="rounded-1" src="{{ asset('media/flags/israel.svg') }}"
+                                    alt="" />
+                            </span>
+                            {{ t('Hebrew') }}
+                        @endif
 
-                </a>
-            </div>
-            <!--end::Menu item-->
-            <!--begin::Menu item-->
-            <div class="menu-item px-3">
-                <a href="{{ route('setDashboardLanguage', ['language' => 'ar']) }}"
-                    class="menu-link d-flex px-5 {{ app()->getLocale() == 'ar' ? 'active' : '' }}">
-                    <span class="symbol symbol-20px me-4">
-                        <img class="rounded-1" src="{{ asset('media/flags/saudi-arabia.svg') }}" alt="" />
-                    </span>
-                    عربي
-                </a>
-            </div>
-
+                    </a>
+                </div>
+                <!--end::Menu item-->
+            @endforeach
             <!--end::Menu item-->
             <!--end::Menu item-->
         </div>

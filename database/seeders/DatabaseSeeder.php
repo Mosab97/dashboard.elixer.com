@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             AdminSeeder::class,
             MenuSeeder::class,
-            AppointmentTypeSeeder::class,
-            ArticleTypeSeeder::class,
+            AddressSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }

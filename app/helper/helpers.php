@@ -26,13 +26,11 @@ function translate_key($group, $key, $placeholder = [], $locale = null)
     }
 
     $key = trim($key);
-    $word = $group.'.'.$key;
-
+    $word = $group . '.' . $key;
     // If in non-local environment, just return the translation if exists, or key if not
     if (! App::environment('local')) {
         return Lang::has($word) ? trans($word, $placeholder, $locale) : $key;
     }
-
     // Only proceed with dynamic translation handling in local environment
     if (Lang::has($word)) {
         return trans($word, $placeholder, $locale);
@@ -48,7 +46,7 @@ function translate_key($group, $key, $placeholder = [], $locale = null)
     try {
         $langs = config('app.locales');
         foreach ($langs as $lang) {
-            $translation_file = base_path().'/lang/'.$lang.'/'.$group.'.php';
+            $translation_file = base_path() . '/lang/' . $lang . '/' . $group . '.php';
 
             if (file_exists($translation_file)) {
                 $contents = file_get_contents($translation_file);
@@ -63,7 +61,7 @@ function translate_key($group, $key, $placeholder = [], $locale = null)
         }
     } catch (\Exception $e) {
         // Log error but don't crash the application
-        Log::error('Translation file write error: '.$e->getMessage());
+        Log::error('Translation file write error: ' . $e->getMessage());
     }
 
     return trans($word, $placeholder, $locale);
@@ -95,7 +93,11 @@ function api($key, $placeholder = [], $locale = null)
 
 function isRtl()
 {
-    return app()->getLocale() === 'ar';
+    return lang() === 'ar' || lang() === 'he';
+}
+function isLtr()
+{
+    return lang() === 'ar' || lang() === 'he';
 }
 
 function isRtlJS()
@@ -156,19 +158,19 @@ function check_mobile($mobile)
 {
 
     if (\Str::startsWith($mobile, '05')) {
-        return '+966'.substr($mobile, 1, 9);
+        return '+966' . substr($mobile, 1, 9);
     }
     if (\Str::startsWith($mobile, '03')) {
-        return '+966'.substr($mobile, 1, 9);
+        return '+966' . substr($mobile, 1, 9);
     }
     if (\Str::startsWith($mobile, '5')) {
-        return '+966'.substr($mobile, 0, 9);
+        return '+966' . substr($mobile, 0, 9);
     }
     if (\Str::startsWith($mobile, '00966')) {
-        return '+'.substr($mobile, 2, 13);
+        return '+' . substr($mobile, 2, 13);
     }
     if (\Str::startsWith($mobile, '966')) {
-        return '+'.$mobile;
+        return '+' . $mobile;
     }
 
     return $mobile;
@@ -179,7 +181,7 @@ function check_mobile($mobile)
 
 function assets($path = '', $relative = false)
 {
-    return $relative ? 'public/'.$path : url('public/'.$path);
+    return $relative ? 'public/' . $path : url('public/' . $path);
 }
 
 function slug($string)
@@ -212,10 +214,10 @@ function generateInvoiceNumber($model)
 
     // check first day in a year
     if (date('z') === '0') {
-        $nextInvoiceNumber = date('Y').'-0001';
+        $nextInvoiceNumber = date('Y') . '-0001';
     } else {
         // increase 1 with last invoice number
-        $nextInvoiceNumber = $year.'-'.((int) $expNum + 1);
+        $nextInvoiceNumber = $year . '-' . ((int) $expNum + 1);
     }
 
     return $nextInvoiceNumber;
@@ -345,7 +347,7 @@ function status($status, $type = '')
 
 function pic($src, $class = 'full')
 {
-    $html = "<img class='  ".$class."' src='".asset($src)."'>";
+    $html = "<img class='  " . $class . "' src='" . asset($src) . "'>";
 
     return $html;
 }
@@ -361,7 +363,7 @@ function ext($filename, $style = false)
         return $ext;
     }
 
-    return $html = "<img class='' src='".asset('public/assets/img/ext/'.$ext.'.png')."'>";
+    return $html = "<img class='' src='" . asset('public/assets/img/ext/' . $ext . '.png') . "'>";
 }
 
 function IsLang($lang = 'ar')
@@ -397,8 +399,8 @@ function versions()
 function base64ToFile($data)
 {
 
-    $file_name = 'attach_'.time().'.'.getExtBase64($data);
-    $path = 'uploads/user_attachments/'.$file_name;
+    $file_name = 'attach_' . time() . '.' . getExtBase64($data);
+    $path = 'uploads/user_attachments/' . $file_name;
     $uploadPath = public_path($path);
     if (! file_put_contents($uploadPath, base64_decode($data)));
     $path = '';
@@ -550,9 +552,9 @@ function arabic_date($datetime)
     $_time = date('h:i', strtotime($datetime));
     $_am_pm = $am_pm[date('A', strtotime($datetime))];
 
-    return $_day.' '.$_day_month.' '.$_month.' '.$_year.' , '.$_time;
+    return $_day . ' ' . $_day_month . ' ' . $_month . ' ' . $_year . ' , ' . $_time;
 
-    return $_am_pm.' '.\Carbon\Carbon::parse($datetime)->format('h:i  - d/m/Y');
+    return $_am_pm . ' ' . \Carbon\Carbon::parse($datetime)->format('h:i  - d/m/Y');
 }
 
 function english_date($datetime)
@@ -563,7 +565,7 @@ function english_date($datetime)
     $_day = date('D', strtotime($datetime));
     $_time = date('h:i', strtotime($datetime));
 
-    return $_day.' '.$_day_month.' '.$_month.' '.$_year.' , '.$_time;
+    return $_day . ' ' . $_day_month . ' ' . $_month . ' ' . $_year . ' , ' . $_time;
 }
 
 function numhash($n)
@@ -966,7 +968,7 @@ if (! function_exists('generateCode')) {
 if (! function_exists('apiTrans')) {
     function apiTrans($error, $transParams = [])
     {
-        return trans('api.'.$error, $transParams);
+        return trans('api.' . $error, $transParams);
     }
 }
 
@@ -1230,7 +1232,7 @@ function notification_trans($key, $placeholder = [], $locale = null)
     $group = 'notifications';
     $locale = $locale ?: config('app.locale');
     $key = trim($key);
-    $word = $group.'.'.$key;
+    $word = $group . '.' . $key;
 
     // Log::info('Generated translation word', [
     //     'word' => $word,
@@ -1249,7 +1251,7 @@ function notification_trans($key, $placeholder = [], $locale = null)
 
     $langs = config('app.locales');
     foreach ($langs as $lang) {
-        $translation_file = base_path()."/lang/{$lang}/{$group}.php";
+        $translation_file = base_path() . "/lang/{$lang}/{$group}.php";
 
         // Log::info('Processing translation file', [
         //     'file' => $translation_file,
@@ -1284,7 +1286,7 @@ if (! function_exists('password_rules')) {
         $rules = [
             $required ? 'required' : 'nullable',
             'string',
-            'min:'.$min,
+            'min:' . $min,
         ];
 
         return $confirmed ? array_merge($rules, ['confirmed']) : $rules;
@@ -1423,21 +1425,21 @@ if (! function_exists('logQuery')) {
         $finalQuery = vsprintf($sql, $bindings);
 
         // Format query for PHPMyAdmin with label
-        $queryLabel = $label ? "/* $label */" : '/* Query logged at '.now().' */';
+        $queryLabel = $label ? "/* $label */" : '/* Query logged at ' . now() . ' */';
 
         $phpMyAdminQuery = "-- Copy from here\n"
-            ."SELECT $queryLabel * FROM (\n"
-            .$finalQuery
-            ."\n) AS test_query;\n\n"
-            ."-- Or use EXPLAIN to analyze the query:\n"
-            .'EXPLAIN '.$finalQuery.";\n"
-            .'-- End query';
+            . "SELECT $queryLabel * FROM (\n"
+            . $finalQuery
+            . "\n) AS test_query;\n\n"
+            . "-- Or use EXPLAIN to analyze the query:\n"
+            . 'EXPLAIN ' . $finalQuery . ";\n"
+            . '-- End query';
 
         Log::info('PHPMyAdmin-ready SQL query:', [
             'label' => $label,
             'raw_query' => $finalQuery,
             'phpmyadmin_format' => $phpMyAdminQuery,
-            'execution_time' => number_format((microtime(true) - LARAVEL_START) * 1000, 2).'ms',
+            'execution_time' => number_format((microtime(true) - LARAVEL_START) * 1000, 2) . 'ms',
         ]);
 
         return $finalQuery;
@@ -1461,9 +1463,9 @@ if (! function_exists('lang')) {
 if (! function_exists('calculateAge')) {
     function calculateAge($dateOfBirth)
     {
-        Log::info('Calculating age for date of birth: '.$dateOfBirth);
+        Log::info('Calculating age for date of birth: ' . $dateOfBirth);
         $age = \Carbon\Carbon::parse($dateOfBirth)->age;
-        Log::info('Calculated age: '.$age);
+        Log::info('Calculated age: ' . $age);
 
         return $age;
     }
@@ -1496,7 +1498,7 @@ if (! function_exists('getContrastColor')) {
 if (! function_exists('getAttachmentsMenuItem')) {
     function getAttachmentsMenuItem($model)
     {
-        $route = route('offers.view_attachments', ['offer' => $model->id]).'?type=attachments';
+        $route = route('offers.view_attachments', ['offer' => $model->id]) . '?type=attachments';
         $title = "Show Attachments ({$model->attachments_count})";
 
         return "
@@ -1551,7 +1553,7 @@ if (! function_exists('getSvgIcon')) {
                             <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor" />
                             </svg>',
             'email' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                        <title>'.$title.'</title>
+                                                        <title>' . $title . '</title>
 
                                                         <defs/>
                                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -1561,7 +1563,7 @@ if (! function_exists('getSvgIcon')) {
                                                         </g>
                                                     </svg>',
             'print' => '                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                                        <title>'.$title.'</title>
+                                                                        <title>' . $title . '</title>
 
                                                                         <defs/>
                                                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -1571,7 +1573,7 @@ if (! function_exists('getSvgIcon')) {
                                                                         </g>
                                                                     </svg>',
             'convert/transorm' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <title>'.$title.'</title>
+                                        <title>' . $title . '</title>
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <rect x="0" y="0" width="24" height="24"/>
                                             <path d="M4.56066017,7.93933983 C5.34645669,7.15354331 6.61338647,7.15354331 7.39918299,7.93933983 L15.4991834,16.0393398 C16.2849799,16.8251363 16.2849799,18.0920661 15.4991834,18.8778626 C14.7133869,19.6636591 13.4464571,19.6636591 12.6606606,18.8778626 L4.56066017,10.7778626 C3.77486366,9.99206611 3.77486366,8.72513633 4.56066017,7.93933983 Z" fill="#999" transform="translate(10.030330, 13.409010) rotate(-45.000000) translate(-10.030330, -13.409010)"/>
@@ -1715,7 +1717,7 @@ if (! function_exists('shortURL')) {
                 $client = new Client;
 
                 $response = $client->get(
-                    'https://is.gd/create.php?format=json&url='.$link,
+                    'https://is.gd/create.php?format=json&url=' . $link,
                     []
                 );
                 $d = json_decode($response->getBody(), true);
@@ -1737,12 +1739,12 @@ if (! function_exists('uploadImage')) {
     {
         $fileName = $file->getClientOriginalName();
         $file_exe = $file->getClientOriginalExtension();
-        $new_name = uniqid().'.'.$file_exe;
-        $directory = 'uploads'.'/'.$path; // .'/'.date("Y").'/'.date("m").'/'.date("d");
+        $new_name = uniqid() . '.' . $file_exe;
+        $directory = 'uploads' . '/' . $path; // .'/'.date("Y").'/'.date("m").'/'.date("d");
         $destienation = public_path($directory);
         $file->move($destienation, $new_name);
 
-        return $directory.'/'.$new_name;
+        return $directory . '/' . $new_name;
     }
 }
 
@@ -1757,7 +1759,7 @@ if (! function_exists('uploadExcelFile')) {
         try {
             // Create a unique filename
             $extension = $file->getClientOriginalExtension();
-            $filename = $importType.'_'.$jobId.'_'.time().'.'.$extension;
+            $filename = $importType . '_' . $jobId . '_' . time() . '.' . $extension;
 
             // Use the same directory structure as uploadImage
             $directory = 'uploads/excel_imports';
@@ -1770,14 +1772,14 @@ if (! function_exists('uploadExcelFile')) {
 
             // Move the file
             $file->move($destinationPath, $filename);
-            $relativePath = $directory.'/'.$filename;
+            $relativePath = $directory . '/' . $filename;
 
             Log::info("Excel file uploaded: {$relativePath}");
 
             // Return the full server path
             return public_path($relativePath);
         } catch (\Exception $e) {
-            Log::error('Failed to upload Excel file: '.$e->getMessage());
+            Log::error('Failed to upload Excel file: ' . $e->getMessage());
             throw $e;
         }
     }
@@ -1825,7 +1827,7 @@ if (! function_exists('deleteFile')) {
                 ]);
             }
         } catch (\Exception $e) {
-            $message = 'Exception occurred while deleting file: '.$e->getMessage();
+            $message = 'Exception occurred while deleting file: ' . $e->getMessage();
             Log::error('Error deleting file', [
                 'path' => $oldPath,
                 'name' => $oldName,
@@ -1846,15 +1848,13 @@ if (! function_exists('formatFileSize')) {
     function formatFileSize($size)
     {
         if ($size < 1024) {
-            return $size.' B';
+            return $size . ' B';
         } elseif ($size < 1048576) {
-            return round($size / 1024, 2).' KB';
+            return round($size / 1024, 2) . ' KB';
         } elseif ($size < 1073741824) {
-            return round($size / 1048576, 2).' MB';
+            return round($size / 1048576, 2) . ' MB';
         } else {
-            return round($size / 1073741824, 2).' GB';
+            return round($size / 1073741824, 2) . ' GB';
         }
     }
 }
-
-
