@@ -21,5 +21,7 @@ Route::prefix('v1')->middleware(['localization'])->group(function () {
     Route::get('/home', [HomeController::class, 'home']);
     Route::get('/categories', [HomeController::class, 'categories']);
     Route::get('/addresses', [HomeController::class, 'addresses']);
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/products/{product}', [ProductController::class, 'show']);
 
 });

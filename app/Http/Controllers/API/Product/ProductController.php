@@ -6,15 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\API\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Resources\API\PaginatedResourceCollection;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $category_id = $request->get('category_id', null);
-        $products = Product::where(['active' => true, 'restaurant_id' => getFirstRestaurant()->id])->when(isset($category_id), function ($query) use ($category_id) {
-            $query->where('category_id', $category_id);
-        })->get();
+        $products = Product::where('active', true)->with('category')->latest()
+            ->paginate(10);
+        return apiSuccess(new PaginatedResourceCollection($products, ProductResource::class));
 
         return apiSuccess(ProductResource::collection($products));
     }

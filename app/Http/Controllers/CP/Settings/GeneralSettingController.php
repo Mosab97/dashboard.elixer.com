@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class GeneralSettingController extends Controller
 {
@@ -24,7 +25,7 @@ class GeneralSettingController extends Controller
     {
         $this->config = config('modules.settings.children.general');
         // $this->filterService = $filterService;
-        Log::info('............... '.$this->config['controller'].' initialized ...........');
+        Log::info('............... ' . $this->config['controller'] . ' initialized ...........');
     }
 
     /**
@@ -37,7 +38,7 @@ class GeneralSettingController extends Controller
         if ($request->isMethod('GET')) {
             $data = $this->getCommonData('index');
 
-            return view($data['_view_path'].'index', $data);
+            return view($data['_view_path'] . 'index', $data);
         }
 
         // If POST request, update settings
@@ -114,6 +115,10 @@ class GeneralSettingController extends Controller
             if ($request->has('disclaimer')) {
                 Setting::set('disclaimer', $request->input('disclaimer'));
             }
+            if ($request->has('logo') && $request->file('logo')) {
+                $logoPath = Storage::disk('public')->putFile('logo', $request->file('logo'));
+                Setting::set('logo', $logoPath);
+            }
 
             // Save all settings
             Setting::save();
@@ -129,7 +134,6 @@ class GeneralSettingController extends Controller
             }
 
             return redirect()->back()->with('success', t('Settings updated successfully'));
-
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('Error updating settings', [
@@ -140,11 +144,11 @@ class GeneralSettingController extends Controller
             if ($request->ajax()) {
                 return response()->json([
                     'status' => false,
-                    'message' => t('Error updating settings: ').$e->getMessage(),
+                    'message' => t('Error updating settings: ') . $e->getMessage(),
                 ], 500);
             }
 
-            return redirect()->back()->with('error', t('Error updating settings: ').$e->getMessage());
+            return redirect()->back()->with('error', t('Error updating settings: ') . $e->getMessage());
         }
     }
 
