@@ -14,6 +14,7 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'name',
+        'slug',
         'description',
         'image',
         'discount',
@@ -24,10 +25,11 @@ class Product extends Model
         'quantity',
     ];
 
-    protected $translatable = ['name', 'description'];
+    protected $translatable = ['name', 'description', 'slug'];
 
     protected $casts = [
         'name' => 'array',
+        'slug' => 'array',
         'description' => 'array',
         'discount' => 'decimal:2',
         'price' => 'decimal:2',

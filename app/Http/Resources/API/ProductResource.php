@@ -8,12 +8,13 @@ class ProductResource extends JsonResource
 {
     public function toArray($request)
     {
-
         $fields = [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
             'category' => $this->whenLoaded('category', function () {
                 return new CategoryResource($this->category);
             }),
-            'name' => $this->name,
             'description' => $this->description,
             'image' => $this->image_path,
             'discount' => $this->discount ?? 0,

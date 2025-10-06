@@ -29,6 +29,27 @@
             </div>
 
             <div class="row">
+                {{-- Translatable Slug Fields --}}
+                @foreach (config('app.locales') as $locale)
+                    <div class="col-md-4">
+                        <div class="fv-row mb-7">
+                            <label class="fw-semibold fs-6 mb-2">
+                                {{ t('Slug') }}
+                                <small>({{ strtoupper($locale) }})</small>
+                            </label>
+                            <input type="text" name="slug[{{ $locale }}]"
+                                class="form-control form-control-solid mb-3 mb-lg-0 validate-required @error("slug.$locale") is-invalid @enderror"
+                                placeholder="{{ t('Enter Name in ' . strtoupper($locale)) }}"
+                                value="{{ old("slug.$locale", isset($_model) ? $_model->getTranslation('slug', $locale) : '') }}" />
+                            @error("slug.$locale")
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="row">
                 {{-- Translatable Description Fields --}}
                 @foreach (config('app.locales') as $locale)
                     <div class="col-md-4">
@@ -142,38 +163,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle image file preview
-        document.getElementById('image').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('image-preview').src = e.target.result;
-                    document.getElementById('image-preview-section').style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Handle icon file preview
-        document.getElementById('icon').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('icon-preview').src = e.target.result;
-                    document.getElementById('image-preview-section').style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Initialize Select2 for restaurant dropdown
-        if (typeof KTSelect2 !== 'undefined') {
-            KTSelect2.init();
-        }
-    });
-</script>

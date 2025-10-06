@@ -168,4 +168,12 @@ return [
   'Logo' => 'Logo',
   'Settings updated successfully' => 'Settings updated successfully',
   'Current logo' => 'Current logo',
+  'Remove Product' => 'Remove Product',
+  'Slug' => 'Slug',
+  'Enter Slug (auto-generated from name)' => 'Enter Slug (auto-generated from name)',
+  'Leave empty to auto-generate from name, or enter a custom slug' => 'Leave empty to auto-generate from name, or enter a custom slug',
+  'Slug is required' => 'Slug is required',
+  'Slug must be provided in multiple languages' => 'Slug must be provided in multiple languages',
+  'Slug must be a string' => 'Slug must be a string',
+  'Slug must not exceed 255 characters' => 'Slug must not exceed 255 characters',
 ];

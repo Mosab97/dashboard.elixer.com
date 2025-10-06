@@ -106,6 +106,21 @@ class ProductController extends Controller
             $validatedData = $request->validated();
             $id = $request->input($this->config['id_field']);
 
+            // Generate slug if not provided
+            if (empty($validatedData['slug']) && !empty($validatedData['name'])) {
+                $nameValue = '';
+                foreach ($validatedData['name'] as $locale => $name) {
+                    if (!empty($name)) {
+                        $nameValue = $name;
+                        break;
+                    }
+                }
+
+                if ($nameValue) {
+                    $validatedData['slug'] = $this->generateSlug($nameValue, $id);
+                }
+            }
+
             if (! empty($id)) {
                 $result = $this->_model->query()->findOrFail($id);
                 $result->update($validatedData);
@@ -160,5 +175,26 @@ class ProductController extends Controller
         }
 
         return $data;
+    }
+
+    /**
+     * Generate a unique slug from the given name
+     */
+    private function generateSlug($name, $excludeId = null)
+    {
+        $slug = \Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        while ($this->_model->where('slug', $slug)
+            ->when($excludeId, function ($query) use ($excludeId) {
+                return $query->where('id', '!=', $excludeId);
+            })
+            ->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
     }
 }
