@@ -15,6 +15,9 @@ class ProductResource extends JsonResource
             'category' => $this->whenLoaded('category', function () {
                 return new CategoryResource($this->category);
             }),
+            'attachments' => $this->whenLoaded('attachments', function () {
+                return AttachmentResource::collection($this->attachments);
+            }),
             'description' => $this->description,
             'image' => $this->image_path,
             'discount' => $this->discount ?? 0,

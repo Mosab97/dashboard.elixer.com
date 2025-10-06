@@ -28,7 +28,7 @@
         <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
         <link href="{{ asset('plugins/global/plugins.bundle.css?v=1') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/style.bundle.css?v=1') }}" rel="stylesheet" type="text/css" />
-    @elseif ((lang() == 'ar') || (lang() == 'he'))
+    @elseif (lang() == 'ar' || lang() == 'he')
         <!--begin::Fonts(mandatory for all pages)-->
         <!--end::Fonts-->
         <link href="{{ asset('plugins/custom/datatables/datatables.bundle.rtl.css?v=1') }}" rel="stylesheet"
@@ -43,7 +43,7 @@
     @endif
 
     @stack('styles')
-    @if ((lang() == 'ar') || (lang() == 'he'))
+    @if (lang() == 'ar' || lang() == 'he')
         <style>
             .select2-container .select2-selection__clear {
                 right: 5px !important;
@@ -352,18 +352,22 @@
         // Helper function to get filter parameters (keep your existing implementation)
         function filterParameters(filterSelector) {
             var params = {};
-            $(filterSelector).each(function() {
-                var i = $(this).data('col-index');
-                if ($(this).is(':checkbox')) {
-                    params[i] = $(this).is(':checked') ? 'on' : 'off';
-                } else {
-                    if (params[i]) {
-                        params[i] += '|' + $(this).val();
+            try {
+                $(filterSelector).each(function() {
+                    var i = $(this).data('col-index');
+                    if ($(this).is(':checkbox')) {
+                        params[i] = $(this).is(':checked') ? 'on' : 'off';
                     } else {
-                        params[i] = $(this).val();
+                        if (params[i]) {
+                            params[i] += '|' + $(this).val();
+                        } else {
+                            params[i] = $(this).val();
+                        }
                     }
-                }
-            });
+                });
+            } catch (e) {
+                console.log(e);
+            }
             return params;
         }
 

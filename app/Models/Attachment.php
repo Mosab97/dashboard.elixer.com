@@ -54,4 +54,8 @@ class Attachment extends Model implements Auditable
     {
         return $this->belongsTo(Constant::class, 'attachment_type_id');
     }
+    public function getFilePathAttribute($value)
+    {
+        return asset('storage/' . $value);
+    }
 }

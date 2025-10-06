@@ -28,6 +28,14 @@
                             {{ t($config['singular_name']) }}
                         </a>
                     </li>
+
+                    <li class="nav-item mt-2">
+                        <a class="nav-link text-active-primary ms-0 me-6 px-2 py-5 {{ isset($_model) ? '' : 'disabled' }}"
+                            data-bs-toggle="tab" data-bs-target="#kt_tab_pane_7" href="#kt_tab_pane_7">
+                            <span class="svg-icon svg-icon-2 me-2">
+                            </span>
+                            {{ __('Attachments') }} </a>
+                    </li>
                 </ul>
                 <!--end::Navs-->
             </div>
@@ -65,6 +73,30 @@
             <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
                 @include($config['view_path'] . 'tabs.form')
             </div>
+
+            <div class="tab-pane fade" id="kt_tab_pane_7" role="tabpanel">
+                <div class="card mb-5 mb-xl-10" id="kt_attachments_view">
+                    <!--begin::Card header-->
+                    <div class="card-header">
+                        <!--begin::Card title-->
+                        <div class="card-title m-0">
+                            {{ t('Attachments') }}
+                        </div>
+                        <!--end::Card title-->
+                    </div>
+                    <!--begin::Card header-->
+
+                    <!--begin::Card body-->
+                    <div class="card-body p-9">
+                        @if ($_model->exists)
+                            @include('CP.attachments.index')
+                        @endif
+
+                    </div>
+                    <!--end::Card body-->
+                </div>
+            </div>
+
         </div>
 
     </form>

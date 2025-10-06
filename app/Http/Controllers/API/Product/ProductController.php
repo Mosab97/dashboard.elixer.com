@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Product::where('active', true)->with('category')->latest()
+        $products = Product::where('active', true)->with(['category','attachments'])->latest()
             ->paginate(10);
         return apiSuccess(new PaginatedResourceCollection($products, ProductResource::class));
 
@@ -21,6 +21,6 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return apiSuccess(new ProductResource($product->load('sizes')));
+        return apiSuccess(new ProductResource($product->load('sizes','attachments')));
     }
 }
