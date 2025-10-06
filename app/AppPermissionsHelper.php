@@ -29,12 +29,6 @@ class AppPermissionsHelper
 
             ],
 
-            Attachment::ui['p_ucf'] => [
-                'access' => Attachment::ui['s_lcf'] . '_access',
-                'add' => Attachment::ui['s_lcf'] . '_add',
-                'edit' => Attachment::ui['s_lcf'] . '_edit',
-                'delete' => Attachment::ui['s_lcf'] . '_delete',
-            ],
 
         ];
 
@@ -69,110 +63,43 @@ class AppPermissionsHelper
 
         // slider permissions (child of restaurants)
         $config = config('modules.sliders');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
+        $config = config('modules.attachments');
+        $permissions[$config['plural_name']] = $config['permissions'];
+
         //  categories permissions (child of restaurants)
         $config = config('modules.categories');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         $config = config('modules.coupons');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         $config = config('modules.addresses');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         $config = config('modules.products');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         // why choose us permissions (child of restaurants)
         $config = config('modules.why_choose_us');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         // customer rates permissions (child of restaurants)
         $config = config('modules.customer_rates');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         // how we works permissions (child of restaurants)
         $config = config('modules.how_we_works');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         $config = config('modules.articles_types');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         $config = config('modules.articles');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         $config = config('modules.articles.children.article_contents');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         // slider permissions (child of restaurants)
         $config = config('modules.services');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         // sucess stories permissions (child of restaurants)
         $config = config('modules.sucess_stories');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
         // videos permissions (child of restaurants)
         $config = config('modules.videos');
-        $permissions[$config['plural_name']] = [
-            'access' => $config['permissions']['view'],
-            'add' => $config['permissions']['create'],
-            'edit' => $config['permissions']['edit'],
-            'delete' => $config['permissions']['delete'],
-        ];
+        $permissions[$config['plural_name']] = $config['permissions'];
 
         $permissionFlatten = collect($permissions)->unique()->flatten(1);
         self::CheckMiddlewares($permissionFlatten);
