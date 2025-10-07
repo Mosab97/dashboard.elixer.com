@@ -20,7 +20,7 @@ return [
         'upload_path' => 'settings',
         'permissions' => [
             'view' => 'view_settings',
-            'create' => 'create_settings',
+            'add' => 'create_settings',
             'edit' => 'edit_settings',
             'delete' => 'delete_settings',
         ],
@@ -64,6 +64,26 @@ return [
             'create' => 'create_categories',
             'edit' => 'edit_categories',
             'delete' => 'delete_categories',
+        ],
+    ],
+
+    'faq' => [
+        'table' => 'faq',
+        'route' => 'faq',
+        'full_route_name' => 'faq',
+        'singular_name' => 'FAQ',
+        'plural_name' => 'FAQs',
+        'singular_key' => 'faq',
+        'plural_key' => 'faqs',
+        'view_path' => 'CP.faqs.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\FAQController::class,
+        'upload_path' => 'faqs',
+        'permissions' => [
+            'view' => 'view_faqs',
+            'create' => 'create_faqs',
+            'edit' => 'edit_faqs',
+            'delete' => 'delete_faqs',
         ],
     ],
     'attachments' => [

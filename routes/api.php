@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Home\HomeController;
 use App\Http\Controllers\API\Product\ProductController;
+use App\Http\Controllers\API\FAQ\FAQController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,5 +24,6 @@ Route::prefix('v1')->middleware(['localization'])->group(function () {
     Route::get('/addresses', [HomeController::class, 'addresses']);
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/{product}', [ProductController::class, 'show']);
+    Route::get('/faqs', [FAQController::class, 'index']);
 
 });

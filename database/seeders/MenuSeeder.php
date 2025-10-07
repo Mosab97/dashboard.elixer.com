@@ -188,6 +188,16 @@ class MenuSeeder extends Seeder
             'permission_name' => config('modules.videos.permissions.view'),
             'route' => config('modules.videos.full_route_name') . '.index',
         ];
+        $Menu[] = [
+            'name' => t(config('modules.faq.plural_name'), [], 'ar'),
+            'name_en' => t(config('modules.faq.plural_name'), [], 'en'),
+            'name_he' => t(config('modules.faq.plural_name'), [], 'he'),
+            'route' => null,
+            'icon_svg' => '<i class="fas fa-question"></i>', // FontAwesome icon for faq
+            'order' => 5,
+            'permission_name' => config('modules.faq.permissions.view'),
+            'route' => config('modules.faq.full_route_name') . '.index',
+        ];
 
 
 
