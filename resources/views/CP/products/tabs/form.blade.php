@@ -126,6 +126,31 @@
                 </div>
             </div>
 
+            <div class="row">
+                <!-- Product Image Upload -->
+                <div class="col-md-6">
+                    <div class="fv-row mb-7">
+                        <label class="fw-semibold fs-6 mb-2">{{ t('Product Image') }}</label>
+                        <input type="file" name="image" id="image"
+                            class="form-control form-control-solid @error('image') is-invalid @enderror"
+                            accept="image/*">
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        @if ($_model->exists && $_model->image)
+                            <div class="mt-3">
+                                <img src="{{ $_model->image_path }}" alt="Current Image" class="img-thumbnail"
+                                    style="max-width: 100px; max-height: 100px;">
+                                <p class="text-muted mt-1">{{ t('Current image') }}</p>
+                            </div>
+                        @endif
+                        <div class="form-text">{{ t('Upload product image (optional, max 2MB)') }}</div>
+                    </div>
+                </div>
+
+
+            </div>
+
 
 
             <div class="row">
@@ -133,8 +158,8 @@
                 <div class="col-md-6">
                     <div class="fv-row mb-7">
                         <div class="form-check form-switch form-check-custom form-check-solid">
-                            <input class="form-check-input" type="checkbox" name="active" id="active" value="1"
-                                {{ old('active', $_model->active ?? true) ? 'checked' : '' }}>
+                            <input class="form-check-input" type="checkbox" name="active" id="active"
+                                value="1" {{ old('active', $_model->active ?? true) ? 'checked' : '' }}>
                             <label class="form-check-label fw-semibold fs-6" for="active">
                                 {{ t('Active') }}
                             </label>
@@ -142,6 +167,24 @@
                         <div class="form-text">{{ t('Inactive categories will not be displayed to customers') }}</div>
                     </div>
                 </div>
+                @if ($_model->exists && $_model->image)
+                    <!-- Delete image -->
+                    <div class="col-md-6">
+                        <div class="fv-row mb-7">
+                            <div class="form-check form-switch form-check-custom form-check-solid">
+                                <input class="form-check-input" type="checkbox" name="delete_image"
+                                    id="delete_image" value="1"
+                                    {{ old('delete_image', $_model->delete_image ?? false) ? 'checked' : '' }}>
+                                <label class="form-check-label fw-semibold fs-6" for="delete_image">
+                                    {{ t('Delete Image') }}
+                                </label>
+                            </div>
+                            <div class="form-text">{{ t('Delete image will delete the image from the database') }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <!-- Featured Status -->
                 <div class="col-md-6">
                     <div class="fv-row mb-7">

@@ -106,23 +106,33 @@ class ProductController extends Controller
             $validatedData = $request->validated();
             $id = $request->input($this->config['id_field']);
 
-            // Generate slug if not provided
-            if (empty($validatedData['slug']) && !empty($validatedData['name'])) {
-                $nameValue = '';
-                foreach ($validatedData['name'] as $locale => $name) {
-                    if (!empty($name)) {
-                        $nameValue = $name;
-                        break;
-                    }
-                }
+            // // Generate slug if not provided
+            // if (empty($validatedData['slug']) && !empty($validatedData['name'])) {
+            //     $nameValue = '';
+            //     foreach ($validatedData['name'] as $locale => $name) {
+            //         if (!empty($name)) {
+            //             $nameValue = $name;
+            //             break;
+            //         }
+            //     }
 
-                if ($nameValue) {
-                    $validatedData['slug'] = $this->generateSlug($nameValue, $id);
-                }
+            //     if ($nameValue) {
+            //         $validatedData['slug'] = $this->generateSlug($nameValue, $id);
+            //     }
+            // }
+            $imageFile = $request->hasFile('image') ? $request->file('image') : null;
+            if ($imageFile) {
+                $imagePath = Storage::disk('public')->putFile('products', $imageFile);
+                $validatedData['image'] = $imagePath;
             }
-
             if (! empty($id)) {
                 $result = $this->_model->query()->findOrFail($id);
+                if (isset($result->image)) {
+                    Storage::disk('public')->delete($result->image);
+                }
+                if ($request->has('delete_image')) {
+                    $validatedData['image'] = null;
+                }
                 $result->update($validatedData);
             } else {
                 $result = $this->_model->query()->create($validatedData);
@@ -190,7 +200,8 @@ class ProductController extends Controller
             ->when($excludeId, function ($query) use ($excludeId) {
                 return $query->where('id', '!=', $excludeId);
             })
-            ->exists()) {
+            ->exists()
+        ) {
             $slug = $originalSlug . '-' . $counter;
             $counter++;
         }

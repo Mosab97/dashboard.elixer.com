@@ -12,6 +12,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'image' => $this->image_path,
             'category' => $this->whenLoaded('category', function () {
                 return new CategoryResource($this->category);
             }),
@@ -19,7 +20,6 @@ class ProductResource extends JsonResource
                 return AttachmentResource::collection($this->attachments);
             }),
             'description' => $this->description,
-            'image' => $this->image_path,
             'discount' => $this->discount ?? 0,
             'price' => $this->price ?? 0,
             'featured' => $this->featured ?? false,

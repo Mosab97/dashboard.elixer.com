@@ -222,4 +222,9 @@ return [
   'FAQ Edit FAQ' => 'FAQ Edit FAQ',
   'Edit FAQ' => 'Edit FAQ',
   'Remove FAQ' => 'Remove FAQ',
+  'Product Image' => 'Product Image',
+  'Upload product image (optional, max 2MB)' => 'Upload product image (optional, max 2MB)',
+  'Current image' => 'Current image',
+  'Delete Image' => 'Delete Image',
+  'Delete image will delete the image from the database' => 'Delete image will delete the image from the database',
 ];
