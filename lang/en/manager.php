@@ -275,4 +275,11 @@ return [
   'Published At' => 'Published At',
   'Inactive articles will not be displayed to customers' => 'Inactive articles will not be displayed to customers',
   'Save' => 'Save',
+  'Search Customer Rate' => 'Search Customer Rate',
+  'Add Customer Rate' => 'Add Customer Rate',
+  'Customer Rate- Add new Customer Rate' => 'Customer Rate- Add new Customer Rate',
+  'Customer Rate' => 'Customer Rate',
+  '- Add new Customer Rate' => '- Add new Customer Rate',
+  'Customer Rate Details' => 'Customer Rate Details',
+  'Enter Rate' => 'Enter Rate',
 ];
