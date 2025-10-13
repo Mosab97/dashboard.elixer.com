@@ -12,8 +12,12 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Product::where('active', true)->with(['category','attachments'])->latest()
-            ->paginate(10);
+        $category_id = $request->input('category_id');
+        $productsQuery = Product::where('active', true)->with(['category', 'attachments']);
+        if (isset($category_id)) {
+            $productsQuery->where('category_id', $category_id);
+        }
+        $products = $productsQuery->latest()->paginate(10);
         return apiSuccess(new PaginatedResourceCollection($products, ProductResource::class));
 
         return apiSuccess(ProductResource::collection($products));
@@ -21,6 +25,6 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return apiSuccess(new ProductResource($product->load('sizes','attachments')));
+        return apiSuccess(new ProductResource($product->load('sizes', 'attachments')));
     }
 }
