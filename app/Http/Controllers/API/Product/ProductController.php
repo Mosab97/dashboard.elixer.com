@@ -13,9 +13,13 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $category_id = $request->input('category_id');
+        $search = $request->input('search');
         $productsQuery = Product::where('active', true)->with(['category', 'attachments']);
         if (isset($category_id)) {
             $productsQuery->where('category_id', $category_id);
+        }
+        if (isset($search)) {
+            $productsQuery->search($search);
         }
         $products = $productsQuery->latest()->paginate(10);
         return apiSuccess(new PaginatedResourceCollection($products, ProductResource::class));

@@ -72,4 +72,10 @@ class Product extends Model
     {
         return $query->orderBy('order', 'asc');
     }
+
+    public function scopeSearch($query, $value)
+    {
+        return $query->where('name', 'like', '%' . $value . '%')
+            ->orWhere('description', 'like', '%' . $value . '%');
+    }
 }
