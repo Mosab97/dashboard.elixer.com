@@ -16,6 +16,7 @@ class CustomerRateResource extends JsonResource
             'rate' => $this->rate,
             'active' => $this->active,
             'order' => $this->order,
+            'image' => $this->image_path,
         ];
 
         return $fields;

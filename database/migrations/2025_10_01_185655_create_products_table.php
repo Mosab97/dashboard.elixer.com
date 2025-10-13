@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained('categories');
             $table->json('name');
-            $table->json('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->double('discount', 10, 2)->default(0);
             $table->double('price', 10, 2)->default(0);

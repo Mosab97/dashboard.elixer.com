@@ -11,7 +11,14 @@ class CustomerRate extends Model
 {
     use HasFactory, HasTranslations, SoftDeletes;
 
-    protected $fillable = ['name', 'description', 'rate', 'active', 'order'];
+    protected $fillable = [
+        'name',
+        'description',
+        'rate',
+        'active',
+        'order',
+        'image'
+    ];
 
     protected $translatable = ['name', 'description'];
 
@@ -22,4 +29,11 @@ class CustomerRate extends Model
         'active' => 'boolean',
         'order' => 'integer',
     ];
+    public function getImagePathAttribute()
+    {
+        if ($this->image) {
+            return asset('storage/' . $this->image);
+        }
+        return null;
+    }
 }

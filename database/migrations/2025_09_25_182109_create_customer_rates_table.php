@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('customer_rates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->longText('description');
+            $table->string('image')->nullable();
             $table->integer('rate')->default(0);
             $table->boolean('active')->default(true);
             $table->integer('order')->default(0);

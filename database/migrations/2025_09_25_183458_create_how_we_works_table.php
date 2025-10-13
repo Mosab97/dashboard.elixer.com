@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('how_we_works', function (Blueprint $table) {
             $table->id();
             $table->json('title');
-            $table->json('description');
+            $table->longText('description')->nullable();
             $table->boolean('active')->default(true);
             $table->integer('order')->default(0);
             $table->softDeletes();

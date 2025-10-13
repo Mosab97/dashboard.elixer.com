@@ -9,6 +9,7 @@ use App\Services\Filters\CustomerRateFilterService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class CustomerRateController extends Controller
@@ -107,15 +108,26 @@ class CustomerRateController extends Controller
         try {
             $validatedData = $request->validated();
             $id = $request->input($this->config['id_field']);
+            $imageFile = $request->hasFile('image') ? $request->file('image') : null;
+            if ($imageFile) {
+                $imagePath = Storage::disk('public')->putFile('customer_rates', $imageFile);
+                $validatedData['image'] = $imagePath;
+            }
             if (! empty($id)) {
                 $result = CustomerRate::findOrFail($id);
+                if (isset($result->image)) {
+                    Storage::disk('public')->delete($result->image);
+                }
+                if ($request->has('delete_image')) {
+                    $validatedData['image'] = null;
+                }
                 $result->update($validatedData);
             } else {
                 $result = $this->_model->create($validatedData);
             }
             return redirect()
                 ->route($this->config['full_route_name'] . '.edit', ['_model' => $result->id])
-                ->with('status', t($this->config['singular_name'] . ' Added Successfully!'));
+                ->with('success', t($this->config['singular_name'] . ' Added Successfully!'));
         } catch (\Exception $e) {
             Log::error('Error in ' . $this->config['singular_name'] . ' add/edit process', [
                 'error' => $e->getMessage(),

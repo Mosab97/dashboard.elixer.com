@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('article_type_id')->constrained('article_types');
             $table->json('title')->nullable();
-            $table->json('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->boolean('active')->default(true);
             $table->date('published_at')->nullable();

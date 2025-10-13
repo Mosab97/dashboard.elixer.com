@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('why_choose_us', function (Blueprint $table) {
             $table->id();
             $table->json('title')->nullable();
-            $table->json('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->boolean('active')->default(true);
             $table->integer('order')->default(0);
