@@ -46,6 +46,7 @@ class ProductFactory extends Factory
             'active' => $this->faker->boolean(80), // 80% chance of being active
             'order' => $this->faker->numberBetween(1, 100),
             'quantity' => $this->faker->numberBetween(0, 100),
+            'rate_count' => $this->faker->numberBetween(0, 100),
         ];
     }
 
