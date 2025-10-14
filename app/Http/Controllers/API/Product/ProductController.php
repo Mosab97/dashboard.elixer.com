@@ -14,6 +14,7 @@ class ProductController extends Controller
     {
         $category_id = $request->input('category_id');
         $search = $request->input('search');
+        $limit = $request->input('limit', 10);
         $productsQuery = Product::where('active', true)->with(['category', 'attachments']);
         if (isset($category_id)) {
             $productsQuery->where('category_id', $category_id);
@@ -21,10 +22,10 @@ class ProductController extends Controller
         if (isset($search)) {
             $productsQuery->search($search);
         }
-        $products = $productsQuery->latest()->paginate(10);
+        $products = $productsQuery->latest()->paginate($limit);
         return apiSuccess(new PaginatedResourceCollection($products, ProductResource::class));
 
-        return apiSuccess(ProductResource::collection($products));
+        // return apiSuccess(ProductResource::collection($products));
     }
 
     public function show(Product $product)

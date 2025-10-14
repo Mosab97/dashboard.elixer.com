@@ -20,13 +20,13 @@ class ProductResource extends JsonResource
                 return AttachmentResource::collection($this->attachments);
             }),
             'description' => $this->description,
-            'discount' => $this->discount ?? 0,
-            'price' => $this->price ?? 0,
-            'price_after_discount' => $this->price_after_discount ?? 0,
-            'featured' => $this->featured ?? false,
-            'active' => $this->active ?? false,
+            'discount' => (float) $this->discount ?? 0,
+            'price' => (float) $this->price ?? 0,
+            'price_after_discount' => (float) $this->price_after_discount ?? 0,
+            'featured' => (bool) $this->featured ?? false,
+            'active' => (bool) $this->active ?? false,
             'order' => $this->order ?? 0,
-            'quantity' => $this->quantity ?? 0,
+            'quantity' => (int) $this->quantity ?? 0,
         ];
 
         return $fields;
