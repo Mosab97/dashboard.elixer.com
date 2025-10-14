@@ -30,6 +30,8 @@ use App\Http\Resources\API\CategoryResource;
 use App\Models\Category;
 use App\Models\Address;
 use App\Http\Resources\API\AddressResource;
+use App\Http\Resources\API\ProductResource;
+use App\Models\Product;
 
 
 class HomeController extends Controller
@@ -61,10 +63,17 @@ class HomeController extends Controller
                 ],
             ],
             'sliders' => SliderResource::collection(Slider::where('active', true)->get()),
+            'top_products' => ProductResource::collection(Product::where('active', true)->featured()->get()),
             'services' => ServiceResource::collection(Service::where('active', true)->get()),
             'videos' => VideoResource::collection(Video::where('active', true)->get()),
             'sucess_stories' => SucessStoryResource::collection(SucessStory::where('active', true)->get()),
+            'about_office' => [
+                'title' => setting('about_office.title.' . app()->getLocale()),
+                'description' => setting('about_office.description.' . app()->getLocale()),
+                'features' => collect(setting('about_office.features'))->pluck(app()->getLocale())->toArray(),
 
+                'image' => asset('storage/' . setting('about_office.image')),
+            ],
             'why_choose_us' => WhyChooseUsResource::collection(WhyChooseUs::where('active', true)->get()),
             'customer_rates' => CustomerRateResource::collection(CustomerRate::where('active', true)->get()),
             'how_we_works' => HowWeWorkResource::collection(HowWeWork::where('active', true)->get()),

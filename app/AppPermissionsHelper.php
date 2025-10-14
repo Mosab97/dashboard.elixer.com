@@ -38,6 +38,7 @@ class AppPermissionsHelper
         // General Settings permissions
         $permissions[config('modules.settings.children.general.plural_name')] = config('modules.settings.children.general.permissions');
         $permissions[config('modules.sliders.plural_name')] = config('modules.sliders.permissions');
+        $permissions[config('modules.about_office.plural_name')] = config('modules.about_office.permissions');
         $permissions[config('modules.attachments.plural_name')] = config('modules.attachments.permissions');
 
         //  categories permissions (child of restaurants)

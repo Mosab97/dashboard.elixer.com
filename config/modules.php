@@ -45,6 +45,25 @@ return [
         ],
     ],
 
+    'about_office' => [
+        'table' => 'about_office',
+        'route' => 'about_office',
+        'full_route_name' => 'about_office',
+        'singular_name' => 'About Office',
+        'plural_name' => 'About Office',
+        'singular_key' => 'about_office',
+        'plural_key' => 'about_office',
+        'view_path' => 'CP.about_office.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\AboutOfficeController::class,
+        'upload_path' => 'about_office',
+        'permissions' => [
+            'view' => 'view_about_office',
+            'create' => 'create_about_office',
+            'edit' => 'edit_about_office',
+            'delete' => 'delete_about_office',
+        ],
+    ],
 
 
     'categories' => [

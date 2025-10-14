@@ -63,6 +63,13 @@ Route::group(['prefix' => 'dashboard'], function () {
                 Route::post('/' . $config['singular_key'] . '/{Id?}', 'addedit')->name('addedit')->middleware('permission:' . $config['permissions']['create']);
             });
 
+        // About Office child routes
+        $config = config('modules.about_office');
+        Route::prefix($config['route'])->name($config['route'] . '.')->controller($config['controller'])->group(function () use ($config) {
+            Route::match(['get', 'post'], '/', 'index')->name('index')->middleware('permission:' . $config['permissions']['view']);
+            Route::post('/' . $config['singular_key'], 'addedit')->name('addedit')->middleware('permission:' . $config['permissions']['create']);
+        });
+
 
         // sliders child routes
         $config = config('modules.sliders');

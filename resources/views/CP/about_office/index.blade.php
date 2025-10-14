@@ -157,14 +157,17 @@
                                             @foreach ($features as $feature)
                                             <div data-repeater-item class="mb-2">
                                                 <div class="row">
-                                                    <div class="col-5">
-                                                        <label class="fw-semibold fs-6 mb-2">{{ t('Hebrew Feature') }}</label>
-                                                        <textarea name="he" class="form-control" placeholder="{{ t('Enter feature') }}" rows="3">{{ is_array($feature) ? $feature['he']??'' : $feature }}</textarea>
+                                                    @foreach (config('app.locales') as $locale)
+                                                    <div class="col-md-4">
+                                                        <label class="fw-semibold fs-6 mb-2">{{ t('Feature') }} {{ strtoupper($locale) }}</label>
+                                                        <textarea name="{{ $locale }}" class="form-control" placeholder="{{ t('Enter feature') }}" rows="3">{{ is_array($feature) ? $feature[$locale]??'' : $feature }}</textarea>
                                                     </div>
-                                                    <div class="col-5">
+                                                    @endforeach
+
+                                                    {{-- <div class="col-5">
                                                         <label class="fw-semibold fs-6 mb-2">{{ t('Arabic Feature') }}</label>
                                                         <textarea name="ar" class="form-control" placeholder="{{ t('Enter feature') }}" rows="3">{{ is_array($feature) ? $feature['ar']??'' : $feature }}</textarea>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-2 d-flex align-items-center">
                                                         <button type="button" data-repeater-delete
                                                             class="btn btn-outline-danger btn-sm">
