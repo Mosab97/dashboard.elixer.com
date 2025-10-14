@@ -32,6 +32,8 @@ use App\Models\Address;
 use App\Http\Resources\API\AddressResource;
 use App\Http\Resources\API\ProductResource;
 use App\Models\Product;
+use App\Http\Resources\API\FAQResource;
+use App\Models\FAQ;
 
 
 class HomeController extends Controller
@@ -58,15 +60,17 @@ class HomeController extends Controller
                 'legal_documents' => [
                     'privacy_policy' => setting('privacy_policy')[app()->getLocale()] ?? '',
                     'terms_conditions' => setting('terms_conditions')[app()->getLocale()] ?? '',
-                    'faq' => setting('faq')[app()->getLocale()] ?? '',
+                    // 'faq' => setting('faq')[app()->getLocale()] ?? '',
                     'disclaimer' => setting('disclaimer')[app()->getLocale()] ?? '',
                 ],
             ],
             'sliders' => SliderResource::collection(Slider::where('active', true)->get()),
-            'top_products' => ProductResource::collection(Product::where('active', true)->featured()->get()),
+            'top_products' => ProductResource::collection(Product::where('active', true)->featured()->latest()->take(15)->get()),
             'services' => ServiceResource::collection(Service::where('active', true)->get()),
             'videos' => VideoResource::collection(Video::where('active', true)->get()),
             'sucess_stories' => SucessStoryResource::collection(SucessStory::where('active', true)->get()),
+            'faqs' => FAQResource::collection(FAQ::where('active', true)->get()),
+
             'about_office' => [
                 'title' => setting('about_office.title.' . app()->getLocale()),
                 'description' => setting('about_office.description.' . app()->getLocale()),

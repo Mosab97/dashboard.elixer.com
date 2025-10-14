@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             AddressSeeder::class,
             CategorySeeder::class,
             CouponSeeder::class,
+            ProductSeeder::class,
+            FAQSeeder::class,
+
         ]);
     }
 }
