@@ -28,6 +28,7 @@ class ProductRequest extends FormRequest
             'slug' => 'required|array',
             'description' => 'nullable|array',
             'discount' => 'nullable|numeric|min:0',
+            'price_after_discount' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
             'featured' => 'boolean',
             'active' => 'boolean',
@@ -83,9 +84,14 @@ class ProductRequest extends FormRequest
 
     public function prepareForValidation()
     {
+        $price = (float)$this->price ?? 0;
+        $discount = (float)$this->discount ?? 0;
+        $price_after_discount = $price - ($price * $discount / 100);
         $this->merge([
             'active' => $this->has('active') ? true : false,
             'featured' => $this->has('featured') ? true : false,
+            'price_after_discount' =>$price_after_discount
         ]);
+        // dd($this->all(), $this->price - ($this->price * $this->discount));
     }
 }
