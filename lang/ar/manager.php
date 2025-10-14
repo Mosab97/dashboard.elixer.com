@@ -331,5 +331,7 @@ return [
   'English title must be a string' => 'عنوان الشرائح يجب أن يكون عبارة عن سلسلة بالإنجليزية',
   'Arabic title must be a string' => 'عنوان الشرائح يجب أن يكون عبارة عن سلسلة بالعربية',
   'Slider title must not exceed 255 characters' => 'عنوان الشرائح يجب أن لا يتجاوز 255 حرف',
-  'Feature' => 'Feature',
+  'Feature' => 'اكثر مبيعا',
+  'Rate Count' => 'عدد التقييمات',
+  'Enter Rate Count' => 'أدخل عدد التقييمات',
 ];

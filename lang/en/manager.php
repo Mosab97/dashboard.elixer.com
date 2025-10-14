@@ -332,4 +332,6 @@ return [
   'Arabic title must be a string' => 'Arabic title must be a string',
   'Slider title must not exceed 255 characters' => 'Slider title must not exceed 255 characters',
   'Feature' => 'Feature',
+  'Rate Count' => 'Rate Count',
+  'Enter Rate Count' => 'Enter Rate Count',
 ];

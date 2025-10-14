@@ -109,6 +109,18 @@
                 </div>
                 <div class="col-md-4">
                     <div class="fv-row mb-7">
+                        <label class="fw-semibold fs-6 mb-2">{{ t('Rate Count') }}</label>
+                        <input type="number" name="rate_count" id="rate_count"
+                            class="form-control form-control-solid validate-required @error('rate_count') is-invalid @enderror"
+                            value="{{ old('rate_count', $_model->rate_count ?? '') }}"
+                            placeholder="{{ t('Enter Rate Count') }}" min="0">
+                        @error('rate_count')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fv-row mb-7">
                         <label class="fw-semibold fs-6 mb-2">{{ t('Category') }}</label>
                         <select name="category_id"
                             class="form-select form-select-solid mb-3 mb-lg-0 validate-required @error('category_id') is-invalid @enderror">

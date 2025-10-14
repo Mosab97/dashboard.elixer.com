@@ -27,6 +27,8 @@ class ProductResource extends JsonResource
             'active' => (bool) $this->active ?? false,
             'order' => $this->order ?? 0,
             'quantity' => (int) $this->quantity ?? 0,
+            'rate_count' => (int) $this->rate_count ?? 0,
+
         ];
 
         return $fields;

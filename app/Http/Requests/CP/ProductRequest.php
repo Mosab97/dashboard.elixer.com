@@ -34,7 +34,7 @@ class ProductRequest extends FormRequest
             'active' => 'boolean',
             'quantity' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
-
+            'rate_count' => 'required|integer|min:0',
         ];
         foreach (config('app.locales') as $locale) {
             $rules['name.' . $locale] = 'required|string|max:255';
