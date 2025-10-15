@@ -104,6 +104,25 @@ return [
             'delete' => 'delete_contact_us',
         ],
     ],
+    'real_results' => [
+        'table' => 'real_results',
+        'route' => 'real_results',
+        'full_route_name' => 'real_results',
+        'singular_name' => 'Real Result',
+        'plural_name' => 'Real Results',
+        'singular_key' => 'real_result',
+        'plural_key' => 'real_results',
+        'view_path' => 'CP.real_results.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\RealResultController::class,
+        'upload_path' => 'real_results',
+        'permissions' => [
+            'view' => 'view_real_results',
+            'create' => 'create_real_results',
+            'edit' => 'edit_real_results',
+            'delete' => 'delete_real_results',
+        ],
+    ],
 
     'faq' => [
         'table' => 'faq',

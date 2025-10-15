@@ -366,4 +366,5 @@ return [
   'Message must be a string' => 'Message must be a string',
   'Contact Us Added Successfully!' => 'Contact Us Added Successfully!',
   'Contact Us Edit Contact Us' => 'Contact Us Edit Contact Us',
+  'Real Results' => 'Real Results',
 ];

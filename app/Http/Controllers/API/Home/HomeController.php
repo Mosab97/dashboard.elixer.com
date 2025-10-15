@@ -34,6 +34,8 @@ use App\Http\Resources\API\ProductResource;
 use App\Models\Product;
 use App\Http\Resources\API\FAQResource;
 use App\Models\FAQ;
+use App\Models\RealResult;
+use App\Http\Resources\API\RealResultResource;
 
 
 class HomeController extends Controller
@@ -70,6 +72,7 @@ class HomeController extends Controller
             'videos' => VideoResource::collection(Video::where('active', true)->get()),
             'sucess_stories' => SucessStoryResource::collection(SucessStory::where('active', true)->get()),
             'faqs' => FAQResource::collection(FAQ::where('active', true)->get()),
+            'real_results' => RealResultResource::collection(RealResult::where('active', true)->get()),
 
             'about_office' => [
                 'title' => setting('about_office.title.' . app()->getLocale()),

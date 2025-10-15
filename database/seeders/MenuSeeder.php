@@ -221,6 +221,16 @@ class MenuSeeder extends Seeder
             'permission_name' => config('modules.contact_us.permissions.view'),
             'route' => config('modules.contact_us.full_route_name') . '.index',
         ];
+        $Menu[] = [
+            'name' => t(config('modules.real_results.plural_name'), [], 'ar'),
+            'name_en' => config('modules.real_results.plural_name'),
+            'name_he' => config('modules.real_results.plural_name'),
+            'route' => null,
+            'icon_svg' => '<i class="fas fa-chart-line"></i>', // FontAwesome icon for videos
+            'order' => 5,
+            'permission_name' => config('modules.real_results.permissions.view'),
+            'route' => config('modules.real_results.full_route_name') . '.index',
+        ];
 
         DB::table('menus')->delete();
 
