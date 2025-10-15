@@ -404,4 +404,8 @@ return [
   'Icon file size must not exceed :max' => 'Icon file size must not exceed :max',
   'Select Products' => 'Select Products',
   'Site Name' => 'Site Name',
+  'CRM' => 'CRM',
+  'See the Transformation' => 'See the Transformation',
+  'Current image before' => 'Current image before',
+  'Current image after' => 'Current image after',
 ];

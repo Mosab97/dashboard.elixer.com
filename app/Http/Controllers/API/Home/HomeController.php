@@ -49,6 +49,10 @@ class HomeController extends Controller
                 'logo' => $logo ? asset('storage/' . $logo) : null,
                 'years_of_experience' => setting('years_of_experience'),
                 'address' => setting('site_address')[app()->getLocale()] ?? '',
+                'see_the_transformation' => [
+                    'image_before' => setting('image_before') ? asset('storage/' . setting('image_before')) : null,
+                    'image_after' => setting('image_after') ? asset('storage/' . setting('image_after')) : null,
+                ],
                 'contact' => [
                     'mobile' => setting('site_phone'),
                     'email' => setting('site_email'),

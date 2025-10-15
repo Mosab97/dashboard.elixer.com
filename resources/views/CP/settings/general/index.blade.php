@@ -39,6 +39,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#tab_legal">{{ t('Legal Documents') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab_see_the_transformation">{{ t('See the Transformation') }}</a>
+                            </li>
 
 
                         </ul>
@@ -213,6 +216,48 @@
 
                             </div>
                             <!--end::Legal Documents Tab-->
+
+
+                              <!--begin:: See the Transformation Tab-->
+                              <div class="tab-pane fade " id="tab_see_the_transformation" role="tabpanel">
+                                <div class="row mb-6">
+                                    <div class="col-lg-6">
+                                        <div class="mb-5">
+                                            <label class="form-label">{{ t('Image Before') }}</label>
+                                            <input type="file" class="form-control" name="image_before" accept="image/*">
+                                            @php
+                                            $image_before = asset('storage/' . Setting::get('image_before', ''));
+                                        @endphp
+                                        @if ($image_before)
+                                            <a href="{{ $image_before }}" target="_blank">
+                                                <img src="{{ $image_before }}" alt="{{ t('Image Before') }}"
+                                                    class="img-fluid" style="width: 100px; height: 100px;">
+                                                <p class="text-muted mt-1">{{ t('Current image before') }}</p>
+                                            </a>
+                                        @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-5">
+                                            <label class="form-label">{{ t('Image After') }}</label>
+                                            <input type="file" class="form-control" name="image_after" accept="image/*">
+                                              @php
+                                            $image_after = asset('storage/' . Setting::get('image_after', ''));
+                                        @endphp
+                                        @if ($image_after)
+                                            <a href="{{ $image_after }}" target="_blank">
+                                                <img src="{{ $image_after }}" alt="{{ t('Image After') }}"
+                                                    class="img-fluid" style="width: 100px; height: 100px;">
+                                                <p class="text-muted mt-1">{{ t('Current image after') }}</p>
+                                            </a>
+                                        @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <!--end:: See the Transformation Tab-->
 
 
 

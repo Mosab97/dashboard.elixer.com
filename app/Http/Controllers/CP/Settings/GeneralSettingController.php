@@ -118,6 +118,14 @@ class GeneralSettingController extends Controller
                 $logoPath = Storage::disk('public')->putFile('logo', $request->file('logo'));
                 Setting::set('logo', $logoPath);
             }
+            if ($request->has('image_before') && $request->file('image_before')) {
+                $imageBeforePath = Storage::disk('public')->putFile('image_before', $request->file('image_before'));
+                Setting::set('image_before', $imageBeforePath);
+            }
+            if ($request->has('image_after') && $request->file('image_after')) {
+                $imageAfterPath = Storage::disk('public')->putFile('image_after', $request->file('image_after'));
+                Setting::set('image_after', $imageAfterPath);
+            }
 
             // Save all settings
             Setting::save();

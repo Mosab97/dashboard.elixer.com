@@ -400,6 +400,10 @@ return [
     'Delete image after will delete the image from the database' => 'حذف صورة بعد سوف يحذف الصورة من القاعدة',
     'Image must be a file of type: :mimes' => 'الصورة يجب أن يكون ملف صورة :mimes',
 
-  'Select Products' => 'Select Products',
-  'Site Name' => 'Site Name',
+    'Select Products' => 'اختر المنتجات',
+    'Site Name' => 'اسم الموقع',
+    'CRM' => 'منصة',
+    'See the Transformation' => 'اعرض التحول',
+    'Current image before' => 'الصورة قبل',
+    'Current image after' => 'الصورة بعد',
 ];
