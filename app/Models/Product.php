@@ -84,4 +84,14 @@ class Product extends Model
         return $query->where('name', 'like', '%' . $value . '%')
             ->orWhere('description', 'like', '%' . $value . '%');
     }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
