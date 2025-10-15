@@ -144,7 +144,7 @@ class RealResultController extends Controller
             } else {
                 $result = $this->_model->query()->create($validatedData);
             }
-            $result->syncProducts($request->product_ids);
+            $result->products()->sync($request->product_ids);
             return redirect()
                 ->route($this->config['full_route_name'] . '.edit', ['_model' => $result->id])
                 ->with('success', t($this->config['singular_name'] . ' Added Successfully!'));
