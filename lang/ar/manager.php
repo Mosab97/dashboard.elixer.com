@@ -334,7 +334,7 @@ return [
   'Feature' => 'اكثر مبيعا',
   'Rate Count' => 'عدد التقييمات',
   'Enter Rate Count' => 'أدخل عدد التقييمات',
-  'Slug must be unique' => 'Slug must be unique',
-  'Description must not exceed 20000 characters' => 'Description must not exceed 20000 characters',
-  'Enter Slug' => 'Enter Slug',
+  'Slug must be unique' => 'المعرف يجب أن يكون فريد',
+  'Description must not exceed 20000 characters' => 'الوصف يجب أن لا يتجاوز 20000 حرف',
+  'Enter Slug' => 'أدخل المعرف',
 ];
