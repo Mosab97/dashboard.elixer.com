@@ -4,8 +4,8 @@ namespace App\Http\Controllers\CP;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CP\RealResultRequest;
-use App\Models\RealResultProduct;
 use App\Models\RealResult;
+use App\Models\Product;
 use App\Services\Filters\RealResultFilterService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -101,6 +101,7 @@ class RealResultController extends Controller
     {
         $data = $this->getCommonData('edit');
         $data['_model'] = $_model;
+        $_model->load('products');
 
         return view($data['_view_path'] . '.addedit', $data);
     }
@@ -115,13 +116,35 @@ class RealResultController extends Controller
         try {
             $validatedData = $request->validated();
             $id = $request->input($this->config['id_field']);
-
+            $imageBeforeFile = $request->hasFile('image_before') ? $request->file('image_before') : null;
+            if ($imageBeforeFile) {
+                $imagePath = Storage::disk('public')->putFile('real_results', $imageBeforeFile);
+                $validatedData['image_before'] = $imagePath;
+            }
+            $imageAfterFile = $request->hasFile('image_after') ? $request->file('image_after') : null;
+            if ($imageAfterFile) {
+                $imagePath = Storage::disk('public')->putFile('real_results', $imageAfterFile);
+                $validatedData['image_after'] = $imagePath;
+            }
             if (! empty($id)) {
                 $result = $this->_model->query()->findOrFail($id);
+                if ($request->has('delete_image_before')) {
+                    if (isset($result->image_before)) {
+                        Storage::disk('public')->delete($result->image_before);
+                    }
+                    $validatedData['image_before'] = null;
+                }
+                if ($request->has('delete_image_after')) {
+                    if (isset($result->image_after)) {
+                        Storage::disk('public')->delete($result->image_after);
+                    }
+                    $validatedData['image_after'] = null;
+                }
                 $result->update($validatedData);
             } else {
                 $result = $this->_model->query()->create($validatedData);
             }
+            $result->syncProducts($request->product_ids);
             return redirect()
                 ->route($this->config['full_route_name'] . '.edit', ['_model' => $result->id])
                 ->with('success', t($this->config['singular_name'] . ' Added Successfully!'));
@@ -139,6 +162,12 @@ class RealResultController extends Controller
     {
         try {
             DB::beginTransaction();
+            if (isset($_model->image_before)) {
+                Storage::disk('public')->delete($_model->image_before);
+            }
+            if (isset($_model->image_after)) {
+                Storage::disk('public')->delete($_model->image_after);
+            }
             $_model->real_result_products()->delete();
             $_model->delete();
             DB::commit();
@@ -163,6 +192,7 @@ class RealResultController extends Controller
             '_model' => $this->_model,
             'config' => $this->config,
         ];
+        $data['products_list'] = Product::all();
 
         // Add data lists needed for forms
         if (in_array($action, ['create', 'edit'])) {

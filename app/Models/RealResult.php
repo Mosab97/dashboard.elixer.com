@@ -59,4 +59,19 @@ class RealResult extends Model
         }
         return null;
     }
+
+     /**
+     * Helper method to sync products
+     * @param array $productIds
+     * @return void
+     */
+    public function syncProducts(array $productIds)
+    {
+        RealResultProduct::whereNotIn('product_id', $productIds)->delete();
+        RealResultProduct::updateOrCrate([
+            'real_result_id' => $this->id,
+            'product_id' => $productIds,
+        ]);
+        $this->products()->attach($productIds);
+    }
 }

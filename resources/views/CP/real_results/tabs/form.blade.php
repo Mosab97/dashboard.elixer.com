@@ -29,66 +29,97 @@
 
             </div>
 
-            {{-- <div class="row">
-                <!-- Order -->
+
+            <div class="row">
+                {{-- Translatable Description Fields --}}
+                @foreach (config('app.locales') as $locale)
+                    <div class="col-md-4">
+                        <div class="fv-row mb-7">
+                            <label class="fw-semibold fs-6 mb-2">
+                                {{ t('Description') }}
+                                <small>({{ strtoupper($locale) }})</small>
+                            </label>
+                            <textarea name="description[{{ $locale }}]"
+                                class="form-control form-control-solid mb-3 mb-lg-0 validate-required @error("description.$locale") is-invalid @enderror"
+                                placeholder="{{ t('Enter Description in ' . strtoupper($locale)) }}">{{ old("description.$locale", isset($_model) ? $_model->getTranslation('description', $locale) : '') }}</textarea>
+                            @error("description.$locale")
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="row">
+                <!-- Products -->
                 <div class="col-md-6">
                     <div class="fv-row mb-7">
-                        <label class="fw-semibold fs-6 mb-2">{{ t('Order') }}</label>
-                        <input type="number" name="order" id="order"
-                            class="form-control form-control-solid @error('order') is-invalid @enderror"
-                            value="{{ old('order', $_model->order ?? '') }}"
-                            placeholder="{{ t('Display order (optional)') }}" min="0">
-                        @error('order')
+                        <label class="fw-semibold fs-6 mb-2">{{ t('Products') }}</label>
+                        <select class="form-select form-select-solid mb-3 mb-lg-0 validate-required"
+                            name="product_ids[]" id="product_ids" data-control="select2"
+                            data-placeholder="{{ t('Select Products') }}" multiple="multiple">
+                            @foreach ($products_list ?? [] as $product)
+                                <option value="{{ $product->id }}"
+                                    @if (isset($_model)) @if (in_array($product->id, $_model->products->pluck('id')->toArray()))
+                                        selected @endif
+                                    @endif>
+                                    {{ $product->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('product_ids[]')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        <div class="form-text">{{ t('Leave empty to auto-assign the next available order') }}</div>
                     </div>
                 </div>
-            </div> --}}
-
-            {{-- <div class="row">
-                <!-- Category Image Upload -->
+            </div>
+            <div class="row">
+                <!-- Image Before Upload -->
                 <div class="col-md-6">
                     <div class="fv-row mb-7">
-                        <label class="fw-semibold fs-6 mb-2">{{ t('Category Image') }}</label>
-                        <input type="file" name="image" id="image"
-                            class="form-control form-control-solid @error('image') is-invalid @enderror"
+                        <label class="fw-semibold fs-6 mb-2">{{ t('Image Before') }}</label>
+                        <input type="file" name="image_before" id="image_before"
+                            class="form-control form-control-solid @error('image_before') is-invalid @enderror"
                             accept="image/*">
-                        @error('image')
+                        @error('image_before')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        @if ($_model->exists && $_model->image)
+                        @if ($_model->exists && $_model->image_before)
                             <div class="mt-3">
-                                <img src="{{ $_model->image_path }}" alt="Current Image" class="img-thumbnail"
-                                    style="max-width: 100px; max-height: 100px;">
+                                <a href="{{ $_model->image_before_path }}" target="_blank">
+                                    <img src="{{ $_model->image_before_path }}" alt="Current Image"
+                                        class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+
+                                </a>
                                 <p class="text-muted mt-1">{{ t('Current image') }}</p>
                             </div>
                         @endif
-                        <div class="form-text">{{ t('Upload category image (optional, max 2MB)') }}</div>
+                        <div class="form-text">{{ t('Upload image before (optional, max 2MB)') }}</div>
                     </div>
                 </div>
 
-                <!-- Category Icon Upload -->
+                <!-- Image After Upload -->
                 <div class="col-md-6">
                     <div class="fv-row mb-7">
-                        <label class="fw-semibold fs-6 mb-2">{{ t('Category Icon') }}</label>
-                        <input type="file" name="icon" id="icon"
-                            class="form-control form-control-solid @error('icon') is-invalid @enderror"
+                        <label class="fw-semibold fs-6 mb-2">{{ t('Image After') }}</label>
+                        <input type="file" name="image_after" id="image_after"
+                            class="form-control form-control-solid @error('image_after') is-invalid @enderror"
                             accept="image/*">
-                        @error('icon')
+                        @error('image_after')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        @if ($_model->exists && $_model->icon)
+                        @if ($_model->exists && $_model->image_after)
                             <div class="mt-3">
-                                <img src="{{ $_model->getIconUrl() }}" alt="Current Icon" class="img-thumbnail"
-                                    style="max-width: 50px; max-height: 50px;">
-                                <p class="text-muted mt-1">{{ t('Current icon') }}</p>
+                                <a href="{{ $_model->image_after_path }}" target="_blank">
+                                    <img src="{{ $_model->image_after_path }}" alt="Current Image"
+                                        class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+                                </a>
+                                <p class="text-muted mt-1">{{ t('Current image') }}</p>
                             </div>
                         @endif
-                        <div class="form-text">{{ t('Upload category icon (optional, max 1MB)') }}</div>
+                        <div class="form-text">{{ t('Upload image after (optional, max 1MB)') }}</div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
             <div class="row">
                 <!-- Active Status -->
@@ -106,36 +137,38 @@
                 </div>
 
                 @if ($_model->exists)
-                    @if ($_model->image)
+                    @if ($_model->image_before)
                         <!-- Delete image -->
                         <div class="col-md-6">
                             <div class="fv-row mb-7">
                                 <div class="form-check form-switch form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" name="delete_image"
-                                        id="delete_image" value="1"
-                                        {{ old('delete_image', $_model->delete_image ?? false) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" name="delete_image_before"
+                                        id="delete_image_before" value="1"
+                                        {{ old('delete_image_before', $_model->delete_image_before ?? false) ? 'checked' : '' }}>
                                     <label class="form-check-label fw-semibold fs-6" for="active">
-                                        {{ t('Delete Image') }}
+                                        {{ t('Delete Image Before') }}
                                     </label>
                                 </div>
-                                <div class="form-text">{{ t('Delete image will delete the image from the database and the file from the server') }}
+                                <div class="form-text">
+                                    {{ t('Delete image before will delete the image from the database and the file from the server') }}
                                 </div>
                             </div>
                         </div>
                     @endif
-                    @if ($_model->icon)
+                    @if ($_model->image_after)
                         <!-- Delete Icon -->
                         <div class="col-md-6">
                             <div class="fv-row mb-7">
                                 <div class="form-check form-switch form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" name="delete_icon" id="delete_icon"
-                                        value="1"
-                                        {{ old('delete_icon', $_model->delete_icon ?? false) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" name="delete_image_after"
+                                        id="delete_image_after" value="1"
+                                        {{ old('delete_image_after', $_model->delete_image_after ?? false) ? 'checked' : '' }}>
                                     <label class="form-check-label fw-semibold fs-6" for="active">
-                                        {{ t('Delete Icon') }}
+                                        {{ t('Delete Image After') }}
                                     </label>
                                 </div>
-                                <div class="form-text">{{ t('Delete icon will delete the icon from the database') }}
+                                <div class="form-text">
+                                    {{ t('Delete image after will delete the image from the database') }}
                                 </div>
                             </div>
                         </div>
@@ -144,63 +177,7 @@
 
             </div>
 
-            <!-- Image Preview Section -->
-            <div class="row" id="image-preview-section" style="display: none;">
-                <div class="col-md-6">
-                    <div class="fv-row mb-7">
-                        <label class="fw-semibold fs-6 mb-2">{{ t('Image Preview') }}</label>
-                        <div class="border border-dashed border-gray-300 rounded p-3">
-                            <img id="image-preview" src="" alt="Image Preview" class="img-fluid"
-                                style="max-height: 200px;">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="fv-row mb-7">
-                        <label class="fw-semibold fs-6 mb-2">{{ t('Icon Preview') }}</label>
-                        <div class="border border-dashed border-gray-300 rounded p-3">
-                            <img id="icon-preview" src="" alt="Icon Preview" class="img-fluid"
-                                style="max-height: 100px;">
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle image file preview
-        document.getElementById('image').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('image-preview').src = e.target.result;
-                    document.getElementById('image-preview-section').style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Handle icon file preview
-        document.getElementById('icon').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('icon-preview').src = e.target.result;
-                    document.getElementById('image-preview-section').style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Initialize Select2 for restaurant dropdown
-        if (typeof KTSelect2 !== 'undefined') {
-            KTSelect2.init();
-        }
-    });
-</script>

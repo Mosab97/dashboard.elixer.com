@@ -155,7 +155,7 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
 
-            $_model->delete();
+            $_model->query()->delete();
             DB::commit();
 
             Log::info($this->config['singular_name'] . ' deleted successfully', [$this->config['id_field'] => $_model->id]);
