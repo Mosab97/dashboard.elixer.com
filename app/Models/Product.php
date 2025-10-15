@@ -56,6 +56,9 @@ class Product extends Model
     public function getImagePathAttribute()
     {
         if ($this->image) {
+            if (str_starts_with($this->image, 'media/products/')) {
+                return asset($this->image);
+            }
             return asset('storage/' . $this->image);
         }
         return null;
