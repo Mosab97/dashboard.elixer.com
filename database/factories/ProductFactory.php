@@ -21,7 +21,9 @@ class ProductFactory extends Factory
     {
         $nameAr = $this->faker->words(3, true);
         $nameEn = $this->faker->words(3, true);
-
+        $discount = $this->faker->randomFloat(2, 0, 30);
+        $price = $this->faker->randomFloat(2, 10, 500);
+        $priceAfterDiscount = $price - ($price * $discount / 100);
         return [
             'category_id' => Category::inRandomOrder()->first()?->id ?? Category::factory(),
             'name' => [
@@ -36,8 +38,9 @@ class ProductFactory extends Factory
                 'he' => $this->faker->paragraph(3),
             ],
             'image' => null, // Will be set in seeder
-            'discount' => $this->faker->randomFloat(2, 0, 30),
-            'price' => $this->faker->randomFloat(2, 10, 500),
+            'discount' => $discount,
+            'price' => $price,
+            'price_after_discount' => $priceAfterDiscount,
             'featured' => $this->faker->boolean(30), // 30% chance of being featured
             'active' => $this->faker->boolean(80), // 80% chance of being active
             'order' => $this->faker->numberBetween(1, 100),

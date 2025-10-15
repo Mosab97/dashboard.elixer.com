@@ -406,4 +406,6 @@ return [
     'See the Transformation' => 'اعرض التحول',
     'Current image before' => 'الصورة قبل',
     'Current image after' => 'الصورة بعد',
+  'Price After Discount' => 'Price After Discount',
+  'Enter Price After Discount' => 'Enter Price After Discount',
 ];

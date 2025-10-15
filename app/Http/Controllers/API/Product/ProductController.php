@@ -28,8 +28,12 @@ class ProductController extends Controller
         // return apiSuccess(ProductResource::collection($products));
     }
 
-    public function show(Request $request, Product $product)
+    public function show(Request $request, $slug)
     {
+        $product = Product::where('slug', $slug)->where('active', true)->first();
+        if (!$product) {
+            return apiError(api('Product not found'));
+        }
         return apiSuccess(new ProductResource($product->load('category', 'attachments')));
     }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->foreignId('region_id')->constrained('addresses')->onDelete('cascade');
+            $table->text('address')->nullable();
             $table->string('coupon_code')->nullable();
             $table->enum('payment_method', PaymentMethod::toArray())->nullable();
             $table->boolean('read_conditions')->nullable();

@@ -1858,3 +1858,9 @@ if (! function_exists('formatFileSize')) {
         }
     }
 }
+if (! function_exists('isApiRequest')) {
+    function isApiRequest($request)
+    {
+        return $request->is('api/*') || $request->expectsJson();
+    }
+}

@@ -50,18 +50,8 @@
                 @endforeach
             </div>
 
-
             <div class="row">
-                @if ($_model->exists)
-                    <div class="col-md-4">
-                        <div class="fv-row mb-7">
-                            <label class="fw-semibold fs-6 mb-2">{{ t('Slug') }}</label>
-                            <input disabled class="form-control form-control-solid"
-                                value="{{ old('slug', $_model->slug ?? '') }}" placeholder="{{ t('Enter Slug') }}">
-                        </div>
-                    </div>
-                @endif
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="fv-row mb-7">
                         <label class="fw-semibold fs-6 mb-2">{{ t('Price') }}</label>
                         <input type="number" name="price" id="price"
@@ -73,7 +63,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="fv-row mb-7">
                         <label class="fw-semibold fs-6 mb-2">{{ t('Discount %') }}</label>
                         <input type="number" name="discount" id="discount"
@@ -85,7 +75,21 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4">
+                @if ($_model->exists)
+                    <div class="col-md-3">
+                        <div class="fv-row mb-7">
+                            <label class="fw-semibold fs-6 mb-2">{{ t('Price After Discount') }}</label>
+                            <input type="number" name="price_after_discount" id="price_after_discount" readonly
+                                class="form-control form-control-solid validate-required @error('discount') is-invalid @enderror"
+                                disabled value="{{ old('price_after_discount', $_model->price_after_discount ?? '') }}"
+                                placeholder="{{ t('Enter Price After Discount') }}" min="0">
+                            @error('price_after_discount')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                @endif
+                <div class="col-md-3">
                     <div class="fv-row mb-7">
                         <label class="fw-semibold fs-6 mb-2">{{ t('Quantity') }}</label>
                         <input type="number" name="quantity" id="quantity"
@@ -97,6 +101,18 @@
                         @enderror
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                @if ($_model->exists)
+                    <div class="col-md-4">
+                        <div class="fv-row mb-7">
+                            <label class="fw-semibold fs-6 mb-2">{{ t('Slug') }}</label>
+                            <input disabled class="form-control form-control-solid"
+                                value="{{ old('slug', $_model->slug ?? '') }}" placeholder="{{ t('Enter Slug') }}">
+                        </div>
+                    </div>
+                @endif
+
                 <div class="col-md-4">
                     <div class="fv-row mb-7">
                         <label class="fw-semibold fs-6 mb-2">{{ t('Rate Count') }}</label>

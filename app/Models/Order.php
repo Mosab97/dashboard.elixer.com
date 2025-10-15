@@ -16,6 +16,7 @@ class Order extends Model
         'phone',
         'email',
         'region_id',
+        'address',
         'coupon_code',
         'payment_method',
         'read_conditions',
@@ -34,6 +35,8 @@ class Order extends Model
         'total_price_before_discount' => 'decimal:2',
         'discount' => 'decimal:2',
         'total_price_after_discount' => 'decimal:2',
+        'read_conditions' => 'boolean',
+        'payment_method' => \App\Enums\PaymentMethod::class,
     ];
 
     public function coupon()

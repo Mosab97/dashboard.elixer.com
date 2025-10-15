@@ -56,7 +56,7 @@ class Handler extends ExceptionHandler
      */
     protected function isApiRequest($request): bool
     {
-        return $request->is('api/*') || $request->expectsJson();
+        return isApiRequest($request);
     }
 
     /**

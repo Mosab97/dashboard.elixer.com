@@ -408,4 +408,6 @@ return [
   'See the Transformation' => 'See the Transformation',
   'Current image before' => 'Current image before',
   'Current image after' => 'Current image after',
+  'Price After Discount' => 'Price After Discount',
+  'Enter Price After Discount' => 'Enter Price After Discount',
 ];
