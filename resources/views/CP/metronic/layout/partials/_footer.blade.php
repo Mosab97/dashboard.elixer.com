@@ -5,7 +5,7 @@
         <!--begin::Copyright-->
         <div class="text-dark order-2 order-md-1">
             <span class="text-muted fw-semibold me-1">{{ now()->year }}&copy;</span>
-            <a href="#" class="text-gray-800 text-hover-primary">{{ t(config('app.name')) }}
+            <a href="#" class="text-gray-800 text-hover-primary">{{ Setting::get('site_name', [])[lang()] ?? config('app.name', 'default') }}
                 {{-- CRM --}}
             </a>
         </div>

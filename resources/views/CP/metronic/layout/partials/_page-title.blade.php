@@ -4,7 +4,7 @@
     class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
     <!--begin::Title-->
     <h1 class="page-heading d-flex text-dark fw-bold fs-3 align-items-center my-0">
-        {{t(config('app.name'))}}
+        {{Setting::get('site_name', [])[lang()] ?? config('app.name', 'default')}}
         {{-- CRM --}}
     </h1>
     <!--end::Title-->

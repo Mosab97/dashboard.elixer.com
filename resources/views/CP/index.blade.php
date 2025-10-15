@@ -8,7 +8,7 @@
         <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
             <div class="card shadow-sm">
                 <div class="card-header">
-                    <h3 class="card-title">{{ t(config('app.name') . ' CRM') }} </h3>
+                    <h3 class="card-title">{{ Setting::get('site_name', [])[lang()] ?? config('app.name', 'default') }} {{ t('CRM') }} </h3>
 
                 </div>
                 {{-- <div class="card-body">

@@ -2,7 +2,7 @@
 <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
     <!--begin::Logo image-->
     <a href="{{ route('home') }}">
-       <h4 class="text text-white">{{t(Config::get('app.name', 'default'))}}</h4>
+       <h4 class="text text-white">{{Setting::get('site_name', [])[lang()] ?? config('app.name', 'default')}}</h4>
     </a>
     <!--end::Logo image-->
     <div id="kt_app_sidebar_toggle"

@@ -50,6 +50,15 @@
                             <!--begin::Site Information Tab-->
                             <div class="tab-pane fade show active" id="tab_site_info" role="tabpanel">
                                 <div class="row">
+                                    @foreach (config('app.locales') as $language)
+                                        <div class="col-6">
+                                            <div class="mb-5">
+                                                <label class="form-label">{{ t('Site Name') }} ({{ strtoupper($language) }})</label>
+                                                <input type="text" class="form-control" name="site_name[{{ $language }}]"
+                                                    value="{{ Setting::get('site_name', [])[$language] ?? '' }}">
+                                            </div>
+                                        </div>
+                                    @endforeach
                                     <div class="col-6">
                                         <div class="mb-5">
                                             <label class="form-label">{{ t('Site Phone') }}</label>

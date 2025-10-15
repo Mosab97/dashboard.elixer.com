@@ -2,9 +2,10 @@
 <div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer">
     <a href="#"
         class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100"
-        data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" title="   {{ t(Config::get('app.name', 'default')) }}">
+        data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" title="
+        {{ Setting::get('site_name', [])[lang()] ?? config('app.name', 'default') }}">
         <span class="btn-label">
-            {{ t(Config::get('app.name', 'default')) }}
+            {{ Setting::get('site_name', [])[lang()] ?? config('app.name', 'default') }}
         </span>
         <span class="svg-icon btn-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

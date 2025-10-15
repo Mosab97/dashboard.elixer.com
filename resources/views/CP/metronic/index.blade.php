@@ -6,10 +6,10 @@
 
 <head>
     {{-- <base href="" /> --}}
-    <title>{{ __(config('app.name')) }} - @yield('title', 'Home')</title>
+    <title>{{ Setting::get('site_name', [])[lang()] ?? config('app.name', 'default') }} - @yield('title', 'Home')</title>
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="{{ config('app.name') }}" />
+    <meta name="description" content="{{ Setting::get('site_description', [])[lang()] ?? '' }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="{{ asset('media/logos/logo-opts-light-small.png') }}" />
     {{-- <link rel="shortcut icon" href="{{ asset('media/logos/favicon.ico') }}" /> --}}

@@ -403,4 +403,5 @@ return [
   'Icon must be a file of type: :mimes' => 'Icon must be a file of type: :mimes',
   'Icon file size must not exceed :max' => 'Icon file size must not exceed :max',
   'Select Products' => 'Select Products',
+  'Site Name' => 'Site Name',
 ];

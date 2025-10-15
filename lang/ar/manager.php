@@ -401,4 +401,5 @@ return [
     'Image must be a file of type: :mimes' => 'الصورة يجب أن يكون ملف صورة :mimes',
 
   'Select Products' => 'Select Products',
+  'Site Name' => 'Site Name',
 ];

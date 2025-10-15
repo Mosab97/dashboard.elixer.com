@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>   {{ t(Config::get('app.name', 'default')) }}</title>
+    <title> {{ Setting::get('site_name', [])[lang()] ?? config('app.name', 'default') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -76,7 +76,7 @@
             <a class="navbar-brand" href="#">
                 <img src="https://images.unsplash.com/photo-1557683311-eac922347aa1?w=100" alt="Logo" height="40"
                     class="rounded">
-                    {{ t(Config::get('app.name', 'default')) }}
+                {{ Setting::get('site_name', [])[lang()] ?? config('app.name', 'default') }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -110,7 +110,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>About    {{ t(Config::get('app.name', 'default')) }}</h5>
+                    <h5>About {{ Setting::get('site_name', [])[lang()] ?? config('app.name', 'default') }}</h5>
                     <p>Supporting and nurturing innovation in the Sultanate of Oman through various programs and
                         initiatives.</p>
                 </div>
@@ -133,7 +133,7 @@
             </div>
             <hr class="mt-4 bg-light">
             <div class="text-center">
-                <small>&copy; 2025    {{ t(Config::get('app.name', 'default')) }}. All rights reserved.</small>
+                <small>&copy; 2025 {{ Setting::get('site_name', [])[lang()] ?? config('app.name', 'default') }}. All rights reserved.</small>
             </div>
         </div>
     </footer>
