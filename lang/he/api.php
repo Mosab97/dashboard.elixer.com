@@ -487,4 +487,5 @@ return [
     'Invalid Hijri date format: Invalid date format. Expected: d/m/yyyy' => 'Invalid Hijri date format: Invalid date format. Expected: d/m/yyyy',
     'Invalid date format. Expected: d/m/yyyy' => 'Invalid date format. Expected: d/m/yyyy',
   'Appointment booked successfully' => 'Appointment booked successfully',
+  'ContactUs added successfully' => 'ContactUs added successfully',
 ];

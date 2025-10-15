@@ -56,6 +56,7 @@ class AppPermissionsHelper
         $permissions[config('modules.sucess_stories.plural_name')] = config('modules.sucess_stories.permissions');
         $permissions[config('modules.videos.plural_name')] = config('modules.videos.permissions');
         $permissions[config('modules.faq.plural_name')] = config('modules.faq.permissions');
+        $permissions[config('modules.contact_us.plural_name')] = config('modules.contact_us.permissions');
 
         $permissionFlatten = collect($permissions)->unique()->flatten(1);
         self::CheckMiddlewares($permissionFlatten);

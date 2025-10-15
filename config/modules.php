@@ -85,6 +85,25 @@ return [
             'delete' => 'delete_categories',
         ],
     ],
+    'contact_us' => [
+        'table' => 'contact_us',
+        'route' => 'contact_us',
+        'full_route_name' => 'contact_us',
+        'singular_name' => 'Contact Us',
+        'plural_name' => 'Contact Us',
+        'singular_key' => 'contact_us',
+        'plural_key' => 'contact_us',
+        'view_path' => 'CP.contact_us.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\ContactUsController::class,
+        'upload_path' => 'contact_us',
+        'permissions' => [
+            'view' => 'view_contact_us',
+            'create' => 'create_contact_us',
+            'edit' => 'edit_contact_us',
+            'delete' => 'delete_contact_us',
+        ],
+    ],
 
     'faq' => [
         'table' => 'faq',
