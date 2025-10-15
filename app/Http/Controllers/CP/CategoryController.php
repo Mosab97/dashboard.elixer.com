@@ -133,7 +133,7 @@ class CategoryController extends Controller
         try {
             DB::beginTransaction();
 
-            $_model->query()->delete();
+            $_model->delete();
             DB::commit();
 
             Log::info($this->config['singular_name'] . ' deleted successfully', [$this->config['id_field'] => $_model->id]);

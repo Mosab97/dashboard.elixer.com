@@ -140,7 +140,7 @@ class RealResultController extends Controller
         try {
             DB::beginTransaction();
             $_model->real_result_products()->delete();
-            $_model->query()->delete();
+            $_model->delete();
             DB::commit();
 
             Log::info($this->config['singular_name'] . ' deleted successfully', [$this->config['id_field'] => $_model->id]);
