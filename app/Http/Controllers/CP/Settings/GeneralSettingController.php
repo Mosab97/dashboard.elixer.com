@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Storage;
 
 class GeneralSettingController extends Controller
 {
-    use HijriDateTrait;
 
     protected $filterService;
 
