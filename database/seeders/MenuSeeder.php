@@ -136,26 +136,26 @@ class MenuSeeder extends Seeder
             'permission_name' => config('modules.how_we_works.permissions.view'),
             'route' => config('modules.how_we_works.full_route_name') . '.index',
         ];
-        $Menu[] = [
-            'name' => t(config('modules.articles_types.plural_name'), [], 'ar'),
-            'name_en' => t(config('modules.articles_types.plural_name'), [], 'en'),
-            'name_he' => t(config('modules.articles_types.plural_name'), [], 'he'),
-            'route' => null,
-            'icon_svg' => '<i class="fas fa-file-alt"></i>', // FontAwesome icon for sliders
-            'order' => 5,
-            'permission_name' => config('modules.articles_types.permissions.view'),
-            'route' => config('modules.articles_types.full_route_name') . '.index',
-        ];
-        $Menu[] = [
-            'name' => t(config('modules.articles.plural_name'), [], 'ar'),
-            'name_en' => t(config('modules.articles.plural_name'), [], 'en'),
-            'name_he' => t(config('modules.articles.plural_name'), [], 'he'),
-            'route' => null,
-            'icon_svg' => '<i class="fas fa-file-alt"></i>', // FontAwesome icon for sliders
-            'order' => 5,
-            'permission_name' => config('modules.articles.permissions.view'),
-            'route' => config('modules.articles.full_route_name') . '.index',
-        ];
+        // $Menu[] = [
+        //     'name' => t(config('modules.articles_types.plural_name'), [], 'ar'),
+        //     'name_en' => t(config('modules.articles_types.plural_name'), [], 'en'),
+        //     'name_he' => t(config('modules.articles_types.plural_name'), [], 'he'),
+        //     'route' => null,
+        //     'icon_svg' => '<i class="fas fa-file-alt"></i>', // FontAwesome icon for sliders
+        //     'order' => 5,
+        //     'permission_name' => config('modules.articles_types.permissions.view'),
+        //     'route' => config('modules.articles_types.full_route_name') . '.index',
+        // ];
+        // $Menu[] = [
+        //     'name' => t(config('modules.articles.plural_name'), [], 'ar'),
+        //     'name_en' => t(config('modules.articles.plural_name'), [], 'en'),
+        //     'name_he' => t(config('modules.articles.plural_name'), [], 'he'),
+        //     'route' => null,
+        //     'icon_svg' => '<i class="fas fa-file-alt"></i>', // FontAwesome icon for sliders
+        //     'order' => 5,
+        //     'permission_name' => config('modules.articles.permissions.view'),
+        //     'route' => config('modules.articles.full_route_name') . '.index',
+        // ];
 
         $Menu[] = [
 
@@ -178,16 +178,16 @@ class MenuSeeder extends Seeder
             'permission_name' => config('modules.sucess_stories.permissions.view'),
             'route' => config('modules.sucess_stories.full_route_name') . '.index',
         ];
-        $Menu[] = [
-            'name' => t(config('modules.videos.plural_name'), [], 'ar'),
-            'name_en' => t(config('modules.videos.plural_name'), [], 'en'),
-            'name_he' => t(config('modules.videos.plural_name'), [], 'he'),
-            'route' => null,
-            'icon_svg' => '<i class="fas fa-video"></i>', // FontAwesome icon for videos
-            'order' => 5,
-            'permission_name' => config('modules.videos.permissions.view'),
-            'route' => config('modules.videos.full_route_name') . '.index',
-        ];
+        // $Menu[] = [
+        //     'name' => t(config('modules.videos.plural_name'), [], 'ar'),
+        //     'name_en' => t(config('modules.videos.plural_name'), [], 'en'),
+        //     'name_he' => t(config('modules.videos.plural_name'), [], 'he'),
+        //     'route' => null,
+        //     'icon_svg' => '<i class="fas fa-video"></i>', // FontAwesome icon for videos
+        //     'order' => 5,
+        //     'permission_name' => config('modules.videos.permissions.view'),
+        //     'route' => config('modules.videos.full_route_name') . '.index',
+        // ];
         $Menu[] = [
             'name' => t(config('modules.faq.plural_name'), [], 'ar'),
             'name_en' => t(config('modules.faq.plural_name'), [], 'en'),
