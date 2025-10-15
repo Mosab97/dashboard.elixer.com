@@ -29,11 +29,7 @@ class ProductFactory extends Factory
                 'en' => ucwords($nameEn),
                 'he' => $nameEn,
             ],
-            'slug' => [
-                'ar' => Str::slug($nameAr),
-                'en' => Str::slug($nameEn),
-                'he' => Str::slug($nameEn),
-            ],
+            'slug' => Str::slug($nameEn),
             'description' => [
                 'ar' => $this->faker->paragraph(3),
                 'en' => $this->faker->paragraph(3),
@@ -55,7 +51,7 @@ class ProductFactory extends Factory
      */
     public function featured(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'featured' => true,
         ]);
     }
@@ -65,7 +61,7 @@ class ProductFactory extends Factory
      */
     public function active(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'active' => true,
         ]);
     }
@@ -75,9 +71,8 @@ class ProductFactory extends Factory
      */
     public function withImage(string $imagePath): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'image' => $imagePath,
         ]);
     }
 }
-

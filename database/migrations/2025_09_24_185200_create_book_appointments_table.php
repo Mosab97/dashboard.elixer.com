@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('city');
+            $table->date('date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -27,11 +27,10 @@ class Product extends Model
         'quantity',
     ];
 
-    protected $translatable = ['name', 'description', 'slug'];
+    protected $translatable = ['name', 'description'];
 
     protected $casts = [
         'name' => 'array',
-        'slug' => 'array',
         'description' => 'array',
         'discount' => 'decimal:2',
         'price' => 'decimal:2',

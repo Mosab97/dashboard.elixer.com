@@ -334,4 +334,7 @@ return [
   'Feature' => 'Feature',
   'Rate Count' => 'Rate Count',
   'Enter Rate Count' => 'Enter Rate Count',
+  'Slug must be unique' => 'Slug must be unique',
+  'Description must not exceed 20000 characters' => 'Description must not exceed 20000 characters',
+  'Enter Slug' => 'Enter Slug',
 ];

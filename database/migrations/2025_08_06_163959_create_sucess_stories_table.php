@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('owner_name')->nullable();
             $table->integer('rate')->nullable();
             $table->longText('description')->nullable();
+            $table->string('url')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->boolean('active')->default(true);
             $table->softDeletes();
             $table->timestamps();

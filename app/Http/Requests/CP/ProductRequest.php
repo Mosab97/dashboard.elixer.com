@@ -3,6 +3,7 @@
 namespace App\Http\Requests\CP;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class ProductRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class ProductRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|array',
-            'slug' => 'required|array',
+            'slug' => 'required|string|unique:products,slug',
             'description' => 'nullable|array',
             'discount' => 'nullable|numeric|min:0',
             'price_after_discount' => 'required|numeric|min:0',
@@ -38,7 +39,7 @@ class ProductRequest extends FormRequest
         ];
         foreach (config('app.locales') as $locale) {
             $rules['name.' . $locale] = 'required|string|max:255';
-            $rules['slug.' . $locale] = 'required|string|max:255';
+            $rules['description.' . $locale] = 'nullable|string|max:20000';
         }
         return $rules;
     }
@@ -56,16 +57,14 @@ class ProductRequest extends FormRequest
             'name.*.required' => t('Name is required'),
             'name.*.string' => t('Name must be a string'),
             'name.*.max' => t('Name must not exceed 255 characters'),
+
             'slug.required' => t('Slug is required'),
-            'slug.array' => t('Slug must be provided in multiple languages'),
             'slug.string' => t('Slug must be a string'),
-            'slug.max' => t('Slug must not exceed 255 characters'),
-            'slug.*.required' => t('Slug is required'),
-            'slug.*.string' => t('Slug must be a string'),
-            'slug.*.max' => t('Slug must not exceed 255 characters'),
+            'slug.unique' => t('Slug must be unique'),
+
             'description.array' => t('Description must be provided in multiple languages'),
             'description.*.string' => t('Description must be a string'),
-            'description.*.max' => t('Description must not exceed 255 characters'),
+            'description.*.max' => t('Description must not exceed 20000 characters'),
             'discount.numeric' => t('Discount must be a number'),
             'discount.min' => t('Discount must be at least 0'),
             'price.required' => t('Price is required'),
@@ -90,7 +89,8 @@ class ProductRequest extends FormRequest
         $this->merge([
             'active' => $this->has('active') ? true : false,
             'featured' => $this->has('featured') ? true : false,
-            'price_after_discount' =>$price_after_discount
+            'price_after_discount' => $price_after_discount,
+            'slug' => Str::slug($this->name['en']),
         ]);
         // dd($this->all(), $this->price - ($this->price * $this->discount));
     }

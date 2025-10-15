@@ -16,9 +16,12 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories');
             $table->json('name');
             $table->longText('description')->nullable();
+            $table->string('slug')->unique();
             $table->string('image')->nullable();
-            $table->double('discount', 10, 2)->default(0);
             $table->double('price', 10, 2)->default(0);
+            $table->double('discount', 10, 2)->default(0);
+            $table->double('price_after_discount')->default(0);
+            $table->double('rate_count')->default(0);
             $table->integer('quantity')->default(0);
             $table->boolean('featured')->default(false);
             $table->boolean('active')->default(true);

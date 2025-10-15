@@ -28,26 +28,7 @@
                 @endforeach
             </div>
 
-            <div class="row">
-                {{-- Translatable Slug Fields --}}
-                @foreach (config('app.locales') as $locale)
-                    <div class="col-md-4">
-                        <div class="fv-row mb-7">
-                            <label class="fw-semibold fs-6 mb-2">
-                                {{ t('Slug') }}
-                                <small>({{ strtoupper($locale) }})</small>
-                            </label>
-                            <input type="text" name="slug[{{ $locale }}]"
-                                class="form-control form-control-solid mb-3 mb-lg-0 validate-required @error("slug.$locale") is-invalid @enderror"
-                                placeholder="{{ t('Enter Name in ' . strtoupper($locale)) }}"
-                                value="{{ old("slug.$locale", isset($_model) ? $_model->getTranslation('slug', $locale) : '') }}" />
-                            @error("slug.$locale")
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+
 
             <div class="row">
                 {{-- Translatable Description Fields --}}
@@ -71,6 +52,15 @@
 
 
             <div class="row">
+                @if ($_model->exists)
+                    <div class="col-md-4">
+                        <div class="fv-row mb-7">
+                            <label class="fw-semibold fs-6 mb-2">{{ t('Slug') }}</label>
+                            <input disabled class="form-control form-control-solid"
+                                value="{{ old('slug', $_model->slug ?? '') }}" placeholder="{{ t('Enter Slug') }}">
+                        </div>
+                    </div>
+                @endif
                 <div class="col-md-4">
                     <div class="fv-row mb-7">
                         <label class="fw-semibold fs-6 mb-2">{{ t('Price') }}</label>
