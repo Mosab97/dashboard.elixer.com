@@ -11,13 +11,20 @@ class RealResultResource extends JsonResource
 
         $fields = [
             'id' => $this->id,
-            'products' => $this->whenLoaded('products', function () {
-                return ProductResource::collection($this->products);
-            }),
+
             'name' => $this->name,
             'description' => $this->description,
             'image_before' => $this->image_before_path,
             'image_after' => $this->image_after_path,
+            'products' => $this->whenLoaded('products', function () {
+                return $this->products->map(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'image' => $product->image_path,
+                    ];
+                });
+            }),
             'active' => $this->active,
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
