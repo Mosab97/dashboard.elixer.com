@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('image_before')->nullable();
             $table->string('image_after')->nullable();
+            $table->string('duration')->nullable();
             $table->boolean('active')->default(true);
             $table->integer('order')->default(0);
             $table->timestamps();

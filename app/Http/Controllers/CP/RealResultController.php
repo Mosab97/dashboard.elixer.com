@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CP;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CP\RealResultRequest;
+use App\Models\RealResultProduct;
 use App\Models\RealResult;
 use App\Services\Filters\RealResultFilterService;
 use Illuminate\Http\Request;
@@ -60,12 +61,15 @@ class RealResultController extends Controller
                     return '<a href="' . route($this->config['full_route_name'] . '.edit', ['_model' => $item->id]) . '" class="fw-bold text-gray-800 text-hover-primary">'
                         . ($item->name ?? 'N/A') . '</a>';
                 })
-                    ->editColumn('image_before', function ($item) {
-                        return '<img src="' . $item->image_path_before . '" alt="' . $item->name . '" class="img-fluid" style="max-width: 100px; max-height: 100px;">';
-                    })
-                    ->editColumn('image_after', function ($item) {
-                        return '<img src="' . $item->image_path_after . '" alt="' . $item->name . '" class="img-fluid" style="max-width: 100px; max-height: 100px;">';
-                    })
+                ->editColumn('image_before', function ($item) {
+                    return '<a target="_blank" href="' . $item->image_before_path . '" target="_blank"><img src="' . $item->image_before_path . '" alt="' . $item->name . '" class="img-fluid" style="max-width: 100px; max-height: 100px;"></a>';
+                })
+                ->editColumn('image_after', function ($item) {
+                    return '<a target="_blank" href="' . $item->image_after_path . '" target="_blank"><img src="' . $item->image_after_path . '" alt="' . $item->name . '" class="img-fluid" style="max-width: 100px; max-height: 100px;"></a>';
+                })
+                ->editColumn('duration', function ($item) {
+                    return $item->duration ?? 'N/A';
+                })
 
                 ->addColumn('action', function ($item) {
                     try {
@@ -81,7 +85,7 @@ class RealResultController extends Controller
                         throw $e;
                     }
                 })
-                ->rawColumns(['name', 'image_before', 'image_after', 'status', 'action'])
+                ->rawColumns(['name', 'image_before', 'image_after', 'duration', 'action'])
                 ->make(true);
         }
     }
@@ -135,7 +139,7 @@ class RealResultController extends Controller
     {
         try {
             DB::beginTransaction();
-
+            $_model->real_result_products()->delete();
             $_model->query()->delete();
             DB::commit();
 

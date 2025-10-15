@@ -12,7 +12,15 @@ class RealResult extends Model
 {
     use HasFactory, HasTranslations, SoftDeletes;
 
-    protected $fillable = ['name', 'description', 'image_before', 'image_after', 'active', 'order'];
+    protected $fillable = [
+        'name',
+        'description',
+        'duration',
+        'image_before',
+        'image_after',
+        'active',
+        'order'
+    ];
 
     protected $translatable = ['name', 'description'];
 

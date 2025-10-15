@@ -367,4 +367,13 @@ return [
   'Contact Us Added Successfully!' => 'Contact Us Added Successfully!',
   'Contact Us Edit Contact Us' => 'Contact Us Edit Contact Us',
   'Real Results' => 'Real Results',
+  'Search Real Result' => 'Search Real Result',
+  'Add Real Result' => 'Add Real Result',
+  'Edit Real Result' => 'Edit Real Result',
+  'Remove Real Result' => 'Remove Real Result',
+  'Image Before' => 'Image Before',
+  'Image After' => 'Image After',
+  'Duration' => 'Duration',
+  'Real Result Deleted Successfully!' => 'Real Result Deleted Successfully!',
+  'Product Deleted Successfully!' => 'Product Deleted Successfully!',
 ];

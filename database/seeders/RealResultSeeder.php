@@ -28,6 +28,7 @@ class RealResultSeeder extends Seeder
             ],
             'image_before' => 'media/real-results/before01.jpg',
             'image_after' => 'media/real-results/after01.jpg',
+            'duration' => '4 weeks',
             'active' => true,
         ]);
         $randomProducts = Product::inRandomOrder()->take(3)->pluck('id');
@@ -45,6 +46,7 @@ class RealResultSeeder extends Seeder
             ],
             'image_before' => 'media/real-results/before02.jpg',
             'image_after' => 'media/real-results/after02.jpg',
+            'duration' => '6 weeks',
             'active' => true,
         ]);
         $randomProducts = Product::inRandomOrder()->take(3)->pluck('id');

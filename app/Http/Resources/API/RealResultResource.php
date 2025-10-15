@@ -16,6 +16,7 @@ class RealResultResource extends JsonResource
             'description' => $this->description,
             'image_before' => $this->image_before_path,
             'image_after' => $this->image_after_path,
+            'duration' => $this->duration,
             'products' => $this->whenLoaded('products', function () {
                 return $this->products->map(function ($product) {
                     return [
