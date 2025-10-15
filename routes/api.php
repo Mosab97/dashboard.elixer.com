@@ -23,9 +23,10 @@ Route::prefix('v1')->middleware(['localization'])->group(function () {
     Route::get('/home', [HomeController::class, 'home']);
     Route::get('/categories', [HomeController::class, 'categories']);
     Route::get('/addresses', [HomeController::class, 'addresses']);
-    Route::get('/products', [ProductController::class, 'index']);
-    Route::get('/products/{product}', [ProductController::class, 'show']);
+    Route::prefix('products')->controller(ProductController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/{product}', 'show');
+    });
     Route::get('/faqs', [FAQController::class, 'index']);
     Route::post('/contact-us', [ContactUsController::class, 'store']);
-
 });

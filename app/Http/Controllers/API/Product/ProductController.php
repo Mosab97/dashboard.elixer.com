@@ -28,8 +28,8 @@ class ProductController extends Controller
         // return apiSuccess(ProductResource::collection($products));
     }
 
-    public function show(Product $product)
+    public function show(Request $request, Product $product)
     {
-        return apiSuccess(new ProductResource($product->load('sizes', 'attachments')));
+        return apiSuccess(new ProductResource($product->load('category', 'attachments')));
     }
 }
