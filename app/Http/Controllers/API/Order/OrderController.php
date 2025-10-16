@@ -104,7 +104,7 @@ class OrderController extends Controller
                 'last_name' => $validated['last_name'],
                 'phone' => $validated['phone'],
                 'email' => $validated['email'],
-                'region_id' => $validated['region_id'],
+                'region_id' => $validated['region_id']??null,
                 'address' => $validated['address'] ?? null,
                 'coupon_code' => $couponCode,
                 'delivery_method' => $validated['delivery_method'],
