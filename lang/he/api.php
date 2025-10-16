@@ -521,4 +521,10 @@ return [
   'Quantity must be at least 1' => 'Quantity must be at least 1',
   'Product not found' => 'Product not found',
   'Insufficient product quantity for :product_name' => 'Insufficient product quantity for :product_name',
+  'Coupon is not active' => 'Coupon is not active',
+  'Delivery method is required' => 'Delivery method is required',
+  'Delivery method must be a string' => 'Delivery method must be a string',
+  'Delivery method is invalid' => 'Delivery method is invalid',
+  'Region is required for home delivery' => 'Region is required for home delivery',
+  'Address must be a string' => 'Address must be a string',
 ];

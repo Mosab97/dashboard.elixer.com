@@ -46,7 +46,7 @@ class ProductRequest extends FormRequest
             'active' => 'boolean',
             'quantity' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
-            'rate_count' => 'required|integer|min:0',
+            'rate_count' => 'required|integer|min:0|max:5',
         ];
         foreach (config('app.locales') as $locale) {
             $rules['name.' . $locale] = 'required|string|max:255';
@@ -99,6 +99,11 @@ class ProductRequest extends FormRequest
             'quantity.min' => t('Quantity must be at least 0'),
             'category_id.required' => t('Category is required'),
             'category_id.exists' => t('Category must exist'),
+
+            'rate_count.required' => t('Rate count is required'),
+            'rate_count.integer' => t('Rate count must be a number'),
+            'rate_count.min' => t('Rate count must be at least 0'),
+            'rate_count.max' => t('Rate count must be at most 5'),
 
         ];
     }

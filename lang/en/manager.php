@@ -418,4 +418,5 @@ return [
   'Details must be provided in multiple languages' => 'Details must be provided in multiple languages',
   'Details must be a string' => 'Details must be a string',
   'Details must not exceed 20000 characters' => 'Details must not exceed 20000 characters',
+  'Inactive' => 'Inactive',
 ];

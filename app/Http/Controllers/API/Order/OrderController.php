@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\Api\Order\OrderRequest;
 use App\Http\Resources\API\OrderResource;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -25,13 +26,17 @@ class OrderController extends Controller
             // Start transaction
             DB::beginTransaction();
 
-            // Get region/address details for delivery fee
-            $region = Address::find($validated['region_id']);
-            if (!$region || !$region->active) {
-                return apiError(api('Selected region is not available'), 422);
+            // Calculate delivery fee based on delivery method
+            $deliveryFee = 0;
+            if ($validated['delivery_method'] === \App\Enums\DeliveryMethod::DELIVERY->value) {
+                // Get region/address details for delivery fee
+                $region = Address::find($validated['region_id']);
+                if (!$region || !$region->active) {
+                    return apiError(api('Selected region is not available'), 422);
+                }
+                $deliveryFee = $region->price ?? 0;
             }
-
-            $deliveryFee = $region->price ?? 0;
+            // If pickup, delivery fee remains 0
 
             // Initialize variables
             $subTotal = 0;
@@ -102,6 +107,7 @@ class OrderController extends Controller
                 'region_id' => $validated['region_id'],
                 'address' => $validated['address'] ?? null,
                 'coupon_code' => $couponCode,
+                'delivery_method' => $validated['delivery_method'],
                 'payment_method' => $validated['payment_method'],
                 'read_conditions' => $validated['read_conditions'],
                 'sub_total' => $subTotal,
@@ -159,5 +165,23 @@ class OrderController extends Controller
             ]);
             return apiError(api('Failed to create order. Please try again.'), 500);
         }
+    }
+    public function couponCheck(Request $request)
+    {
+        $coupon = Coupon::where('code', $request->coupon_code)->first();
+
+        if (!$coupon) {
+            return apiError(api('Coupon is not valid'), 422);
+        }
+
+        if (!$coupon->active) {
+            return apiError(api('Coupon is not active'), 422);
+        }
+
+        if ($coupon->expiry_date < now()) {
+            return apiError(api('Coupon has expired'), 422);
+        }
+
+        return apiSuccess($coupon);
     }
 }

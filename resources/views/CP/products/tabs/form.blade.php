@@ -119,7 +119,7 @@
                         <input type="number" name="rate_count" id="rate_count"
                             class="form-control form-control-solid validate-required @error('rate_count') is-invalid @enderror"
                             value="{{ old('rate_count', $_model->rate_count ?? '') }}"
-                            placeholder="{{ t('Enter Rate Count') }}" min="0">
+                            placeholder="{{ t('Enter Rate Count') }}" min="0" max="5">
                         @error('rate_count')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

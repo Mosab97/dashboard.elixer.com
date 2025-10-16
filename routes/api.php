@@ -30,6 +30,7 @@ Route::prefix('v1')->middleware(['localization'])->group(function () {
     });
     Route::prefix('orders')->controller(OrderController::class)->group(function () {
         Route::post('/checkout', 'checkout');
+        Route::post('/coupon-check', 'couponCheck');
     });
     Route::get('/faqs', [FAQController::class, 'index']);
     Route::post('/contact-us', [ContactUsController::class, 'store']);

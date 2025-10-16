@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Order;
 
 use App\Enums\PaymentMethod;
+use App\Enums\DeliveryMethod;
 use Illuminate\Foundation\Http\FormRequest;
 
 class OrderRequest extends FormRequest
@@ -29,9 +30,10 @@ class OrderRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
-            'region_id' => 'required|exists:addresses,id',
-            'home_address' => 'nullable|string',
+            'region_id' => 'required_if:delivery_method,' . DeliveryMethod::DELIVERY->value . '|nullable|exists:addresses,id',
+            'address' => 'required_if:delivery_method,' . DeliveryMethod::DELIVERY->value . '|nullable|string',
             'coupon' => 'nullable|string|exists:coupons,code',
+            'delivery_method' => ['required', 'string', 'in:' . implode(',', DeliveryMethod::toArray())],
             'payment_method' => ['required', 'string', 'in:' . implode(',', PaymentMethod::toArray())],
             'read_conditions' => 'required|boolean|accepted',
             'item' => 'required|array|min:1',
@@ -61,12 +63,14 @@ class OrderRequest extends FormRequest
             'email.required' => api('Email is required'),
             'email.email' => api('Email must be a valid email address'),
             'email.max' => api('Email must not exceed 255 characters'),
-            'region_id.required' => api('Region is required'),
+            'region_id.required_if' => api('Region is required for home delivery'),
             'region_id.exists' => api('Region is invalid'),
-            'home_address.string' => api('Home address must be a string'),
-            'home_address.max' => api('Home address must not exceed 255 characters'),
+            'address.string' => api('Address must be a string'),
             'coupon.string' => api('Coupon must be a string'),
             'coupon.exists' => api('Coupon is invalid'),
+            'delivery_method.required' => api('Delivery method is required'),
+            'delivery_method.string' => api('Delivery method must be a string'),
+            'delivery_method.in' => api('Delivery method is invalid'),
             'payment_method.required' => api('Payment method is required'),
             'payment_method.string' => api('Payment method must be a string'),
             'payment_method.in' => api('Payment method is invalid'),

@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\PaymentMethod;
+use App\Enums\DeliveryMethod;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('coupon_code')->nullable();
             $table->enum('payment_method', PaymentMethod::toArray())->nullable();
+            $table->enum('delivery_method', DeliveryMethod::toArray())->nullable();
             $table->boolean('read_conditions')->nullable();
             $table->decimal('sub_total', 10, 2)->default(0);
             $table->decimal('delivery_fee', 10, 2)->default(0);
