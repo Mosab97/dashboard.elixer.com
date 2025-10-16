@@ -52,7 +52,7 @@
                                         class="path2"></span></i> {{ __('Export') }}
                             </a> --}}
                             <!--end::Filter-->
-                            <!--begin::Add captins-->
+                            {{-- <!--begin::Add captins-->
                             <a href="{{ route($config['full_route_name'] . '.create') }}" class="btn btn-primary"
                                 id="add_{{ $config['singular_key'] }}_modal">
                                 <span class="indicator-label">
@@ -72,7 +72,7 @@
                                         class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                 </span>
                             </a>
-                            <!--end::Add captins-->
+                            <!--end::Add captins--> --}}
                         </div>
                         <!--end::Toolbar-->
 

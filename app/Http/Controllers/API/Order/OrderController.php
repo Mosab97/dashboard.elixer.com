@@ -47,12 +47,12 @@ class OrderController extends Controller
                 $product = Product::find($item['product_id']);
 
                 if (!$product || !$product->active) {
-                    return apiError(api('Product not available'), 422);
+                    return apiError(api(':product_name is not available', ['product_name' => $product->name]), 422);
                 }
 
                 // Check if product has enough quantity
                 if ($product->quantity < $item['quantity']) {
-                    return apiError(api('Insufficient product quantity for :product_name', ['product_name' => $product->name]), 422);
+                    return apiError(api(':product_name has insufficient quantity', ['product_name' => $product->name]), 422);
                 }
 
                 // Use price_after_discount if available, otherwise use regular price
