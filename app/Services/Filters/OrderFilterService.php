@@ -11,19 +11,19 @@ class OrderFilterService
      */
     public function applyFilters($query, $params)
     {
-        Log::info('Starting to apply category filters with params:', $params);
+        Log::info('Starting to apply order filters with params:', $params);
 
         foreach ($params as $key => $value) {
             if ($value !== null && $value !== '') {
-                Log::info("Applying category filter for: $key with value:", ['value' => $value]);
+                Log::info("Applying order filter for: $key with value:", ['value' => $value]);
                 $this->applyFilter($query, $key, $value);
             } else {
-                Log::info("Skipping category filter for: $key as the value is null or empty.");
+                Log::info("Skipping order filter for: $key as the value is null or empty.");
             }
         }
 
         logQuery($query);
-        Log::info('All category filters applied.');
+        Log::info('All order filters applied.');
 
         return $query;
     }
@@ -37,17 +37,17 @@ class OrderFilterService
             case 'search':
                 $this->filterBySearch($query, $value);
                 break;
-            case 'restaurant_id':
-                $this->filterByRestaurant($query, $value);
+            case 'payment_method':
+                $this->filterByPaymentMethod($query, $value);
                 break;
-            case 'active':
-                $this->filterByActive($query, $value);
+            case 'delivery_method':
+                $this->filterByDeliveryMethod($query, $value);
                 break;
             case 'date_range':
                 $this->filterByDateRange($query, $value, 'created_at');
                 break;
             default:
-                Log::warning("Unknown category filter key: $key");
+                Log::warning("Unknown order filter key: $key");
                 break;
         }
     }
@@ -58,71 +58,44 @@ class OrderFilterService
     private function filterBySearch($query, $value)
     {
         $query->where(function ($query) use ($value) {
-            // Search in translatable first_name field
-            $locales = config('app.locales', ['en', 'ar']);
-            foreach ($locales as $locale) {
-                $query->orWhereRaw(
-                    "LOWER(JSON_UNQUOTE(JSON_EXTRACT(first_name, '$.{$locale}'))) LIKE ?",
-                    ['%' . strtolower($value) . '%']
-                );
-                $query->orWhereRaw(
-                    "LOWER(JSON_UNQUOTE(JSON_EXTRACT(last_name, '$.{$locale}'))) LIKE ?",
-                    ['%' . strtolower($value) . '%']
-                );
-                $query->orWhereRaw(
-                    "LOWER(JSON_UNQUOTE(JSON_EXTRACT(phone, '$.{$locale}'))) LIKE ?",
-                    ['%' . strtolower($value) . '%']
-                );
-                $query->orWhereRaw(
-                    "LOWER(JSON_UNQUOTE(JSON_EXTRACT(email, '$.{$locale}'))) LIKE ?",
-                    ['%' . strtolower($value) . '%']
-                );
-                $query->orWhereRaw(
-                    "LOWER(JSON_UNQUOTE(JSON_EXTRACT(address, '$.{$locale}'))) LIKE ?",
-                    ['%' . strtolower($value) . '%']
-                );
-                $query->orWhereRaw(
-                    "LOWER(JSON_UNQUOTE(JSON_EXTRACT(coupon_code, '$.{$locale}'))) LIKE ?",
-                    ['%' . strtolower($value) . '%']
-                );
-                $query->orWhereRaw(
-                    "LOWER(JSON_UNQUOTE(JSON_EXTRACT(delivery_method, '$.{$locale}'))) LIKE ?",
-                    ['%' . strtolower($value) . '%']
-                );
-                $query->orWhereRaw(
-                    "LOWER(JSON_UNQUOTE(JSON_EXTRACT(payment_method, '$.{$locale}'))) LIKE ?",
-                    ['%' . strtolower($value) . '%']
-                );
-            }
+            // Search by order ID
+            $query->where('orders.id', 'LIKE', '%' . $value . '%')
+                // Search in first_name (plain string field)
+                ->orWhere('orders.first_name', 'LIKE', '%' . $value . '%')
+                // Search in last_name (plain string field)
+                ->orWhere('orders.last_name', 'LIKE', '%' . $value . '%')
+                // Search in phone (plain string field)
+                ->orWhere('orders.phone', 'LIKE', '%' . $value . '%')
+                // Search in email (plain string field)
+                ->orWhere('orders.email', 'LIKE', '%' . $value . '%')
+                // Search in address (plain string field)
+                ->orWhere('orders.address', 'LIKE', '%' . $value . '%')
+                // Search in coupon_code (plain string field)
+                ->orWhere('orders.coupon_code', 'LIKE', '%' . $value . '%');
         });
     }
 
     /**
-     * Filter by restaurant
+     * Filter by payment method
      */
-    private function filterByRestaurant($query, $value)
+    private function filterByPaymentMethod($query, $value)
     {
         if (is_array($value)) {
-            $query->whereIn('restaurant_id', $value);
+            $query->whereIn('payment_method', $value);
         } else {
-            $query->where('restaurant_id', $value);
+            $query->where('payment_method', $value);
         }
     }
 
     /**
-     * Filter by active status
+     * Filter by delivery method
      */
-    private function filterByActive($query, $value)
+    private function filterByDeliveryMethod($query, $value)
     {
         if (is_array($value)) {
-            if (in_array('1', $value) && ! in_array('0', $value)) {
-                $query->where('active', true);
-            } elseif (! in_array('1', $value) && in_array('0', $value)) {
-                $query->where('active', false);
-            }
-            // If both or none selected, no filtering needed
+            $query->whereIn('delivery_method', $value);
         } else {
-            $query->where('active', $value == '1');
+            $query->where('delivery_method', $value);
         }
     }
 
