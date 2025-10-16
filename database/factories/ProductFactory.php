@@ -13,6 +13,46 @@ use Illuminate\Support\Str;
 class ProductFactory extends Factory
 {
     /**
+     * Generate HTML content for product fields.
+     *
+     * @return string
+     */
+    private function generateHtmlContent(): string
+    {
+        $paragraphs = $this->faker->numberBetween(2, 4);
+        $html = '';
+
+        for ($i = 0; $i < $paragraphs; $i++) {
+            $html .= '<p>' . $this->faker->paragraph($this->faker->numberBetween(2, 5)) . '</p>';
+        }
+
+        // Add a list sometimes
+        if ($this->faker->boolean(60)) {
+            $html .= '<ul>';
+            $items = $this->faker->numberBetween(3, 6);
+            for ($j = 0; $j < $items; $j++) {
+                $html .= '<li>' . $this->faker->sentence($this->faker->numberBetween(3, 8)) . '</li>';
+            }
+            $html .= '</ul>';
+        }
+
+        // Add another paragraph with some emphasis
+        $text = $this->faker->paragraph(3);
+        $words = explode(' ', $text);
+        $randomIndex = $this->faker->numberBetween(0, count($words) - 3);
+        $words[$randomIndex] = '<strong>' . $words[$randomIndex] . '</strong>';
+        if ($this->faker->boolean(50)) {
+            $randomIndex2 = $this->faker->numberBetween(0, count($words) - 3);
+            if ($randomIndex2 !== $randomIndex) {
+                $words[$randomIndex2] = '<em>' . $words[$randomIndex2] . '</em>';
+            }
+        }
+        $html .= '<p>' . implode(' ', $words) . '</p>';
+
+        return $html;
+    }
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
@@ -36,6 +76,16 @@ class ProductFactory extends Factory
                 'ar' => $this->faker->paragraph(3),
                 'en' => $this->faker->paragraph(3),
                 'he' => $this->faker->paragraph(3),
+            ],
+            'how_to_use' => [
+                'ar' => $this->generateHtmlContent(),
+                'en' => $this->generateHtmlContent(),
+                'he' => $this->generateHtmlContent(),
+            ],
+            'details' => [
+                'ar' => $this->generateHtmlContent(),
+                'en' => $this->generateHtmlContent(),
+                'he' => $this->generateHtmlContent(),
             ],
             'image' => null, // Will be set in seeder
             'discount' => $discount,

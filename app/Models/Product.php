@@ -16,6 +16,8 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'how_to_use',
+        'details',
         'image',
         'price',
         'discount',
@@ -27,11 +29,9 @@ class Product extends Model
         'quantity',
     ];
 
-    protected $translatable = ['name', 'description'];
+    protected $translatable = ['name', 'description', 'how_to_use', 'details'];
 
     protected $casts = [
-        'name' => 'array',
-        'description' => 'array',
         'discount' => 'decimal:2',
         'price' => 'decimal:2',
         'price_after_discount' => 'decimal:2',

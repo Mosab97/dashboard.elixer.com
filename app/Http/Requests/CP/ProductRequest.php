@@ -4,6 +4,7 @@ namespace App\Http\Requests\CP;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProductRequest extends FormRequest
 {
@@ -24,10 +25,20 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->input(config('modules.products.id_field'));
+
+        $isUpdate = ! empty($id);
+
         $rules = [
             'name' => 'required|array',
-            'slug' => 'required|string|unique:products,slug',
+            'slug' => [
+                'required',
+                'string',
+                $isUpdate ? Rule::unique('products')->ignore($id) : Rule::unique('products')
+            ],
             'description' => 'nullable|array',
+            'how_to_use' => 'nullable|array',
+            'details' => 'nullable|array',
             'discount' => 'nullable|numeric|min:0',
             'price_after_discount' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
@@ -40,6 +51,8 @@ class ProductRequest extends FormRequest
         foreach (config('app.locales') as $locale) {
             $rules['name.' . $locale] = 'required|string|max:255';
             $rules['description.' . $locale] = 'nullable|string|max:20000';
+            $rules['how_to_use.' . $locale] = 'nullable|string|max:20000';
+            $rules['details.' . $locale] = 'nullable|string|max:20000';
         }
         return $rules;
     }
@@ -67,6 +80,15 @@ class ProductRequest extends FormRequest
             'description.*.max' => t('Description must not exceed 20000 characters'),
             'discount.numeric' => t('Discount must be a number'),
             'discount.min' => t('Discount must be at least 0'),
+
+            'how_to_use.array' => t('How to Use must be provided in multiple languages'),
+            'how_to_use.*.string' => t('How to Use must be a string'),
+            'how_to_use.*.max' => t('How to Use must not exceed 20000 characters'),
+            'details.array' => t('Details must be provided in multiple languages'),
+            'details.*.string' => t('Details must be a string'),
+            'details.*.max' => t('Details must not exceed 20000 characters'),
+
+
             'price.required' => t('Price is required'),
             'price.numeric' => t('Price must be a number'),
             'price.min' => t('Price must be at least 0'),

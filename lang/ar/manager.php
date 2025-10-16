@@ -408,4 +408,12 @@ return [
     'Current image after' => 'الصورة بعد',
   'Price After Discount' => 'Price After Discount',
   'Enter Price After Discount' => 'Enter Price After Discount',
+  'How to Use' => 'How to Use',
+  'Details' => 'Details',
+  'How to Use must be provided in multiple languages' => 'How to Use must be provided in multiple languages',
+  'How to Use must be a string' => 'How to Use must be a string',
+  'How to Use must not exceed 20000 characters' => 'How to Use must not exceed 20000 characters',
+  'Details must be provided in multiple languages' => 'Details must be provided in multiple languages',
+  'Details must be a string' => 'Details must be a string',
+  'Details must not exceed 20000 characters' => 'Details must not exceed 20000 characters',
 ];

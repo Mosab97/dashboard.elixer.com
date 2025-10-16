@@ -526,4 +526,5 @@ return [
   'Quantity must be an integer' => 'Quantity must be an integer',
   'Quantity must be at least 1' => 'Quantity must be at least 1',
   'Product not found' => 'Product not found',
+  'Insufficient product quantity for :product_name' => 'Insufficient product quantity for :product_name',
 ];

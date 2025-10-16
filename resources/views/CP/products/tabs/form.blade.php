@@ -220,7 +220,81 @@
 
             </div>
 
+            <div class="row" id="html_editor_section">
+                <!-- How to Use -->
+                @foreach (config('app.locales') as $language)
+                    <div class="col-md-4">
+                        <div class="mb-5">
+                            <label class="form-label">{{ t('How to Use') }}
+                                ({{ strtoupper($language) }})
+                            </label>
+                            <textarea class="form-control" rows="6" name="how_to_use[{{ $language }}]">{!! old('how_to_use.' . $language, $_model->getTranslation('how_to_use', $language) ?? '') !!}</textarea>
+                        </div>
+                    </div>
+                @endforeach
+                <!-- Details -->
+                @foreach (config('app.locales') as $language)
+                    <div class="col-md-4">
+                        <div class="mb-5">
+                            <label class="form-label">{{ t('Details') }}
+                                ({{ strtoupper($language) }})
+                            </label>
+                            <textarea class="form-control" rows="6" name="details[{{ $language }}]">{!! old('details.' . $language, $_model->getTranslation('details', $language) ?? '') !!}</textarea>
+                        </div>
+                    </div>
+                @endforeach
 
+            </div>
         </div>
     </div>
 </div>
+
+
+
+
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find all textarea elements in the settings form
+        const form = document.getElementById('html_editor_section');
+        if (!form) return;
+
+        const textareas = form.querySelectorAll('textarea');
+        const editors = []; // Store editor instances for form submission
+
+        // Initialize CKEditor for each textarea
+        textareas.forEach((textarea, index) => {
+            ClassicEditor.create(textarea, {
+                    placeholder: 'Enter content...',
+                    toolbar: {
+                        items: [
+                            'heading', '|',
+                            'bold', 'italic', 'underline', 'link', '|',
+                            'bulletedList', 'numberedList', 'outdent', 'indent', '|',
+                            'blockQuote', 'insertTable', 'undo', 'redo'
+                        ]
+                    },
+                    table: {
+                        contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                    }
+                    // language: 'ar' // uncomment if you want full UI in Arabic
+                })
+                .then(editor => {
+                    // Store editor instance
+                    editors.push({
+                        editor: editor,
+                        textarea: textarea
+                    });
+
+                    console.log(`CKEditor initialized for textarea: ${textarea.name || 'unnamed'}`);
+                })
+                .catch(error => {
+                    console.error(
+                        `Failed to initialize CKEditor for textarea ${textarea.name || 'unnamed'}:`,
+                        error);
+                });
+        });
+
+
+    });
+</script>
