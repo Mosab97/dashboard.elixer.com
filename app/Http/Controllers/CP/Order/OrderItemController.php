@@ -31,11 +31,13 @@ class OrderItemController extends Controller
         Log::info('............... ' . $this->config['controller'] . ' initialized with ' . $this->config['singular_name'] . ' model ...........');
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $order)
     {
         if ($request->isMethod('POST')) {
-            $items = $this->_model->query();
-            // ->latest($this->config['table'] . '.updated_at');
+            $items = $this->_model->query()
+                ->where('order_id', $order)
+                ->with('product')
+                ->latest($this->config['table'] . '.created_at');
 
             if ($request->input('params')) {
                 $this->filterService->applyFilters($items, $request->input('params'));
@@ -50,20 +52,22 @@ class OrderItemController extends Controller
                         ];
                     }
                 })
-                ->editColumn('title', function ($item) {
-                    return '<a href="' . route($this->config['full_route_name'] . '.edit', ['_model' => $item->id, 'article' => $item->article_id]) . '" class="fw-bold text-gray-800 text-hover-primary">'
-                        . ($item->title ?? 'N/A') . '</a>';
+                ->addColumn('product_name', function ($item) {
+                    $productName = $item->product ? $item->product->name : 'N/A';
+                    return '<span class="fw-bold text-gray-800">' . $productName . '</span>';
                 })
-                ->editColumn('features', function ($item) {
-                    return collect($item->features)->pluck(app()->getLocale())->toArray() ?? 'N/A';
+                ->editColumn('quantity', function ($item) {
+                    return '<span class="badge badge-light-primary">' . ($item->quantity ?? 0) . '</span>';
                 })
-                ->editColumn('active', function ($item) {
-                    return '<span class="badge badge-light-' . ($item->active ? 'success' : 'danger') . '">'
-                        . ($item->active ? t('Active') : t('Inactive')) . '</span>';
+                ->editColumn('price', function ($item) {
+                    return '<span class="fw-semibold">' . number_format($item->price ?? 0, 2) . '</span>';
                 })
-
+                ->editColumn('total', function ($item) {
+                    return '<span class="fw-bold text-success">' . number_format($item->total ?? 0, 2) . '</span>';
+                })
                 ->addColumn('action', function ($item) {
                     try {
+                        return '';
                         return view($this->config['view_path'] . '.actions', [
                             '_model' => $item,
                             'config' => $this->config,
@@ -76,7 +80,7 @@ class OrderItemController extends Controller
                         throw $e;
                     }
                 })
-                ->rawColumns(['title', 'features', 'active', 'action'])
+                ->rawColumns(['product_name', 'quantity', 'price', 'total', 'action'])
                 ->make(true);
         }
     }

@@ -423,6 +423,8 @@ return [
   'Customer Name' => 'Customer Name',
   'Payment Method' => 'Payment Method',
   'Total Price' => 'Total Price',
+  'Product Name' => 'Product Name',
+  'Total' => 'Total',
   'Edit Order' => 'Edit Order',
   'Remove Order' => 'Remove Order',
   'Cash' => 'Cash',
@@ -451,4 +453,7 @@ return [
   'Updated At' => 'Updated At',
   'Search Article Contents' => 'Search Article Contents',
   'Are you sure you want to delete this element?' => 'Are you sure you want to delete this element?',
+  'Search Order Items' => 'Search Order Items',
+  'Product Name' => 'Product Name',
+  'Total' => 'Total',
 ];

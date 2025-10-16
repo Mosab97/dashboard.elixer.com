@@ -1,5 +1,5 @@
 @php
-    $config = config('modules.articles.children.article_contents');
+    $config = config('modules.orders.children.order_items');
 @endphp
 <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
     <!--begin::Col-->
@@ -44,7 +44,7 @@
                         <!--end::offers 1-->
                         <!--end::Filter-->
                         <!--begin::Add offers-->
-                        <a href="{{ route($config['full_route_name'] . '.create', ['article' => $_model->id]) }}"
+                        {{-- <a href="{{ route($config['full_route_name'] . '.create', ['order' => $_model->id]) }}"
                             class="btn btn-primary" id="add_{{ $config['singular_key'] }}_modal">
                             <span class="indicator-label">
                                 <span class="svg-icon svg-icon-2">
@@ -62,7 +62,7 @@
                                 {{ t('Please wait...') }} <span
                                     class="spinner-border spinner-border-sm align-middle ms-2"></span>
                             </span>
-                        </a>
+                        </a> --}}
                         <!--end::Add offers-->
                     </div>
                     <!--end::Toolbar-->
@@ -82,16 +82,18 @@
 
                 <div class="row">
                     <table class="table table-bordered align-middle table-row-dashed fs-6 gy-5"
-                        id="kt_table_article_contents">
+                        id="kt_table_order_items">
                         <!--begin::Table head-->
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                <th class="min-w-125px">{{ t('Title') }}</th>
-                                <th class="min-w-125px">{{ t('Features') }}</th>
-                                <th class="min-w-125px">{{ t('Active') }}</th>
+                                <th class="min-w-75px">{{ t('ID') }}</th>
+                                <th class="min-w-200px">{{ t('Product Name') }}</th>
+                                <th class="min-w-100px">{{ t('Quantity') }}</th>
+                                <th class="min-w-100px">{{ t('Price') }}</th>
+                                <th class="min-w-100px">{{ t('Total') }}</th>
                                 <th class="min-w-125px">{{ t('Created At') }}</th>
-                                <th class="min-w-125px bold all">{{ t('Actions') }}</th>
+                                {{-- <th class="min-w-100px bold all text-end">{{ t('Actions') }}</th> --}}
                             </tr>
                             <!--end::Table row-->
                         </thead>

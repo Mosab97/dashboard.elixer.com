@@ -1,60 +1,85 @@
 <script>
     var selectedItemModelsData = [];
-    const columnDefsArticleContents = [{
-            data: 'title',
-            name: 'title',
+    const columnDefsOrderItems = [
+        {
+            data: 'id',
+            name: 'id',
+            orderable: true,
+            searchable: true,
             render: function(data, type, row) {
-                return data || 'NA';
+                return '#' + (data || 'N/A');
             }
         },
         {
-            data: 'features',
-            name: 'features',
+            data: 'product_name',
+            name: 'product_id',
+            orderable: true,
+            searchable: true,
             render: function(data, type, row) {
-                return data || 'NA';
+                return data || 'N/A';
             }
         },
         {
-            data: 'active',
-            name: 'active',
+            data: 'quantity',
+            name: 'quantity',
+            orderable: true,
+            searchable: false,
+            render: function(data, type, row) {
+                return data || '0';
+            }
         },
-
+        {
+            data: 'price',
+            name: 'price',
+            orderable: true,
+            searchable: false,
+            render: function(data, type, row) {
+                return data || '0.00';
+            }
+        },
+        {
+            data: 'total',
+            name: 'total',
+            orderable: true,
+            searchable: false,
+            render: function(data, type, row) {
+                return data || '0.00';
+            }
+        },
         {
             data: 'created_at',
             name: 'created_at',
+            orderable: true,
+            searchable: false,
             render: function(data, type, row) {
-                return data?.display || 'NA';
+                return data?.display || 'N/A';
             }
         },
-        {
-            data: 'action',
-            name: 'action',
-            className: 'text-end',
-            orderable: false,
-            searchable: false
-        }
+        // {
+        //     data: 'action',
+        //     name: 'action',
+        //     className: 'text-end',
+        //     orderable: false,
+        //     searchable: false
+        // }
     ];
-    var datatableArticleContents = createDataTable('#kt_table_article_contents', columnDefsArticleContents,
-        "{{ route($config['full_route_name'] . '.index', ['article' => $_model->id]) }}",
+    var datatableOrderItems = createDataTable('#kt_table_order_items', columnDefsOrderItems,
+        "{{ route($config['full_route_name'] . '.index', ['order' => $_model->id]) }}",
         [
             [0, "ASC"]
         ]);
-    datatableArticleContents.on('draw', function() {
+    datatableOrderItems.on('draw', function() {
         KTMenu.createInstances();
     });
-    datatableArticleContents.on('responsive-display', function() {
+    datatableOrderItems.on('responsive-display', function() {
         KTMenu.createInstances();
     });
 
-
-
-
-
-    const filterSearchArticleContents = document.querySelector(
+    const filterSearchOrderItems = document.querySelector(
         '[data-kt-{{ $config['singular_key'] }}-table-filter="search"]');
-    filterSearchArticleContents.onkeydown = debounce(keyPressCallback, 400);
+    filterSearchOrderItems.onkeydown = debounce(keyPressCallback, 400);
 
     function keyPressCallback() {
-        datatableArticleContents.draw();
+        datatableOrderItems.draw();
     }
 </script>
