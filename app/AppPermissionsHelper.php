@@ -58,7 +58,8 @@ class AppPermissionsHelper
         $permissions[config('modules.faq.plural_name')] = config('modules.faq.permissions');
         $permissions[config('modules.contact_us.plural_name')] = config('modules.contact_us.permissions');
         $permissions[config('modules.real_results.plural_name')] = config('modules.real_results.permissions');
-
+        $permissions[config('modules.orders.plural_name')] = config('modules.orders.permissions');
+        $permissions[config('modules.orders.children.order_items.plural_name')] = config('modules.orders.children.order_items.permissions');
         $permissionFlatten = collect($permissions)->unique()->flatten(1);
         self::CheckMiddlewares($permissionFlatten);
 

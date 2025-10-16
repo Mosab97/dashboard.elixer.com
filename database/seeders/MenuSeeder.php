@@ -231,6 +231,16 @@ class MenuSeeder extends Seeder
             'permission_name' => config('modules.real_results.permissions.view'),
             'route' => config('modules.real_results.full_route_name') . '.index',
         ];
+        $Menu[] = [
+            'name' => t(config('modules.orders.plural_name'), [], 'ar'),
+            'name_en' => config('modules.orders.plural_name'),
+            'name_he' => config('modules.orders.plural_name'),
+            'route' => null,
+            'icon_svg' => '<i class="fas fa-shopping-cart"></i>', // FontAwesome icon for videos
+            'order' => 5,
+            'permission_name' => config('modules.orders.permissions.view'),
+            'route' => config('modules.orders.full_route_name') . '.index',
+        ];
 
         DB::table('menus')->delete();
 

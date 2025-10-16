@@ -219,6 +219,47 @@ return [
             'delete' => 'delete_products',
         ],
     ],
+    'orders' => [
+        'table' => 'orders',
+        'route' => 'orders',
+        'full_route_name' => 'orders',
+        'singular_name' => 'Order',
+        'plural_name' => 'Orders',
+        'singular_key' => 'order',
+        'plural_key' => 'orders',
+        'view_path' => 'CP.orders.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\Order\OrderController::class,
+        'upload_path' => 'orders',
+        'permissions' => [
+            'view' => 'view_orders',
+            'create' => 'create_orders',
+            'edit' => 'edit_orders',
+            'delete' => 'delete_orders',
+        ],
+        'children' => [
+            'order_items' => [
+                'table' => 'order_items',
+                'route' => 'order_items',
+                'full_route_name' => 'orders.order_items',
+                'singular_name' => 'Order Item',
+                'plural_name' => 'Order Items',
+                'singular_key' => 'order_item',
+                'plural_key' => 'order_items',
+                'view_path' => 'CP.orders.tabs.order_items.',
+                'id_field' => 'id',
+                'controller' => \App\Http\Controllers\CP\Order\OrderItemController::class,
+                'upload_path' => 'order_items',
+                'permissions' => [
+                    'view' => 'view_order_items',
+                    'create' => 'create_order_items',
+                    'edit' => 'edit_order_items',
+                    'delete' => 'delete_order_items',
+                ],
+
+            ]
+        ]
+    ],
 
 
 

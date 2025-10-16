@@ -18,6 +18,7 @@ class Order extends Model
         'region_id',
         'address',
         'coupon_code',
+        'delivery_method',
         'payment_method',
         'read_conditions',
         'sub_total',
@@ -37,6 +38,7 @@ class Order extends Model
         'total_price_after_discount' => 'decimal:2',
         'read_conditions' => 'boolean',
         'payment_method' => \App\Enums\PaymentMethod::class,
+        'delivery_method' => \App\Enums\DeliveryMethod::class,
     ];
 
     public function coupon()
