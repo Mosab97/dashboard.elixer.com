@@ -9,6 +9,7 @@ use App\Services\Filters\HowWeWorkFilterService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class HowWeWorkController extends Controller
@@ -109,9 +110,20 @@ class HowWeWorkController extends Controller
         try {
             $validatedData = $request->validated();
             $id = $request->input($this->config['id_field']);
-            // dd($validatedData);
+            $imageFile = $request->hasFile('icon') ? $request->file('icon') : null;
+            // dd($imageFile, $request->all());
+            if ($imageFile) {
+                $imagePath = Storage::disk('public')->putFile('how_we_works', $imageFile);
+                $validatedData['icon'] = $imagePath;
+            }
             if (! empty($id)) {
                 $result = HowWeWork::findOrFail($id);
+                if ($request->has('delete_icon')) {
+                    if (isset($result->icon)) {
+                        Storage::disk('public')->delete($result->icon);
+                    }
+                    $validatedData['icon'] = null;
+                }
                 $result->update($validatedData);
             } else {
                 $result = $this->_model->create($validatedData);

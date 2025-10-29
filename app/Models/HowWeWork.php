@@ -11,7 +11,7 @@ class HowWeWork extends Model
 {
     use HasFactory, HasTranslations, SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'active', 'order'];
+    protected $fillable = ['title', 'description', 'active', 'order', 'icon'];
 
     protected $translatable = ['title', 'description'];
 
@@ -21,4 +21,12 @@ class HowWeWork extends Model
         'active' => 'boolean',
         'order' => 'integer',
     ];
+
+    public function getIconPathAttribute()
+    {
+        if ($this->icon) {
+            return asset('storage/' . $this->icon);
+        }
+        return null;
+    }
 }

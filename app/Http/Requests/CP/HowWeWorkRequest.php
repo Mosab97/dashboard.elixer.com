@@ -28,6 +28,8 @@ class HowWeWorkRequest extends FormRequest
             'description' => 'nullable|array',
             'active' => 'boolean',
             'order' => 'nullable|integer|min:0',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'delete_icon' => 'nullable|boolean',
         ];
 
         foreach (config('app.locales') as $locale) {
@@ -59,6 +61,9 @@ class HowWeWorkRequest extends FormRequest
             'active.boolean' => t('Active status must be true or false'),
             'order.integer' => t('Order field must be an integer'),
             'order.min' => t('Order field must be at least 0'),
+            'icon.image' => t('Icon must be an image file'),
+            'icon.mimes' => t('Icon must be a file of type: jpeg, png, jpg, gif, svg, webp'),
+            'icon.max' => t('Icon file size must not exceed 2MB'),
         ];
     }
 
@@ -66,6 +71,7 @@ class HowWeWorkRequest extends FormRequest
     {
         $this->merge([
             'active' => $this->has('active') ? true : false,
+            // 'delete_icon' => $this->has('delete_icon') ? true : false,
         ]);
     }
 }

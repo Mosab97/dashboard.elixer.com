@@ -13,6 +13,7 @@ class HowWeWorkResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'icon' => $this->icon_path,
             'active' => $this->active,
             'order' => $this->order,
         ];

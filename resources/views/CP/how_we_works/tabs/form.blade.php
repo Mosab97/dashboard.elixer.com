@@ -49,6 +49,33 @@
                 @endforeach
             </div>
 
+            <div class="row">
+                <!-- How We Work Icon Upload -->
+                <div class="col-md-6">
+                    <div class="fv-row mb-7">
+                        <label class="fw-semibold fs-6 mb-2">{{ t('How We Work Icon') }}</label>
+                        <input type="file" name="icon" id="icon"
+                            class="form-control form-control-solid @error('how_we_work_icon') is-invalid @enderror"
+                            accept="image/*">
+                        @error('how_we_work_icon')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        @if ($_model->exists && $_model->icon)
+                            <div class="mt-3">
+                                <a href="{{ $_model->icon_path }}" target="_blank">
+                                    <img src="{{ $_model->icon_path }}" alt="Current Icon" class="img-thumbnail"
+                                        style="max-width: 100px; max-height: 100px;">
+                                </a>
+                                <p class="text-muted mt-1">{{ t('Current icon') }}</p>
+                            </div>
+                        @endif
+                        <div class="form-text">{{ t('Upload how we work icon (optional, max 2MB)') }}</div>
+                    </div>
+                </div>
+
+
+            </div>
+
 
             <div class="row">
                 <!-- Active Status -->
@@ -65,10 +92,29 @@
                     </div>
                 </div>
 
+                @if ($_model->exists && $_model->icon)
+                    <!-- Delete how we work icon -->
+                    <div class="col-md-6">
+                        <div class="fv-row mb-7">
+                            <div class="form-check form-switch form-check-custom form-check-solid">
+                                <input class="form-check-input" type="checkbox" name="delete_icon" id="delete_icon"
+                                    value="1"
+                                    {{ old('delete_icon', $_model->delete_icon ?? false) ? 'checked' : '' }}>
+                                <label class="form-check-label fw-semibold fs-6" for="active">
+                                    {{ t('Delete How We Work Icon') }}
+                                </label>
+                            </div>
+                            <div class="form-text">
+                                {{ t('Delete how we work icon will delete the icon from the database') }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+
             </div>
 
 
         </div>
     </div>
 </div>
-

@@ -477,4 +477,12 @@ return [
   'Each description field must not exceed 255 characters' => 'كل حقل الوصف يجب أن لا يتجاوز 255 حرف',
   'Order field must be an integer' => 'حقل الترتيب يجب أن يكون رقمًا',
   'Order field must be at least 0' => 'حقل الترتيب يجب أن يكون أكبر من أو يساوي 0',
+  'How We Work Icon' => 'How We Work Icon',
+  'Upload how we work icon (optional, max 2MB)' => 'Upload how we work icon (optional, max 2MB)',
+  'Icon must be an image file' => 'Icon must be an image file',
+  'Icon must be a file of type: jpeg, png, jpg, gif, svg, webp' => 'Icon must be a file of type: jpeg, png, jpg, gif, svg, webp',
+  'Icon file size must not exceed 2MB' => 'Icon file size must not exceed 2MB',
+  'Current icon' => 'Current icon',
+  'Delete How We Work Icon' => 'Delete How We Work Icon',
+  'Delete how we work icon will delete the icon from the database' => 'Delete how we work icon will delete the icon from the database',
 ];
