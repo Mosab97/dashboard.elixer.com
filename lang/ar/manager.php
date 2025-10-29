@@ -494,4 +494,13 @@ return [
   'Why Choose Us Added Successfully!' => 'Why Choose Us Added Successfully!',
   'Why Choose Us Edit Why Choose Us' => 'Why Choose Us Edit Why Choose Us',
   'Edit Why Choose Us' => 'Edit Why Choose Us',
+  'Contact Us Deleted Successfully!' => 'Contact Us Deleted Successfully!',
+  'Search Slider' => 'Search Slider',
+  'Add Slider' => 'Add Slider',
+  'Slider- Add new Slider' => 'Slider- Add new Slider',
+  'Slider' => 'Slider',
+  '- Add new Slider' => '- Add new Slider',
+  'Slider Details' => 'Slider Details',
+  'Slider Image' => 'Slider Image',
+  'Upload slider image (optional, max 2MB)' => 'Upload slider image (optional, max 2MB)',
 ];

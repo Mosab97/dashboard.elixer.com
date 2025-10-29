@@ -1,11 +1,94 @@
-# Laravel Menu Restaurant Project
+# Laravel Menu Restaurant Project (Elixer Dashboard)
 
-## Server Deployment Guide
+## Docker Quick Start (Recommended for Development)
+
+The easiest way to run this project is using Docker. Follow these simple steps:
+
+### Prerequisites
+- Docker Desktop (version 20.10 or higher)
+- Docker Compose (version 1.29 or higher)
+
+### Quick Setup
+
+1. **Run the automated setup script:**
+   ```bash
+   ./docker-start.sh
+   ```
+
+   OR manually follow these steps:
+
+2. **Create environment file:**
+   ```bash
+   cp env.docker.example .env
+   ```
+
+3. **Start Docker containers:**
+   ```bash
+   docker-compose up -d --build
+   ```
+
+4. **Install dependencies:**
+   ```bash
+   docker-compose exec app composer install
+   docker-compose exec app npm install
+   ```
+
+5. **Generate application key:**
+   ```bash
+   docker-compose exec app php artisan key:generate
+   ```
+
+6. **Run migrations:**
+   ```bash
+   docker-compose exec app php artisan migrate
+   ```
+
+7. **Seed database (optional):**
+   ```bash
+   docker-compose exec app php artisan db:seed
+   ```
+
+### Access the Application
+
+- **Web App**: http://localhost:8000
+- **PHPMyAdmin**: http://localhost:8080
+  - Username: `root`
+  - Password: `root`
+  - Server: `db`
+
+### Useful Docker Commands
+
+```bash
+# View logs
+docker-compose logs -f
+
+# Stop containers
+docker-compose stop
+
+# Start containers
+docker-compose start
+
+# Execute artisan commands
+docker-compose exec app php artisan {command}
+
+# Access container shell
+docker-compose exec app bash
+```
+
+For detailed Docker setup instructions, see [DOCKER_SETUP.md](DOCKER_SETUP.md).
+
+For a comprehensive guide with troubleshooting and all resolved issues, see [DOCKER_GUIDE.md](DOCKER_GUIDE.md).
+
+For managing multiple Laravel projects with Docker, see [MULTIPLE_PROJECTS_GUIDE.md](MULTIPLE_PROJECTS_GUIDE.md).
+
+---
+
+## Server Deployment Guide (Production)
 
 ### Prerequisites
 - Ubuntu 22.04 Server
 - Nginx web server
-- PHP 8.2+ with required extensions
+- PHP 8.3+ with required extensions
 - MySQL/MariaDB database
 - Composer
 - SSL certificate (Let's Encrypt)
@@ -24,18 +107,18 @@ git clone https://github.com/Mosab97/menu-resturant.git /var/www/menu-restaurant
 cd /var/www/menu-restaurants
 ```
 
-### 2. PHP 8.2 Installation
+### 2. PHP 8.3 Installation
 ```bash
 # Add PHP repository
 add-apt-repository ppa:ondrej/php -y
 apt update
 
-# Install PHP 8.2 and extensions
-apt install php8.2-fpm php8.2-cli php8.2-common php8.2-mysql php8.2-xml php8.2-xmlrpc php8.2-curl php8.2-gd php8.2-imagick php8.2-dev php8.2-imap php8.2-mbstring php8.2-opcache php8.2-soap php8.2-zip php8.2-intl -y
+# Install PHP 8.3 and extensions
+apt install php8.3-fpm php8.3-cli php8.3-common php8.3-mysql php8.3-xml php8.3-xmlrpc php8.3-curl php8.3-gd php8.3-imagick php8.3-dev php8.3-imap php8.3-mbstring php8.3-opcache php8.3-soap php8.3-zip php8.3-intl -y
 
 # Start and enable PHP-FPM
-systemctl start php8.2-fpm
-systemctl enable php8.2-fpm
+systemctl start php8.3-fpm
+systemctl enable php8.3-fpm
 ```
 
 ### 3. Composer Installation
@@ -96,7 +179,7 @@ server {
     # PHP processing
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
     }
@@ -187,13 +270,13 @@ When updating to the new version, please follow these additional steps:
 - **Domain**: test.qadi-tech.com
 - **Server**: Ubuntu 22.04
 - **Web Server**: Nginx
-- **PHP Version**: 8.2
+- **PHP Version**: 8.3
 - **SSL**: Let's Encrypt
 - **Document Root**: /var/www/menu-restaurants/public
 
 ## Troubleshooting
 - Check nginx error logs: `tail -f /var/log/nginx/error.log`
-- Check PHP-FPM logs: `tail -f /var/log/php8.2-fpm.log`
+- Check PHP-FPM logs: `tail -f /var/log/php8.3-fpm.log`
 - Check Laravel logs: `tail -f storage/logs/laravel.log`
 - Clear Laravel cache: `php artisan cache:clear`
 # dahab-restaurant

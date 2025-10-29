@@ -23,6 +23,11 @@ Cities.json
 _ide_helper.php
 public/uploads/
 
+# Composer cache (auto-created)
+.cache/
+.config/
+.local/
+
 
 
 storage/logs/*.log
