@@ -487,4 +487,13 @@ return [
   'Current icon' => 'Current icon',
   'Delete How We Work Icon' => 'Delete How We Work Icon',
   'Delete how we work icon will delete the icon from the database' => 'Delete how we work icon will delete the icon from the database',
+  'Search Why Choose Us' => 'Search Why Choose Us',
+  'Add Why Choose Us' => 'Add Why Choose Us',
+  'Why Choose Us- Add new Why Choose Us' => 'Why Choose Us- Add new Why Choose Us',
+  '- Add new Why Choose Us' => '- Add new Why Choose Us',
+  'Why Choose Us Details' => 'Why Choose Us Details',
+  'Inactive  will not be displayed to customers' => 'Inactive  will not be displayed to customers',
+  'Why Choose Us Added Successfully!' => 'Why Choose Us Added Successfully!',
+  'Why Choose Us Edit Why Choose Us' => 'Why Choose Us Edit Why Choose Us',
+  'Edit Why Choose Us' => 'Edit Why Choose Us',
 ];

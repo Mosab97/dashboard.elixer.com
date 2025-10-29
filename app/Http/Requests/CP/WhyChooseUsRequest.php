@@ -25,15 +25,15 @@ class WhyChooseUsRequest extends FormRequest
     {
         $rules = [
             'title' => 'required|array',
-            'title.he' => 'nullable|string|max:255',
-            'title.ar' => 'required|string|max:255',
             'description' => 'nullable|array',
-            'description.he' => 'nullable|string|max:255',
-            'description.ar' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'active' => 'boolean',
             'order' => 'nullable|integer|min:0',
         ];
+        foreach (config('app.locales') as $locale) {
+            $rules['title.' . $locale] = 'required|string|max:255';
+            $rules['description.' . $locale] = 'nullable|string|max:255';
+        }
 
         return $rules;
     }
@@ -48,12 +48,13 @@ class WhyChooseUsRequest extends FormRequest
         return [
             'title.required' => t('Slider title is required'),
             'title.array' => t('Slider title must be provided in multiple languages'),
-            'title.ar.required' => t('Arabic title is required'),
-            'title.he.string' => t('English title must be a string'),
-            'title.ar.string' => t('Arabic title must be a string'),
+            'title.*.required' => t('Title is required'),
+            'title.*.string' => t('Each title field must be a string'),
+            'title.*.max' => t('Each title field must not exceed 255 characters'),
             'description.array' => t('Description must be provided in multiple languages'),
-            'description.en.string' => t('English description must be a string'),
-            'description.ar.string' => t('Arabic description must be a string'),
+            'description.*.required' => t('Each description field is required'),
+            'description.*.string' => t('Each description field must be a string'),
+            'description.*.max' => t('Each description field must not exceed 255 characters'),
             'title.*.max' => t('Slider title must not exceed 255 characters'),
 
             'image.image' => t('Image must be an image file'),
