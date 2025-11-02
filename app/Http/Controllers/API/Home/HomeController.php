@@ -85,6 +85,11 @@ class HomeController extends Controller
 
                 'image' => asset('storage/' . setting('about_office.image')),
             ],
+            'our_story' => [
+                'title' => setting('our_story.title.' . app()->getLocale()),
+                'description' => setting('our_story.description.' . app()->getLocale()),
+                'image' => asset('storage/' . setting('our_story.image')),
+            ],
             'why_choose_us' => WhyChooseUsResource::collection(WhyChooseUs::where('active', true)->get()),
             'customer_rates' => CustomerRateResource::collection(CustomerRate::where('active', true)->get()),
             'how_we_works' => HowWeWorkResource::collection(HowWeWork::where('active', true)->get()),

@@ -71,6 +71,13 @@ Route::group(['prefix' => 'dashboard'], function () {
         });
 
 
+        // Our Story child routes
+        $config = config('modules.our_story');
+        Route::prefix($config['route'])->name($config['route'] . '.')->controller($config['controller'])->group(function () use ($config) {
+            Route::match(['get', 'post'], '/', 'index')->name('index')->middleware('permission:' . $config['permissions']['view']);
+            Route::post('/' . $config['singular_key'], 'addedit')->name('addedit')->middleware('permission:' . $config['permissions']['create']);
+        });
+
         // sliders child routes
         $config = config('modules.sliders');
         Route::prefix($config['route'])->name($config['route'] . '.')->controller($config['controller'])->group(function () use ($config) {

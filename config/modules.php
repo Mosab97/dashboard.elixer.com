@@ -64,6 +64,25 @@ return [
             'delete' => 'delete_about_office',
         ],
     ],
+    'our_story' => [
+        'table' => 'our_story',
+        'route' => 'our_story',
+        'full_route_name' => 'our_story',
+        'singular_name' => 'Our Story',
+        'plural_name' => 'Our Story',
+        'singular_key' => 'our_story',
+        'plural_key' => 'our_story',
+        'view_path' => 'CP.our_story.',
+        'id_field' => 'id',
+        'controller' => \App\Http\Controllers\CP\OurStoryController::class,
+        'upload_path' => 'our_story',
+        'permissions' => [
+            'view' => 'view_our_story',
+            'create' => 'create_our_story',
+            'edit' => 'edit_our_story',
+            'delete' => 'delete_our_story',
+        ],
+    ],
 
 
     'categories' => [

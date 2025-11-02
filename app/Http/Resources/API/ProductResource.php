@@ -10,7 +10,7 @@ class ProductResource extends JsonResource
     {
         $fields = [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->getTranslations('name'),
             'slug' => $this->slug,
             'image' => $this->image_path,
             'category' => $this->whenLoaded('category', function () {

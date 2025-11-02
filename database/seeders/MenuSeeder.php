@@ -212,6 +212,16 @@ class MenuSeeder extends Seeder
             'route' => config('modules.about_office.full_route_name') . '.index',
         ];
         $Menu[] = [
+            'name' => t(config('modules.our_story.plural_name'), [], 'ar'),
+            'name_en' => config('modules.our_story.plural_name'),
+            'name_he' => config('modules.our_story.plural_name'),
+            'route' => null,
+            'icon_svg' => '<i class="fas fa-building"></i>', // FontAwesome icon for videos
+            'order' => 5,
+            'permission_name' => config('modules.our_story.permissions.view'),
+            'route' => config('modules.our_story.full_route_name') . '.index',
+        ];
+        $Menu[] = [
             'name' => t(config('modules.contact_us.plural_name'), [], 'ar'),
             'name_en' => config('modules.contact_us.plural_name'),
             'name_he' => config('modules.contact_us.plural_name'),
