@@ -494,4 +494,6 @@ return [
   'Why Choose Us Added Successfully!' => 'Why Choose Us Added Successfully!',
   'Why Choose Us Edit Why Choose Us' => 'Why Choose Us Edit Why Choose Us',
   'Edit Why Choose Us' => 'Edit Why Choose Us',
+  'Search Slider' => 'Search Slider',
+  'Add Slider' => 'Add Slider',
 ];
