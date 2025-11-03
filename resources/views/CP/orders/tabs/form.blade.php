@@ -97,6 +97,19 @@
                         value="{{ $_model->read_conditions ? t('Yes') : t('No') }}">
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="fv-row mb-7">
+                    <label class="fw-semibold fs-6 mb-2">{{ t('Status') }} <span class="text-danger">*</span></label>
+                    <select name="status" class="form-select form-select-solid" data-control="select2" data-placeholder="{{ t('Select Status') }}">
+                        <option value="">{{ t('Select Status') }}</option>
+                        @foreach(\App\Enums\OrderStatus::cases() as $status)
+                            <option value="{{ $status->value }}" {{ old('status', $_model->status?->value ?? '') == $status->value ? 'selected' : '' }}>
+                                {{ $status->getLabel() }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         </div>
 
         {{-- Pricing Information --}}

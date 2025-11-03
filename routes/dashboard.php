@@ -155,10 +155,24 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::delete('{_model}/delete', 'delete')->name('delete')->middleware('permission:' . $config['permissions']['delete']);
             Route::post('/' . $config['singular_key'] . '/{Id?}', 'addedit')->name('addedit')->middleware('permission:' . $config['permissions']['create']);
 
+            Route::prefix('status')->controller(\App\Http\Controllers\CP\Order\OrderStatusController::class)->group(function () use ($config) {
+                
+                Route::get('{_model}/get_status_form', 'get_status_form')
+                    ->name('get_status_form')
+                    ->middleware('permission:' . $config['permissions']['status_update']);
+                Route::post('{_model}/update_status', 'update_status')
+                    ->name('update_status')
+                    ->middleware('permission:' . $config['permissions']['status_update']);
+            });
+            
             $config = config('modules.orders.children.order_items');
             Route::prefix('{order}/' . $config['route'])->name($config['route'] . '.')->controller($config['controller'])->group(function () use ($config) {
                 Route::match(['get', 'post'], '/', 'index')->name('index')->middleware('permission:' . $config['permissions']['view']);
             });
+
+
+           
+        
         });
         // why choose us child routes
         $config = config('modules.why_choose_us');

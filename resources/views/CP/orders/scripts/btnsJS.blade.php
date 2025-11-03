@@ -45,54 +45,88 @@
         });
     });
 </script>
-{{-- btn_request_priceOffer_ --}}
+{{-- btn_show_ --}}
 <script>
-    $(document).on('click', '.btn_request_priceOffer_' + "{{ $config['singular_key'] }}", function(e) {
+    $(document).on('click', '.btn_show_' + "{{ $config['singular_key'] }}", function(e) {
         e.preventDefault();
         const URL = $(this).attr('href');
-        const itemModelName = $(this).attr('data-' + "{{ $config['singular_key']}}" + '-name');
         const button = $(this);
 
-        // Show SweetAlert confirmation dialog
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to generate a price offer for " + itemModelName + "?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, generate it!',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Disable button and show loading
-                button.attr('data-kt-indicator', 'on');
-                button.prop('disabled', true);
+        // Set button loading state
+        button.attr('data-kt-indicator', 'on');
+        button.prop('disabled', true);
 
-                $.ajax({
-                    url: URL,
-                    type: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        toastr.success('Price offer has been generated successfully');
-
-                        if (typeof datatable !== 'undefined') {
-                            datatable.ajax.reload();
-                        } else {
-                            window.location.reload();
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        handleAjaxErrors(xhr, status, error, {
-                            submitButton: button
-                        });
+        $.ajax({
+            url: URL,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status && response.createView) {
+                    // Create or get modal
+                    let $modal = $('#kt_modal_order_details');
+                    if ($modal.length === 0) {
+                        $modal = $('<div class="modal fade" id="kt_modal_order_details" tabindex="-1" aria-hidden="true">' +
+                            '<div class="modal-dialog modal-dialog-centered modal-xl">' +
+                            '<div class="modal-content"></div>' +
+                            '</div>' +
+                            '</div>');
+                        $('body').append($modal);
                     }
+
+                    // Set modal content
+                    $modal.find('.modal-content').html(response.createView);
+
+                    // Show modal
+                    const modal = new bootstrap.Modal($modal[0]);
+                    modal.show();
+
+                    // Initialize print functionality
+                    $modal.find('.btn_print_order').on('click', function() {
+                        window.print();
+                    });
+
+                    // Cleanup on modal close
+                    $modal.on('hidden.bs.modal', function() {
+                        $modal.find('.modal-content').html('');
+                        $modal.off('hidden.bs.modal');
+                    });
+                } else {
+                    toastr.error(response.message || 'Failed to load order details');
+                }
+            },
+            error: function(xhr, status, error) {
+                handleAjaxErrors(xhr, status, error, {
+                    submitButton: button
                 });
+            },
+            complete: function() {
+                button.removeAttr('data-kt-indicator');
+                button.prop('disabled', false);
             }
         });
     });
 </script>
 
 
+ {{-- btn_get_status_form_ --}}
+<script>
+    // Status change click handler
+    $(document).on('click', '.btn_get_status_form_order', function(e) {
+        e.preventDefault();
+        const button = $(this);
+        button.attr("data-kt-indicator", "on");
+        const url = button.attr('href');
+
+        ModalRender.render({
+            url: url,
+            button: button,
+            modalId: '#kt_modal_general_sm',
+            modalBootstrap: new bootstrap.Modal(document.querySelector('#kt_modal_general_sm')),
+            formId: '#kt_modal_change_status_form',
+            dataTableId: datatable,
+            submitButtonName: '[data-kt-change-status-modal-action="submit"]',
+        });
+
+
+    });
+</script>

@@ -255,6 +255,8 @@ return [
             'create' => 'create_orders',
             'edit' => 'edit_orders',
             'delete' => 'delete_orders',
+            'status_update' => 'update_orders_status',
+            'print' => 'print_order',
         ],
         'children' => [
             'order_items' => [

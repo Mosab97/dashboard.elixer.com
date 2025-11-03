@@ -39,6 +39,15 @@
             }
         },
         {
+            data: 'status',
+            name: 'status',
+            orderable: true,
+            searchable: true,
+            render: function(data, type, row) {
+                return data || 'N/A';
+            }
+        },
+        {
             data: 'payment_method',
             name: 'payment_method',
             orderable: true,

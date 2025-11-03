@@ -25,7 +25,8 @@ class Order extends Model
         'delivery_fee',
         'total_price_before_discount',
         'discount',
-        'total_price_after_discount'
+        'total_price_after_discount',
+        'status'
     ];
 
 
@@ -39,6 +40,7 @@ class Order extends Model
         'read_conditions' => 'boolean',
         'payment_method' => \App\Enums\PaymentMethod::class,
         'delivery_method' => \App\Enums\DeliveryMethod::class,
+        'status' => \App\Enums\OrderStatus::class,
     ];
 
     public function coupon()

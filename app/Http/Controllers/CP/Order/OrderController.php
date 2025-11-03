@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
@@ -68,6 +69,12 @@ class OrderController extends Controller
                 ->editColumn('email', function ($item) {
                     return $item->email ?? 'N/A';
                 })
+                ->addColumn('status', function ($item) {
+                    $html = '<a href="' . route($this->config['full_route_name'] . '.get_status_form', ['_model' => $item->id]) . '" class="fw-bold text-gray-800 text-hover-primary btn_get_status_form_order">';
+                    $html .= $item->status->getBadge();
+                    $html .= '</a>';
+                    return $html ?: 'N/A';
+                })
                 ->editColumn('payment_method', function ($item) {
                     return $item->payment_method ? $item->payment_method->getLabel() : 'N/A';
                 })
@@ -88,7 +95,7 @@ class OrderController extends Controller
                         throw $e;
                     }
                 })
-                ->rawColumns(['customer_name', 'payment_method', 'total_price', 'action'])
+                ->rawColumns(['customer_name', 'status', 'payment_method', 'total_price', 'action'])
                 ->make(true);
         }
     }
@@ -103,7 +110,80 @@ class OrderController extends Controller
         return view($data['_view_path'] . '.addedit', $data);
     }
 
+    public function addedit(Request $request)
+    {
+        try {
+            DB::beginTransaction();
 
+            $id = $request->input($this->config['id_field']);
+            $validatedData = $request->validate([
+                'status' => 'required|in:' . implode(',', \App\Enums\OrderStatus::toArray()),
+            ]);
+
+            if (!empty($id)) {
+                $order = $this->_model->findOrFail($id);
+                $order->update($validatedData);
+                
+                Log::info($this->config['singular_name'] . ' updated successfully', [
+                    $this->config['id_field'] => $order->id,
+                    'status' => $validatedData['status']
+                ]);
+            }
+
+            DB::commit();
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => true,
+                    'message' => t($this->config['singular_name'] . ' Updated Successfully!'),
+                ]);
+            }
+
+            return redirect()
+                ->route($this->config['full_route_name'] . '.edit', ['_model' => $id])
+                ->with('status', t($this->config['singular_name'] . ' Updated Successfully!'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error updating ' . $this->config['singular_name'], [
+                'error' => $e->getMessage(),
+                'request_data' => $request->except(['password', 'token']),
+            ]);
+
+            if ($request->ajax()) {
+                return jsonCRMResponse(false, 'An error occurred while updating the ' . $this->config['singular_name'] . '. Please try again.', 500);
+            }
+
+            return back()->withErrors(['error' => 'An error occurred while updating the ' . $this->config['singular_name'] . '. Please try again.'])->withInput();
+        }
+    }
+
+    public function details(Request $request, Order $_model)
+    {
+        try {
+            // Load relationships
+            $_model->load(['items.product', 'region', 'coupon']);
+
+            $data = [
+                '_model' => $_model,
+                'config' => $this->config,
+            ];
+
+            $view = view($this->config['view_path'] . '.details', $data)->render();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Order details loaded successfully',
+                'createView' => $view
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error('Error loading order details', [
+                'error' => $e->getMessage(),
+                'order_id' => $_model->id,
+            ]);
+
+            return jsonCRMResponse(false, 'An error occurred while loading order details. Please try again.', 500);
+        }
+    }
 
     public function delete(Request $request, Order $_model)
     {
@@ -142,7 +222,7 @@ class OrderController extends Controller
      */
     private function generateSlug($name, $excludeId = null)
     {
-        $slug = \Str::slug($name);
+        $slug = Str::slug($name);
         $originalSlug = $slug;
         $counter = 1;
 
