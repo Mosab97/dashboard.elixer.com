@@ -51,6 +51,10 @@
         e.preventDefault();
         const URL = $(this).attr('href');
         const button = $(this);
+        
+        // Extract order ID from URL
+        const orderIdMatch = URL.match(/\/(\d+)\/(details|print)/);
+        const orderId = orderIdMatch ? orderIdMatch[1] : null;
 
         // Set button loading state
         button.attr('data-kt-indicator', 'on');
@@ -80,9 +84,23 @@
                     const modal = new bootstrap.Modal($modal[0]);
                     modal.show();
 
-                    // Initialize print functionality
-                    $modal.find('.btn_print_order').on('click', function() {
-                        window.print();
+                    // Initialize print functionality - use backend PDF generation
+                    $modal.find('.btn_print_order').off('click').on('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        // Get order ID from button data attribute or from extracted orderId
+                        const btnOrderId = $(this).data('order-id');
+                        const finalOrderId = btnOrderId || orderId;
+                        
+                        if (finalOrderId) {
+                            // Build the print URL using Laravel route
+                            const printUrl = "{{ route($config['full_route_name'] . '.print', ['_model' => 'ORDER_ID_PLACEHOLDER']) }}".replace('ORDER_ID_PLACEHOLDER', finalOrderId);
+                            // Open PDF in new window (backend will generate and return PDF)
+                            window.open(printUrl, '_blank');
+                        } else {
+                            toastr.error('Order ID not found');
+                        }
                     });
 
                     // Cleanup on modal close

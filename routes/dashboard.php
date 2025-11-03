@@ -152,6 +152,7 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::get('/create', 'create')->name('create')->middleware('permission:' . $config['permissions']['create']);
             Route::get('/{_model}/edit', 'edit')->name('edit')->middleware('permission:' . $config['permissions']['edit']);
             Route::get('/{_model}/details', 'details')->name('details')->middleware('permission:' . $config['permissions']['edit']);
+            Route::get('/{_model}/print', 'print')->name('print')->middleware('permission:' . $config['permissions']['view']);
             Route::delete('{_model}/delete', 'delete')->name('delete')->middleware('permission:' . $config['permissions']['delete']);
             Route::post('/' . $config['singular_key'] . '/{Id?}', 'addedit')->name('addedit')->middleware('permission:' . $config['permissions']['create']);
 

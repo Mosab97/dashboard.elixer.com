@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
+use Elibyy\TCPDF\TCPDFHelper;
 
 class OrderController extends Controller
 {
@@ -182,6 +183,67 @@ class OrderController extends Controller
             ]);
 
             return jsonCRMResponse(false, 'An error occurred while loading order details. Please try again.', 500);
+        }
+    }
+
+    public function print(Request $request, Order $_model)
+    {
+        try {
+            // Load relationships
+            $_model->load(['items.product', 'region', 'coupon']);
+
+            $data = [
+                '_model' => $_model,
+                'config' => $this->config,
+            ];
+
+            // Get the HTML content
+            $html = view($this->config['view_path'] . '.pdf', $data)->render();
+
+            // Generate PDF using TCPDF Helper
+            $pdf = new TCPDFHelper();
+            
+            // Set document information
+            $pdf->SetCreator(config('app.name'));
+            $pdf->SetAuthor(config('app.name'));
+            $pdf->SetTitle(t('Order') . ' #' . $_model->id);
+            $pdf->SetSubject(t('Order Details'));
+
+            // Remove default header/footer
+            $pdf->setPrintHeader(false);
+            $pdf->setPrintFooter(false);
+
+            // Set RTL support
+            $isRtl = isRtl();
+            if ($isRtl) {
+                $pdf->setRTL(true);
+            }
+
+            // Set margins
+            $pdf->SetMargins(15, 15, 15);
+            $pdf->SetAutoPageBreak(TRUE, 15);
+
+            // Set font for RTL support (DejaVu Sans supports Arabic)
+            $pdf->SetFont('dejavusans', '', 10);
+
+            // Add a page
+            $pdf->AddPage();
+
+            // Write HTML content
+            $pdf->writeHTML($html, true, false, true, false, '');
+
+            // Output PDF
+            $filename = 'order_' . $_model->id . '_' . date('Y-m-d') . '.pdf';
+            
+            return $pdf->Output($filename, 'I');
+        } catch (\Exception $e) {
+            Log::error('Error generating order PDF', [
+                'error' => $e->getMessage(),
+                'order_id' => $_model->id,
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return back()->withErrors(['error' => 'An error occurred while generating the PDF. Please try again.']);
         }
     }
 
