@@ -516,4 +516,8 @@ return [
   'Status has been updated successfully!' => 'تم تحديث الحالة بنجاح!',
   'Status has not been updated.' => 'تم تحديث الحالة بنجاح!',
   'Status has not been updated.' => 'تم تحديث الحالة بنجاح!',
+  'Rate count is required' => 'عدد التقييمات مطلوب',
+  'Rate count must be a number' => 'عدد التقييمات يجب أن يكون رقمًا',
+  'Rate count must be at least 0' => 'عدد التقييمات يجب أن يكون أكبر من أو يساوي 0',
+  'Rate count must be at most 5' => 'عدد التقييمات يجب أن يكون أقل من أو يساوي 5',
 ];

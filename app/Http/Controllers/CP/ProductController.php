@@ -127,7 +127,7 @@ class ProductController extends Controller
             }
             if (! empty($id)) {
                 $result = $this->_model->query()->findOrFail($id);
-                if (isset($result->image)) {
+                if (isset($imageFile) && isset($result->image) && Storage::disk('public')->exists($result->image)) {
                     Storage::disk('public')->delete($result->image);
                 }
                 if ($request->has('delete_image')) {

@@ -515,4 +515,8 @@ return [
   'Discard' => 'Discard',
   'Submit' => 'Submit',
   'An error occurred while updating the status.' => 'An error occurred while updating the status.',
+  'Rate count is required' => 'Rate count is required',
+  'Rate count must be a number' => 'Rate count must be a number',
+  'Rate count must be at least 0' => 'Rate count must be at least 0',
+  'Rate count must be at most 5' => 'Rate count must be at most 5',
 ];
