@@ -519,4 +519,7 @@ return [
   'Rate count must be a number' => 'Rate count must be a number',
   'Rate count must be at least 0' => 'Rate count must be at least 0',
   'Rate count must be at most 5' => 'Rate count must be at most 5',
+  'Thank you for your order!' => 'Thank you for your order!',
+  'Invoice Number' => 'Invoice Number',
+  'Invoice Date' => 'Invoice Date',
 ];

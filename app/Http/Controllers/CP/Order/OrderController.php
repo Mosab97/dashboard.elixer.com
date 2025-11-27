@@ -189,6 +189,7 @@ class OrderController extends Controller
     public function print(Request $request, Order $_model)
     {
         try {
+
             // Load relationships
             $_model->load(['items.product', 'region', 'coupon']);
 
@@ -196,7 +197,7 @@ class OrderController extends Controller
                 '_model' => $_model,
                 'config' => $this->config,
             ];
-
+// return view($this->config['view_path'] . '.pdf', $data);
             // Get the HTML content
             $html = view($this->config['view_path'] . '.pdf', $data)->render();
 
@@ -243,7 +244,7 @@ class OrderController extends Controller
                 'trace' => $e->getTraceAsString(),
             ]);
 
-            return back()->withErrors(['error' => 'An error occurred while generating the PDF. Please try again.']);
+            return jsonCRMResponse(false, 'An error occurred while generating the PDF. Please try again.', 500);
         }
     }
 

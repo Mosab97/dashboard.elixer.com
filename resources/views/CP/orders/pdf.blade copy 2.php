@@ -23,10 +23,9 @@
                 <div style="font-size:14pt; color:#666666; margin:0 0 5px 0;">
                     {{ t('Invoice Number') }}: #{{ $_model->id }}
                 </div>
-                <div style="font-size:9pt; color:#999999; margin: 0 0 5px 0;">
+                <div style="font-size:9pt; color:#999999; margin:0;">
                     {{ t('Created At') }}: {{ $_model->created_at ? $_model->created_at->format('Y-m-d H:i:s') : 'N/A' }}
                 </div>
-                <br>
             </td>
         </tr>
     </table>
@@ -82,11 +81,6 @@
 
     <!-- Order Information Section -->
     <table cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse; margin-bottom:20px; border:1px solid #cccccc;">
-        <tr>
-            <td>
-                <br>
-            </td>
-        </tr>
         <tr>
             <td colspan="2" bgcolor="#f8f9fa" style="padding:10px 15px; font-size:12pt; font-weight:bold; color:#333333; border-bottom:2px solid #555555;">
                 {{ t('Order Information') }}
@@ -242,15 +236,9 @@
             </td>
         </tr>
     </table>
-  
 
     <!-- Footer -->
     <table cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse; margin-top:20px; border-top:2px solid #cccccc;">
-        <tr>
-         <td>
-            <br>
-         </td>
-        </tr>
         <tr>
             <td style="padding:15px 0 5px 0; text-align:center; font-size:9pt; color:#999999;">
                 {{ t('Invoice Date') }}: {{ $_model->created_at ? $_model->created_at->format('Y-m-d') : date('Y-m-d') }}
@@ -258,7 +246,6 @@
         </tr>
         <tr>
             <td style="padding:5px 0 10px 0; text-align:center; font-size:10pt; font-weight:bold; color:#333333;">
-                <br>
                 {{ t('Thank you for your order!') }}
             </td>
         </tr>
