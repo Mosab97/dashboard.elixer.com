@@ -19,12 +19,12 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         try {
-            $categoriesCount = 0;//Category::where('restaurant_id', $restaurant->id)->count();
-            $activeCategoriesCount = 0;//Category::where('restaurant_id', $restaurant->id)->where('active', true)->count();
-            $productsCount = 0;//Product::where('restaurant_id', $restaurant->id)->count();
-            $activeProductsCount = 0;//Product::where('restaurant_id', $restaurant->id)->where('active', true)->count();
-            $sucessStoriesCount = 0;//SucessStory::where('restaurant_id', $restaurant->id)->count();
-            $activeSucessStoriesCount = 0;//SucessStory::where('restaurant_id', $restaurant->id)->where('active', true)->count();
+            $categoriesCount = Category::count();
+            $activeCategoriesCount = Category::where('active', true)->count();
+            $productsCount = Product::count();
+            $activeProductsCount = Product::where('active', true)->count();
+            $sucessStoriesCount = SucessStory::count();
+            $activeSucessStoriesCount = SucessStory::where('active', true)->count();
             
             // Orders Statistics
             // عدد الطلبيات تم الاستلام (Delivered orders)
