@@ -522,4 +522,13 @@ return [
   'Thank you for your order!' => 'Thank you for your order!',
   'Invoice Number' => 'Invoice Number',
   'Invoice Date' => 'Invoice Date',
+  'Success Stories' => 'Success Stories',
+  'Delivered Orders' => 'Delivered Orders',
+  'New Orders' => 'New Orders',
+  'Total Products Sold' => 'Total Products Sold',
+  'Items' => 'Items',
+  'Total Revenue' => 'Total Revenue',
+  'Currency' => 'Currency',
+  'Most Requested Products' => 'Most Requested Products',
+  'Total Quantity Sold' => 'Total Quantity Sold',
 ];

@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SucessStory;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Enums\OrderStatus;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -21,7 +25,42 @@ class DashboardController extends Controller
             $activeProductsCount = 0;//Product::where('restaurant_id', $restaurant->id)->where('active', true)->count();
             $sucessStoriesCount = 0;//SucessStory::where('restaurant_id', $restaurant->id)->count();
             $activeSucessStoriesCount = 0;//SucessStory::where('restaurant_id', $restaurant->id)->where('active', true)->count();
-            return view('CP.index', compact('categoriesCount', 'activeCategoriesCount', 'productsCount', 'activeProductsCount', 'sucessStoriesCount', 'activeSucessStoriesCount'));
+            
+            // Orders Statistics
+            // عدد الطلبيات تم الاستلام (Delivered orders)
+            $deliveredOrdersCount = Order::where('status', OrderStatus::DELIVERED->value)->count();
+            
+            // عدد الطلبات الجديدة (Pending orders)
+            $newOrdersCount = Order::where('status', OrderStatus::PENDING->value)->count();
+            
+            // مجموع المنتجات التي تم بيعها (Total products sold - sum of quantities)
+            $totalProductsSold = OrderItem::sum('quantity');
+            
+            // مجموع الربح او سعر الطلبات (Total profit/revenue - sum of order totals)
+            $totalRevenue = Order::where('status', '!=', OrderStatus::CANCELLED->value)
+                ->sum('total_price_after_discount');
+            
+            // المنتجات الاكثر طلبا (Most requested products - top 5)
+            $mostRequestedProducts = OrderItem::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+                ->with('product')
+                ->groupBy('product_id')
+                ->orderBy('total_quantity', 'desc')
+                ->limit(5)
+                ->get();
+            
+            return view('CP.index', compact(
+                'categoriesCount', 
+                'activeCategoriesCount', 
+                'productsCount', 
+                'activeProductsCount', 
+                'sucessStoriesCount', 
+                'activeSucessStoriesCount',
+                'deliveredOrdersCount',
+                'newOrdersCount',
+                'totalProductsSold',
+                'totalRevenue',
+                'mostRequestedProducts'
+            ));
         } catch (Exception $e) {
             Log::error('Dashboard error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),

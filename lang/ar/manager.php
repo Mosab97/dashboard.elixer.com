@@ -523,4 +523,13 @@ return [
   'Thank you for your order!' => 'شكرا لك على طلبك!',
   'Invoice Number' => 'رقم الفاتورة',
   'Invoice Date' => 'تاريخ الفاتورة',
+  'Success Stories' => 'قصص النجاح',
+  'Delivered Orders' => 'طلبات تم التسليم',
+  'New Orders' => 'طلبات جديدة',
+  'Total Products Sold' => 'مجموع المنتجات التي تم بيعها',
+  'Items' => 'العناصر',
+  'Total Revenue' => 'الإيرادات الكلية',
+  'Currency' => 'العملة',
+  'Most Requested Products' => 'المنتجات الأكثر طلبا',
+  'Total Quantity Sold' => 'مجموع الكميات المباعة',
 ];
